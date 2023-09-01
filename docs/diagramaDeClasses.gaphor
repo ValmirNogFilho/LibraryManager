@@ -2586,7 +2586,6 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="95ebd8df-3c9c-11ee-99f9-089798641468"/>
 <ref refid="a00ca950-3c9c-11ee-8d20-089798641468"/>
 <ref refid="0920f46c-3c9d-11ee-a707-089798641468"/>
-<ref refid="51dd7e29-3ca4-11ee-a127-089798641468"/>
 <ref refid="b841d5ed-4210-11ee-8bdd-089798641468"/>
 <ref refid="b2aa3dc6-42e0-11ee-8c21-089798641468"/>
 <ref refid="c7377d51-42e0-11ee-b230-089798641468"/>
@@ -2943,7 +2942,6 @@ existing classes or even new classes with specific responsibilities.</val>
 </name>
 <ownedAttribute>
 <reflist>
-<ref refid="11c96656-3ca1-11ee-8a3c-089798641468"/>
 <ref refid="1c2bb41a-3ca1-11ee-8d37-089798641468"/>
 <ref refid="20b827d4-3ca1-11ee-a925-089798641468"/>
 <ref refid="da9415ee-4221-11ee-a45b-089798641468"/>
@@ -3086,20 +3084,6 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>private</val>
 </visibility>
 </Property>
-<Property id="11c96656-3ca1-11ee-8a3c-089798641468">
-<class_>
-<ref refid="6c7b2d87-3c9f-11ee-928f-089798641468"/>
-</class_>
-<name>
-<val>estaBloqueado</val>
-</name>
-<typeValue>
-<val>boolean</val>
-</typeValue>
-<visibility>
-<val>private</val>
-</visibility>
-</Property>
 <Property id="1c2bb41a-3ca1-11ee-8d37-089798641468">
 <class_>
 <ref refid="6c7b2d87-3c9f-11ee-928f-089798641468"/>
@@ -3135,20 +3119,6 @@ existing classes or even new classes with specific responsibilities.</val>
 <name>
 <val>- status: enum (concluido, andamento, multado)</val>
 </name>
-</Property>
-<Property id="51dd7e29-3ca4-11ee-a127-089798641468">
-<class_>
-<ref refid="0ffd1e90-3c9c-11ee-adbb-089798641468"/>
-</class_>
-<name>
-<val>id</val>
-</name>
-<typeValue>
-<val>int</val>
-</typeValue>
-<visibility>
-<val>private</val>
-</visibility>
 </Property>
 <GeneralizationItem id="0186ff4e-3e0a-11ee-9f7a-089798641468">
 <diagram>

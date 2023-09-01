@@ -1,8 +1,10 @@
 package main.java.com.uefs.librarymanager.model;
 
+import utils.statusLeitor;
+
 import java.util.Date;
 
-public abstract class Leitor extends Usuario{
+public class Leitor extends Usuario{
     public Leitor(String _nome, String _endereco, String _telefone, String _id, String _senha){
         super(_nome,_endereco, _telefone, _id, _senha);
     }
@@ -10,5 +12,6 @@ public abstract class Leitor extends Usuario{
     private int prazoMulta;
     private int numerosEmprestimo;
     private int numeroReservas;
+    private statusLeitor status;
 
 }

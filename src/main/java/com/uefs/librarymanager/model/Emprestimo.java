@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
+import utils.statusEmprestimo;
+
 import java.util.Date;
 
 public class Emprestimo {
@@ -8,4 +10,5 @@ public class Emprestimo {
     private String usuarioId;
     private String livroISBN;
     private int atraso;
+    private statusEmprestimo status;
 }
