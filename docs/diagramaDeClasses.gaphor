@@ -2560,6 +2560,8 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="6c7ba2cd-3c9f-11ee-91c3-089798641468"/>
 <ref refid="fb93425b-3c9f-11ee-8783-089798641468"/>
 <ref refid="518943a2-4212-11ee-9eca-089798641468"/>
+<ref refid="838b5b8f-48f1-11ee-a753-641c67661a7a"/>
+<ref refid="0135b38c-48f2-11ee-9586-641c67661a7a"/>
 <ref refid="0186ff4e-3e0a-11ee-9f7a-089798641468"/>
 <ref refid="32657bcb-3e0c-11ee-bdd7-089798641468"/>
 <ref refid="ef5aca83-420f-11ee-9434-089798641468"/>
@@ -2727,13 +2729,13 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="10a55982-3c9d-11ee-9c28-089798641468">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 244.95002265202362, 1090.5448196212024)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 230.63599276135201, 1107.2114862878693)</val>
 </matrix>
 <top-left>
 <val>(0.0, -120.0)</val>
 </top-left>
 <width>
-<val>149.0</val>
+<val>306.0</val>
 </width>
 <height>
 <val>180.0</val>
@@ -2778,10 +2780,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="10a4e43e-3c9d-11ee-b86b-089798641468"/>
 </class_>
 <name>
-<val>usuario</val>
+<val>usuarioID</val>
 </name>
 <typeValue>
-<val>Usuario</val>
+<val>String</val>
 </typeValue>
 <visibility>
 <val>private</val>
@@ -2792,10 +2794,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="10a4e43e-3c9d-11ee-b86b-089798641468"/>
 </class_>
 <name>
-<val>livro</val>
+<val>livroISBN</val>
 </name>
 <typeValue>
-<val>Livro</val>
+<val>String</val>
 </typeValue>
 <visibility>
 <val>private</val>
@@ -2912,7 +2914,7 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="6125c281-3c9f-11ee-bd34-089798641468">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 120.82789928320346, 850.5448196212026)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 120.82789928320346, 850.5448196212027)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -2957,13 +2959,13 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="6c7ba2cd-3c9f-11ee-91c3-089798641468">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 448.3038080930173, 790.5448196212025)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 482.7482525374617, 786.2664302626172)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>251.0</val>
+<val>264.0</val>
 </width>
 <height>
 <val>180.0</val>
@@ -3131,14 +3133,8 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="10a4e43e-3c9d-11ee-b86b-089798641468"/>
 </class_>
 <name>
-<val>concluido</val>
+<val>- status: enum (concluido, andamento, multado)</val>
 </name>
-<typeValue>
-<val>boolean</val>
-</typeValue>
-<visibility>
-<val>private</val>
-</visibility>
 </Property>
 <Property id="51dd7e29-3ca4-11ee-a127-089798641468">
 <class_>
@@ -3216,7 +3212,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 319.7201549301183, 1067.5279847192537)</val>
 </matrix>
 <points>
-<val>[(473.0122279613162, 43.97065564096465), (254.08365316289894, 43.97065564096465), (254.08365316289894, -96.98316509805124)]</val>
+<val>[(473.0122279613162, 43.97065564096465), (295.02809760734334, 43.97065564096465), (295.02809760734334, -101.26155445663676)]</val>
 </points>
 <head-connection>
 <ref refid="0ffd9434-3c9c-11ee-b45d-089798641468"/>
@@ -3283,6 +3279,9 @@ existing classes or even new classes with specific responsibilities.</val>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
 </diagram>
+<horizontal>
+<val>0</val>
+</horizontal>
 <orthogonal>
 <val>1</val>
 </orthogonal>
@@ -3319,6 +3318,9 @@ existing classes or even new classes with specific responsibilities.</val>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
 </diagram>
+<horizontal>
+<val>0</val>
+</horizontal>
 <orthogonal>
 <val>1</val>
 </orthogonal>
@@ -3329,7 +3331,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 472.91244554115735, 810.4097542523016)</val>
 </matrix>
 <points>
-<val>[(55.01038437285047, -19.864934631099118), (55.01038437285047, -147.23154101135776), (-262.6452874222459, -147.23154101135776)]</val>
+<val>[(93.57852317455729, -24.14332398968463), (93.57852317455729, -147.23154101135776), (-262.6452874222459, -147.23154101135776)]</val>
 </points>
 <head-connection>
 <ref refid="6c7ba2cd-3c9f-11ee-91c3-089798641468"/>
@@ -3429,7 +3431,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 218.3708239056385, 911.5020260903361)</val>
 </matrix>
 <points>
-<val>[(-62.98173151895563, -0.957206469133439), (-62.98173151895563, 209.04279353086645), (26.579198746385202, 209.04279353086645)]</val>
+<val>[(-62.98173151895563, -0.957206469133439), (-62.98173151895563, 225.70946019753342), (12.265168855713512, 225.70946019753342)]</val>
 </points>
 <head-connection>
 <ref refid="6125c281-3c9f-11ee-bd34-089798641468"/>
@@ -3486,24 +3488,18 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="6c7b2d87-3c9f-11ee-928f-089798641468"/>
 </class_>
 <name>
-<val>estaMultado</val>
+<val>- status: enum (livre, multado, bloqueado)</val>
 </name>
-<typeValue>
-<val>boolean</val>
-</typeValue>
-<visibility>
-<val>private</val>
-</visibility>
 </Property>
 <Property id="ef71d949-4221-11ee-afd2-089798641468">
 <class_>
 <ref refid="5188f59b-4212-11ee-8f3f-089798641468"/>
 </class_>
 <name>
-<val>livro</val>
+<val>livroISBN</val>
 </name>
 <typeValue>
-<val>Livro</val>
+<val>String</val>
 </typeValue>
 <visibility>
 <val>private</val>
@@ -3517,7 +3513,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>fila</val>
 </name>
 <typeValue>
-<val>PriorityQueue&lt;Usuario&gt;</val>
+<val>PriorityQueue&lt;String&gt;</val>
 </typeValue>
 <visibility>
 <val>private</val>
@@ -3610,7 +3606,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 471.97586246413687, 1075.4222740922894)</val>
 </matrix>
 <points>
-<val>[(-78.02583981211319, -25.7216106414146), (101.82794562888046, -27.12099364543451)]</val>
+<val>[(64.66013029721515, 1.7892121955796938), (142.7723900733248, 1.7892121955795801)]</val>
 </points>
 <head-connection>
 <ref refid="10a55982-3c9d-11ee-9c28-089798641468"/>
@@ -3655,7 +3651,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 620.370908841364, 789.1416762788549)</val>
 </matrix>
 <points>
-<val>[(78.93289925165334, 56.17105571846439), (296.3004187369047, 56.17105571846439), (296.3004187369047, 177.12475398376216)]</val>
+<val>[(126.37734369609768, 51.89266635987883), (296.3004187369047, 51.89266635987883), (296.3004187369047, 177.12475398376216)]</val>
 </points>
 <head-connection>
 <ref refid="6c7ba2cd-3c9f-11ee-91c3-089798641468"/>
@@ -3730,7 +3726,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 989.6728800206945, 751.9251985631084)</val>
 </matrix>
 <points>
-<val>[(-73.0015524424258, 120.99458573514175), (0.0, 120.99458573514175), (0.0, -5.9220669757168025)]</val>
+<val>[(-73.0015524424258, 117.6927164869802), (0.0, 117.6927164869802), (0.0, -5.9220669757168025)]</val>
 </points>
 <head-connection>
 <ref refid="a6ab399c-42df-11ee-814a-089798641468"/>
@@ -3883,4 +3879,77 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>private</val>
 </visibility>
 </Property>
+<Class id="838b0d62-48f1-11ee-abee-641c67661a7a">
+<name>
+<val>Convidado</val>
+</name>
+<ownedOperation>
+<reflist>
+<ref refid="8c540ea8-48f1-11ee-b815-641c67661a7a"/>
+</reflist>
+</ownedOperation>
+<presentation>
+<reflist>
+<ref refid="838b5b8f-48f1-11ee-a753-641c67661a7a"/>
+</reflist>
+</presentation>
+</Class>
+<ClassItem id="838b5b8f-48f1-11ee-a753-641c67661a7a">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 588.0475128920375, 566.0031315873916)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>124.0</val>
+</width>
+<height>
+<val>80.0</val>
+</height>
+<diagram>
+<ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
+</diagram>
+<subject>
+<ref refid="838b0d62-48f1-11ee-abee-641c67661a7a"/>
+</subject>
+</ClassItem>
+<Operation id="8c540ea8-48f1-11ee-b815-641c67661a7a">
+<class_>
+<ref refid="838b0d62-48f1-11ee-abee-641c67661a7a"/>
+</class_>
+<name>
+<val>pesquisarLivros</val>
+</name>
+</Operation>
+<Class id="013577dd-48f2-11ee-b375-641c67661a7a">
+<name>
+<val>Sistema</val>
+</name>
+<presentation>
+<reflist>
+<ref refid="0135b38c-48f2-11ee-9586-641c67661a7a"/>
+</reflist>
+</presentation>
+</Class>
+<ClassItem id="0135b38c-48f2-11ee-9586-641c67661a7a">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, -112.90313251132721, 546.0031315873916)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>100.0</val>
+</width>
+<height>
+<val>60.0</val>
+</height>
+<diagram>
+<ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
+</diagram>
+<subject>
+<ref refid="013577dd-48f2-11ee-b375-641c67661a7a"/>
+</subject>
+</ClassItem>
 </gaphor>
