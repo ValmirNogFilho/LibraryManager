@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
+import utils.IDGenerator;
+
 public abstract class Usuario {
     private String nome;
     private String endereco;
@@ -7,12 +9,12 @@ public abstract class Usuario {
     private String id;
     private String senha;
 
-    public Usuario(String nome, String endereco, String telefone, String id, String senha) {
+    public Usuario(String nome, String endereco, String telefone, String senha) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
-        this.id = id;
         this.senha = senha;
+        id = IDGenerator.geraID();
     }
 
     public String getNome() {
@@ -51,7 +53,11 @@ public abstract class Usuario {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public boolean setSenha(String senha) {
+        boolean permitido = (senha != null && senha.matches("[0-9]+") && senha.length() == 4);
+        if (permitido)
+            this.senha = senha;
+        return permitido;
     }
+
 }

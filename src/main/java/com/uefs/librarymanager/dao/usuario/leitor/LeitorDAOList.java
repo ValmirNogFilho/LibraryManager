@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.usuario.leitor;
 
+import main.java.com.uefs.librarymanager.model.Leitor;
+
 import java.util.List;
 
 public class LeitorDAOList implements LeitorDAO{

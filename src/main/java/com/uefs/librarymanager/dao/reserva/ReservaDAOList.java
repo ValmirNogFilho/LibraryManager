@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.reserva;
 
+import main.java.com.uefs.librarymanager.model.Reserva;
+
 import java.util.List;
 
 public class ReservaDAOList implements ReservaDAO{
