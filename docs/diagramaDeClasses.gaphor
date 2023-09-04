@@ -2818,6 +2818,12 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="9a9a9f6b-420f-11ee-bc3f-089798641468"/>
 </reflist>
 </ownedAttribute>
+<ownedOperation>
+<reflist>
+<ref refid="6d87bdeb-4ad4-11ee-8120-089798641468"/>
+<ref refid="737ffea9-4ad4-11ee-868e-089798641468"/>
+</reflist>
+</ownedOperation>
 <presentation>
 <reflist>
 <ref refid="08ede4d5-3c9f-11ee-b08e-089798641468"/>
@@ -2842,7 +2848,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>124.0</val>
 </width>
 <height>
-<val>160.0</val>
+<val>200.0</val>
 </height>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
@@ -2865,6 +2871,18 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="7973c7f5-42e0-11ee-9a72-089798641468"/>
 </reflist>
 </ownedAttribute>
+<ownedOperation>
+<reflist>
+<ref refid="04080544-4ad3-11ee-b3d0-089798641468"/>
+<ref refid="1172de12-4ad3-11ee-8619-089798641468"/>
+<ref refid="8f8d946b-4ad3-11ee-b82e-089798641468"/>
+<ref refid="99e41c6a-4ad3-11ee-b79a-089798641468"/>
+<ref refid="9cd17c54-4ad3-11ee-9163-089798641468"/>
+<ref refid="bf7e7729-4ad3-11ee-967d-089798641468"/>
+<ref refid="c4c9a7c8-4ad3-11ee-a34c-089798641468"/>
+<ref refid="c7c5b952-4ad3-11ee-b007-089798641468"/>
+</reflist>
+</ownedOperation>
 <presentation>
 <reflist>
 <ref refid="54c44f73-3c9f-11ee-96ef-089798641468"/>
@@ -2882,7 +2900,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>283.1745792818539</val>
 </width>
 <height>
-<val>63.24424591831769</val>
+<val>220.0</val>
 </height>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
@@ -2905,6 +2923,14 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="ac2d14bf-4215-11ee-a352-089798641468"/>
 </reflist>
 </ownedAttribute>
+<ownedOperation>
+<reflist>
+<ref refid="562dfc20-4ad2-11ee-b958-089798641468"/>
+<ref refid="5ae328f7-4ad2-11ee-a238-089798641468"/>
+<ref refid="6161d7cd-4ad2-11ee-8ab8-089798641468"/>
+<ref refid="6503ee0c-4ad2-11ee-be29-089798641468"/>
+</reflist>
+</ownedOperation>
 <presentation>
 <reflist>
 <ref refid="6125c281-3c9f-11ee-bd34-089798641468"/>
@@ -2919,10 +2945,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>109.80809347814852</val>
+<val>124.0</val>
 </width>
 <height>
-<val>60.0</val>
+<val>140.0</val>
 </height>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
@@ -2949,6 +2975,13 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="163876e6-42e1-11ee-8390-089798641468"/>
 </reflist>
 </ownedAttribute>
+<ownedOperation>
+<reflist>
+<ref refid="8f8ef478-4ad2-11ee-9d83-089798641468"/>
+<ref refid="937a6285-4ad2-11ee-992e-089798641468"/>
+<ref refid="9af936b9-4ad2-11ee-9177-089798641468"/>
+</reflist>
+</ownedOperation>
 <presentation>
 <reflist>
 <ref refid="6c7ba2cd-3c9f-11ee-91c3-089798641468"/>
@@ -2957,7 +2990,7 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="6c7ba2cd-3c9f-11ee-91c3-089798641468">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 482.7482525374617, 786.2664302626172)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 482.74825253746184, 740.5448196212027)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -2966,7 +2999,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>264.0</val>
 </width>
 <height>
-<val>180.0</val>
+<val>220.0</val>
 </height>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
@@ -3052,7 +3085,7 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="fb93425b-3c9f-11ee-8783-089798641468">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, -167.86831789233332, 1096.2664302626172)</val>
+<val>(1.0, 0.0, 0.0, 1.0, -167.86831789233335, 1215.403789330941)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -3137,7 +3170,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 212.0, 724.9495932137019)</val>
 </matrix>
 <points>
-<val>[(-64.71457340004412, 125.59522640750083), (-63.73284188108852, 1.0535383736897757)]</val>
+<val>[(-61.29512823361472, 125.59522640750083), (-63.73284188108852, 41.053538373689776)]</val>
 </points>
 <head-connection>
 <ref refid="6125c281-3c9f-11ee-bd34-089798641468"/>
@@ -3182,7 +3215,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 319.7201549301183, 1067.5279847192537)</val>
 </matrix>
 <points>
-<val>[(473.0122279613162, 43.97065564096465), (295.02809760734334, 43.97065564096465), (295.02809760734334, -101.26155445663676)]</val>
+<val>[(473.0122279613162, 43.97065564096465), (295.02809760734334, 43.97065564096465), (295.02809760734334, -106.9831650980509)]</val>
 </points>
 <head-connection>
 <ref refid="0ffd9434-3c9c-11ee-b45d-089798641468"/>
@@ -3262,7 +3295,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 171.8789806887913, 733.652217397515)</val>
 </matrix>
 <points>
-<val>[(-253.24729858112465, 183.5100719932309), (-253.24729858112465, -70.47400415657114), (-85.61182256987982, -70.47400415657114)]</val>
+<val>[(-253.24729858112465, 183.5100719932309), (-253.24729858112465, -46.18023374318307), (-85.61182256987982, -46.18023374318307)]</val>
 </points>
 <head-connection>
 <ref refid="54c44f73-3c9f-11ee-96ef-089798641468"/>
@@ -3301,7 +3334,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 472.91244554115735, 810.4097542523016)</val>
 </matrix>
 <points>
-<val>[(93.57852317455729, -24.14332398968463), (93.57852317455729, -147.23154101135776), (-262.6452874222459, -147.23154101135776)]</val>
+<val>[(93.57852317455729, -69.86493463109878), (93.57852317455729, -122.93777059796969), (-262.6452874222459, -122.93777059796969)]</val>
 </points>
 <head-connection>
 <ref refid="6c7ba2cd-3c9f-11ee-91c3-089798641468"/>
@@ -3401,7 +3434,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 218.3708239056385, 911.5020260903361)</val>
 </matrix>
 <points>
-<val>[(-62.98173151895563, -0.957206469133439), (-62.98173151895563, 225.70946019753342), (12.265168855713512, 225.70946019753342)]</val>
+<val>[(-58.514945817901236, 79.04279353086656), (-58.514945817901236, 225.70946019753342), (12.265168855713512, 225.70946019753342)]</val>
 </points>
 <head-connection>
 <ref refid="6125c281-3c9f-11ee-bd34-089798641468"/>
@@ -3576,7 +3609,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 471.97586246413687, 1075.4222740922894)</val>
 </matrix>
 <points>
-<val>[(64.66013029721515, 1.7892121955796938), (142.7723900733248, 1.7892121955795801)]</val>
+<val>[(64.66013029721515, 1.7892121955796938), (142.7723900733248, 0.4384254419226181)]</val>
 </points>
 <head-connection>
 <ref refid="10a55982-3c9d-11ee-9c28-089798641468"/>
@@ -3621,7 +3654,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 620.370908841364, 789.1416762788549)</val>
 </matrix>
 <points>
-<val>[(126.37734369609768, 51.89266635987883), (296.3004187369047, 51.89266635987883), (296.3004187369047, 177.12475398376216)]</val>
+<val>[(126.37734369609768, 18.341702913157064), (296.3004187369047, 18.341702913157064), (296.3004187369047, 177.12475398376216)]</val>
 </points>
 <head-connection>
 <ref refid="6c7ba2cd-3c9f-11ee-91c3-089798641468"/>
@@ -3696,7 +3729,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 989.6728800206945, 751.9251985631084)</val>
 </matrix>
 <points>
-<val>[(-73.0015524424258, 117.6927164869802), (0.0, 117.6927164869802), (0.0, -5.9220669757168025)]</val>
+<val>[(-73.0015524424258, 91.79958587963688), (0.0, 91.79958587963688), (0.0, -5.9220669757168025)]</val>
 </points>
 <head-connection>
 <ref refid="a6ab399c-42df-11ee-814a-089798641468"/>
@@ -3741,7 +3774,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, -98.64396417071563, 980.0128462675664)</val>
 </matrix>
 <points>
-<val>[(0.0, 0.39368904149716855), (2.455794092769395, 116.2535839950508)]</val>
+<val>[(0.0, 157.14944312317948), (2.4557940927693664, 235.3909430633746)]</val>
 </points>
 <head-connection>
 <ref refid="54c44f73-3c9f-11ee-96ef-089798641468"/>
@@ -3896,6 +3929,12 @@ existing classes or even new classes with specific responsibilities.</val>
 <name>
 <val>Sistema</val>
 </name>
+<ownedOperation>
+<reflist>
+<ref refid="d88e262d-4ad2-11ee-8916-089798641468"/>
+<ref refid="e4264769-4ad2-11ee-a42b-089798641468"/>
+</reflist>
+</ownedOperation>
 <presentation>
 <reflist>
 <ref refid="0135b38c-48f2-11ee-9586-641c67661a7a"/>
@@ -3904,16 +3943,16 @@ existing classes or even new classes with specific responsibilities.</val>
 </Class>
 <ClassItem id="0135b38c-48f2-11ee-9586-641c67661a7a">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, -112.90313251132721, 546.0031315873916)</val>
+<val>(1.0, 0.0, 0.0, 1.0, -127.95905013520229, 516.0031315873916)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>100.0</val>
+<val>151.0</val>
 </width>
 <height>
-<val>60.0</val>
+<val>100.0</val>
 </height>
 <diagram>
 <ref refid="0bbfa586-3c9c-11ee-a753-089798641468"/>
@@ -3922,4 +3961,156 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="013577dd-48f2-11ee-b375-641c67661a7a"/>
 </subject>
 </ClassItem>
+<Operation id="562dfc20-4ad2-11ee-b958-089798641468">
+<class_>
+<ref refid="61257465-3c9f-11ee-a577-089798641468"/>
+</class_>
+<name>
+<val>registrarLivro</val>
+</name>
+</Operation>
+<Operation id="5ae328f7-4ad2-11ee-a238-089798641468">
+<class_>
+<ref refid="61257465-3c9f-11ee-a577-089798641468"/>
+</class_>
+<name>
+<val>pesquisarLivros</val>
+</name>
+</Operation>
+<Operation id="6161d7cd-4ad2-11ee-8ab8-089798641468">
+<class_>
+<ref refid="61257465-3c9f-11ee-a577-089798641468"/>
+</class_>
+<name>
+<val>emprestarLivro</val>
+</name>
+</Operation>
+<Operation id="6503ee0c-4ad2-11ee-be29-089798641468">
+<class_>
+<ref refid="61257465-3c9f-11ee-a577-089798641468"/>
+</class_>
+<name>
+<val>devolverLivro</val>
+</name>
+</Operation>
+<Operation id="8f8ef478-4ad2-11ee-9d83-089798641468">
+<class_>
+<ref refid="6c7b2d87-3c9f-11ee-928f-089798641468"/>
+</class_>
+<name>
+<val>pesquisarLivros</val>
+</name>
+</Operation>
+<Operation id="937a6285-4ad2-11ee-992e-089798641468">
+<class_>
+<ref refid="6c7b2d87-3c9f-11ee-928f-089798641468"/>
+</class_>
+<name>
+<val>reservarLivro</val>
+</name>
+</Operation>
+<Operation id="9af936b9-4ad2-11ee-9177-089798641468">
+<class_>
+<ref refid="6c7b2d87-3c9f-11ee-928f-089798641468"/>
+</class_>
+<name>
+<val>renovarEmprestimo</val>
+</name>
+</Operation>
+<Operation id="d88e262d-4ad2-11ee-8916-089798641468">
+<class_>
+<ref refid="013577dd-48f2-11ee-b375-641c67661a7a"/>
+</class_>
+<name>
+<val>calcularPrazoMultas</val>
+</name>
+</Operation>
+<Operation id="e4264769-4ad2-11ee-a42b-089798641468">
+<class_>
+<ref refid="013577dd-48f2-11ee-b375-641c67661a7a"/>
+</class_>
+<name>
+<val>descobrirMultas</val>
+</name>
+</Operation>
+<Operation id="04080544-4ad3-11ee-b3d0-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>cadastrarLeitor</val>
+</name>
+</Operation>
+<Operation id="1172de12-4ad3-11ee-8619-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>bloquearLeitor</val>
+</name>
+</Operation>
+<Operation id="8f8d946b-4ad3-11ee-b82e-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>cadastrarOperador</val>
+</name>
+</Operation>
+<Operation id="99e41c6a-4ad3-11ee-b79a-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>removerLeitor</val>
+</name>
+</Operation>
+<Operation id="9cd17c54-4ad3-11ee-9163-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>removerOperador</val>
+</name>
+</Operation>
+<Operation id="bf7e7729-4ad3-11ee-967d-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>adicionarInfoLivro</val>
+</name>
+</Operation>
+<Operation id="c4c9a7c8-4ad3-11ee-a34c-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>atualizarInfoLivro</val>
+</name>
+</Operation>
+<Operation id="c7c5b952-4ad3-11ee-b007-089798641468">
+<class_>
+<ref refid="54c38c1a-3c9f-11ee-9901-089798641468"/>
+</class_>
+<name>
+<val>removerInfoLivro</val>
+</name>
+</Operation>
+<Operation id="6d87bdeb-4ad4-11ee-8120-089798641468">
+<class_>
+<ref refid="08ed96c1-3c9f-11ee-9c97-089798641468"/>
+</class_>
+<name>
+<val>loginUsuario</val>
+</name>
+</Operation>
+<Operation id="737ffea9-4ad4-11ee-868e-089798641468">
+<class_>
+<ref refid="08ed96c1-3c9f-11ee-9c97-089798641468"/>
+</class_>
+<name>
+<val>logoutUsuario</val>
+</name>
+</Operation>
 </gaphor>
