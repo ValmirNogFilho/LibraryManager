@@ -18,8 +18,7 @@ public class Administrador extends Usuario {
     public Leitor cadastrarLeitor(String nome, String endereco, String telefone, String senha) throws SenhaInvalidaException {
         Leitor l = new Leitor(nome, endereco, telefone, null, null, 0, 0, statusLeitor.LIVRE);
         l.setSenha(senha);
-        DAO.getLeitorDAO().create(l);
-        return l;
+        return DAO.getLeitorDAO().create(l);
     }
 
     public Usuario cadastrarOperador(String nome, String endereco, String telefone, String senha, String ocupacao) throws SenhaInvalidaException{
@@ -33,7 +32,7 @@ public class Administrador extends Usuario {
                 break;
         }
         obj.setSenha(senha);
-        return obj;
+        return DAO.getOperadorDAO().create(obj);
     }
 
 }

@@ -2,12 +2,17 @@ package main.java.com.uefs.librarymanager.dao.usuario.operador;
 
 import main.java.com.uefs.librarymanager.model.Usuario;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OperadorDAOList implements OperadorDAO{
+    private Map<String, Usuario> operadores = new HashMap<String, Usuario>();
+
     @Override
     public Usuario create(Usuario obj) {
-        return null;
+        operadores.put(obj.getId(), obj);
+        return obj;
     }
 
     @Override
