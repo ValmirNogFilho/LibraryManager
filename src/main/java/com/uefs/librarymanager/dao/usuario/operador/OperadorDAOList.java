@@ -43,6 +43,6 @@ public class OperadorDAOList implements OperadorDAO{
 
     @Override
     public Usuario findById(String id) {
-        return operadores.get(Id);
+        return operadores.get(id);
     }
 }

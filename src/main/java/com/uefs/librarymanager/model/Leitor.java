@@ -12,13 +12,13 @@ public class Leitor extends Usuario{
     private int numeroReservas;
     private statusLeitor status;
 
-    public Leitor(String nome, String endereco, String telefone, Date inicioMulta, Integer prazoMulta, int numerosEmprestimo, int numeroReservas, statusLeitor status) {
+    public Leitor(String nome, String endereco, String telefone) {
         super(nome, endereco, telefone, null);
-        this.inicioMulta = inicioMulta;
-        this.prazoMulta = prazoMulta;
-        this.numerosEmprestimo = numerosEmprestimo;
-        this.numeroReservas = numeroReservas;
-        this.status = status;
+        this.inicioMulta = null;
+        this.prazoMulta = 0;
+        this.numerosEmprestimo = 0;
+        this.numeroReservas = 0;
+        this.status = statusLeitor.LIVRE;
     }
 
     public Date getInicioMulta() {
@@ -60,4 +60,6 @@ public class Leitor extends Usuario{
     public void setStatus(statusLeitor status) {
         this.status = status;
     }
+
+
 }
