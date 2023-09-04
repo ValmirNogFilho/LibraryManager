@@ -16,7 +16,7 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
-    public void deleteMany(Reserva obj) {
+    public void deleteMany() {
 
     }
 
@@ -31,7 +31,7 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
-    public Reserva findById(int id) {
+    public Reserva findById(String id) {
         return null;
     }
 }

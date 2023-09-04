@@ -16,7 +16,7 @@ public class OperadorDAOList implements OperadorDAO{
     }
 
     @Override
-    public void deleteMany(Usuario obj) {
+    public void deleteMany() {
 
     }
 
@@ -31,7 +31,7 @@ public class OperadorDAOList implements OperadorDAO{
     }
 
     @Override
-    public Usuario findById(int id) {
+    public Usuario findById(String id) {
         return null;
     }
 }

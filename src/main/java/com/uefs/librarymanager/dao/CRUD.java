@@ -1,5 +1,6 @@
 package main.java.com.uefs.librarymanager.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CRUD<T> {
@@ -19,9 +20,8 @@ public interface CRUD<T> {
 
     /**
      * remove alguns objetos
-     * @param obj
      */
-    public void deleteMany(T obj);
+    public void deleteMany();
 
     /**
      * atualiza objeto T na sua coleção
@@ -41,5 +41,5 @@ public interface CRUD<T> {
      * @param id
      * @return
      */
-    public T findById(int id);
+    public T findById(String id);
 }
