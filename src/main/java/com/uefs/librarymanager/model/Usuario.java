@@ -62,4 +62,6 @@ public abstract class Usuario {
             throw new SenhaInvalidaException("Senha inválida!");
     }
 
+
+
 }

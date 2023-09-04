@@ -21,5 +21,43 @@ public class Leitor extends Usuario{
         this.status = status;
     }
 
+    public Date getInicioMulta() {
+        return inicioMulta;
+    }
 
+    public void setInicioMulta(Date inicioMulta) {
+        this.inicioMulta = inicioMulta;
+    }
+
+    public int getPrazoMulta() {
+        return prazoMulta;
+    }
+
+    public void setPrazoMulta(int prazoMulta) {
+        this.prazoMulta = prazoMulta;
+    }
+
+    public int getNumerosEmprestimo() {
+        return numerosEmprestimo;
+    }
+
+    public void setNumerosEmprestimo(int numerosEmprestimo) {
+        this.numerosEmprestimo = numerosEmprestimo;
+    }
+
+    public int getNumeroReservas() {
+        return numeroReservas;
+    }
+
+    public void setNumeroReservas(int numeroReservas) {
+        this.numeroReservas = numeroReservas;
+    }
+
+    public statusLeitor getStatus() {
+        return status;
+    }
+
+    public void setStatus(statusLeitor status) {
+        this.status = status;
+    }
 }

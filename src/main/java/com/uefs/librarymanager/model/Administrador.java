@@ -35,4 +35,18 @@ public class Administrador extends Usuario {
         return DAO.getOperadorDAO().create(obj);
     }
 
+    public void bloquearLeitor(Leitor l) {
+        l.setStatus(statusLeitor.BLOQUEADO);
+        DAO.getLeitorDAO().update(l);
+    }
+
+    public void removerLeitor(Leitor l){
+        DAO.getLeitorDAO().delete(l);
+    }
+
+    public void removerOperador(Usuario o){
+        DAO.getOperadorDAO().delete(o);
+    }
+
+
 }
