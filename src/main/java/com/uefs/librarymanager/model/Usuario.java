@@ -1,6 +1,9 @@
 package main.java.com.uefs.librarymanager.model;
 
+import main.java.com.uefs.librarymanager.dao.usuario.SenhaInvalidaException;
 import utils.IDGenerator;
+
+import java.util.Objects;
 
 public abstract class Usuario {
     private String nome;
@@ -53,11 +56,24 @@ public abstract class Usuario {
         return senha;
     }
 
-    public boolean setSenha(String senha) {
+    public void setSenha(String senha) throws SenhaInvalidaException {
         boolean permitido = (senha != null && senha.matches("[0-9]+") && senha.length() == 4);
         if (permitido)
             this.senha = senha;
-        return permitido;
+        else
+            throw new SenhaInvalidaException("Senha inválida!");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

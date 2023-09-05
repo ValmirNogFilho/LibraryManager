@@ -16,7 +16,7 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public void deleteMany(Livro obj) {
+    public void deleteMany() {
 
     }
 
@@ -31,7 +31,7 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public Livro findById(int id) {
+    public Livro findById(String id) {
         return null;
     }
 }
