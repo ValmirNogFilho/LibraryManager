@@ -31,7 +31,7 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public Livro findById(String id) {
+    public Livro findByPrimaryKey(String ISBN) {
         return null;
     }
 }

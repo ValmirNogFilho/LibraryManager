@@ -45,7 +45,7 @@ public class LeitorDAOList implements LeitorDAO{
     }
 
     @Override
-    public Leitor findById(String id) {
+    public Leitor findByPrimaryKey(String id) {
         return leitores.get(id);
     }
 }

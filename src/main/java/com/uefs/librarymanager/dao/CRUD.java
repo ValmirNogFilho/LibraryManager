@@ -41,5 +41,5 @@ public interface CRUD<T> {
      * @param id
      * @return
      */
-    public T findById(String id);
+    public T findByPrimaryKey(String id);
 }

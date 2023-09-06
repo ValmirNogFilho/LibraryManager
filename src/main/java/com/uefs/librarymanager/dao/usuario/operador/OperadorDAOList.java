@@ -42,7 +42,7 @@ public class OperadorDAOList implements OperadorDAO{
     }
 
     @Override
-    public Usuario findById(String id) {
+    public Usuario findByPrimaryKey(String id) {
         return operadores.get(id);
     }
 }
