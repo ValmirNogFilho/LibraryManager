@@ -38,8 +38,8 @@ public interface CRUD<T> {
 
     /**
      * consulta objeto T na coleção pelo ID
-     * @param id
+     * @param PrimaryKey
      * @return
      */
-    public T findByPrimaryKey(String id);
+    public T findByPrimaryKey(String PrimaryKey);
 }
