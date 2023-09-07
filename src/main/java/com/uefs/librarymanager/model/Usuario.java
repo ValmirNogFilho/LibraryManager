@@ -1,6 +1,6 @@
 package main.java.com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.dao.usuario.SenhaInvalidaException;
+import main.java.com.uefs.librarymanager.exceptions.SenhaInvalidaException;
 import utils.IDGenerator;
 
 import java.util.Objects;

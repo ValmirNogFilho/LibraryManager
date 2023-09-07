@@ -1,8 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.dao.usuario.SenhaInvalidaException;
-import org.junit.jupiter.api.function.Executable;
+import main.java.com.uefs.librarymanager.exceptions.SenhaInvalidaException;
 import utils.statusLeitor;
 
 public class Administrador extends Usuario {

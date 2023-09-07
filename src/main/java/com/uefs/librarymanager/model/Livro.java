@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
+import java.util.List;
+
 public class Livro {
     private String titulo;
     private String autor;
@@ -10,7 +12,7 @@ public class Livro {
     private String categoria;
     private int exemplares;
     private int disponiveis;
-
+    
     public String getTitulo() {
         return titulo;
     }

@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.livro;
 
+import main.java.com.uefs.librarymanager.exceptions.AutorException;
+import main.java.com.uefs.librarymanager.exceptions.CategoriaException;
 import main.java.com.uefs.librarymanager.model.Livro;
 
 import java.util.*;
@@ -55,14 +57,16 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public Livro addLivroEmCategoria(Livro obj, String categoria) {
+    public Livro addLivroEmCategoria(Livro obj) throws CategoriaException {
+        String categoria = obj.getCategoria();
         LinkedList<String> isbns = isbnPorCategorias.get(categoria);
         if (isbns != null) {
             isbns.add(obj.getISBN());
             isbnPorCategorias.put(categoria, isbns);
             return obj;
         }
-        else return null;
+        else
+            throw new CategoriaException("Categoria não encontrada.");
     }
 
     @Override
@@ -110,14 +114,16 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public Livro addLivroEmAutor(Livro obj, String autor) {
+    public Livro addLivroEmAutor(Livro obj) throws AutorException {
+        String autor = obj.getAutor();
         LinkedList<String> isbns = isbnPorAutores.get(autor);
         if (isbns != null) {
             isbns.add(obj.getISBN());
             isbnPorAutores.put(autor, isbns);
             return obj;
         }
-        else return null;
+        else
+            throw new AutorException("Autor não encontrado.");
     }
 
     @Override

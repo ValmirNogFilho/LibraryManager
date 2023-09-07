@@ -1,6 +1,6 @@
 package main.java.com.uefs.librarymanager.test;
 
-import main.java.com.uefs.librarymanager.dao.usuario.SenhaInvalidaException;
+import main.java.com.uefs.librarymanager.exceptions.SenhaInvalidaException;
 import main.java.com.uefs.librarymanager.model.Administrador;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
