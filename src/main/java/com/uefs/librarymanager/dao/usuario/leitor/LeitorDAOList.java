@@ -1,10 +1,9 @@
 package main.java.com.uefs.librarymanager.dao.usuario.leitor;
 
 import main.java.com.uefs.librarymanager.model.Leitor;
+import main.java.com.uefs.librarymanager.model.Usuario;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LeitorDAOList implements LeitorDAO{
 
@@ -41,7 +40,8 @@ public class LeitorDAOList implements LeitorDAO{
 
     @Override
     public List<Leitor> findMany() {
-        return leitores.values().stream().toList();
+        Collection<Leitor> valores = leitores.values();
+        return new ArrayList<Leitor>(valores);
     }
 
     @Override
