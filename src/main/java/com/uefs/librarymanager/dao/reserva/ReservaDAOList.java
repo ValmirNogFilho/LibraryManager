@@ -32,7 +32,7 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
-    public Reserva findById(String id) {
+    public Reserva findByPrimaryKey(String id) {
         return null;
     }
 }
