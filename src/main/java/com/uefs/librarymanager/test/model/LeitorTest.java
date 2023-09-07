@@ -1,4 +1,4 @@
-package main.java.com.uefs.librarymanager.test;
+package main.java.com.uefs.librarymanager.test.model;
 
 import main.java.com.uefs.librarymanager.model.Leitor;
 import org.junit.jupiter.api.Test;
