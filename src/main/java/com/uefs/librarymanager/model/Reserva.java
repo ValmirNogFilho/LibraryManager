@@ -4,24 +4,37 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Reserva {
-    private String livroISBN;
-    private Queue<String> fila;
+    private String idUsuario;
+    private int prazo;
+    private int id;
 
-    public String getLivroISBN() {
-        return livroISBN;
+    public Reserva(String idUsuario, int prazo, int id) {
+        this.idUsuario = idUsuario;
+        this.prazo = prazo;
+        this.id = id;
     }
 
-    public void setLivroISBN(String livroISBN) {
-        this.livroISBN = livroISBN;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public Queue<String> getFila() {
-        return fila;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public void setFila(Queue<String> fila) {
-        this.fila = fila;
+    public int getPrazo() {
+        return prazo;
     }
 
+    public void setPrazo(int prazo) {
+        this.prazo = prazo;
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -4,6 +4,7 @@ import main.java.com.uefs.librarymanager.model.Reserva;
 
 import java.util.List;
 
+
 public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva create(Reserva obj) {
@@ -31,7 +32,7 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
-    public Reserva findById(String id) {
+    public Reserva findByPrimaryKey(String id) {
         return null;
     }
 }

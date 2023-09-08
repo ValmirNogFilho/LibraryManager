@@ -11,4 +11,6 @@ public class Emprestimo {
     private String livroISBN;
     private int atraso;
     private statusEmprestimo status;
+    private int id;
+
 }
