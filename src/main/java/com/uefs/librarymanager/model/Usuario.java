@@ -72,8 +72,4 @@ public abstract class Usuario {
         return Objects.equals(id, usuario.id);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
