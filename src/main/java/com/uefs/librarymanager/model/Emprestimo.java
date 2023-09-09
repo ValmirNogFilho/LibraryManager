@@ -13,4 +13,60 @@ public class Emprestimo {
     private statusEmprestimo status;
     private int id;
 
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public String getLivroISBN() {
+        return livroISBN;
+    }
+
+    public void setLivroISBN(String livroISBN) {
+        this.livroISBN = livroISBN;
+    }
+
+    public int getAtraso() {
+        return atraso;
+    }
+
+    public void setAtraso(int atraso) {
+        this.atraso = atraso;
+    }
+
+    public statusEmprestimo getStatus() {
+        return status;
+    }
+
+    public void setStatus(statusEmprestimo status) {
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
+

@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OperadorDAOList implements OperadorDAO{
+public class OperadorDAOList implements OperadorDAO {
     private Map<String, Usuario> operadores;
 
-    public OperadorDAOList(){
+    public OperadorDAOList() {
         operadores = new HashMap<String, Usuario>();
     }
 
@@ -42,7 +42,11 @@ public class OperadorDAOList implements OperadorDAO{
     }
 
     @Override
-    public Usuario findById(String id) {
+    public Usuario findByPrimaryKey(String id) {
         return operadores.get(id);
     }
+
+
 }
+
+

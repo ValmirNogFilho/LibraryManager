@@ -7,6 +7,7 @@ public class Reserva {
     private String idUsuario;
     private int prazo;
     private int id;
+    private String ISBN;
 
     public Reserva(String idUsuario, int prazo, int id) {
         this.idUsuario = idUsuario;
@@ -36,5 +37,13 @@ public class Reserva {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 }

@@ -15,9 +15,7 @@ public class LeitorDAOList implements LeitorDAO{
 
     @Override
     public Leitor create(Leitor obj) {
-
         leitores.put(obj.getId(), obj);
-
         return obj;
     }
 
