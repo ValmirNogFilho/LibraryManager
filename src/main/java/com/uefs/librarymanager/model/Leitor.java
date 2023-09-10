@@ -47,6 +47,7 @@ public class Leitor extends Usuario{
             case BLOQUEADO:
                 throw new UsuarioException("Leitor bloqueado.");
         }
+        return false;
     }
 
     public void setStatus(statusLeitor status) {
