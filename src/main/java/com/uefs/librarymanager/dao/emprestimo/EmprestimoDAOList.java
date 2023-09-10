@@ -1,6 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.emprestimo;
 
 import main.java.com.uefs.librarymanager.model.Emprestimo;
+import main.java.com.uefs.librarymanager.model.Leitor;
 
 import java.util.*;
 
@@ -43,5 +44,15 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     @Override
     public Emprestimo findByPrimaryKey(String Id) {
         return emprestimos.get(Id);
+    }
+
+    @Override
+    public List<Emprestimo> findByLeitor(Leitor leitor) {
+        List<Emprestimo> emprestimosLeitor = new LinkedList<Emprestimo>();
+        for(Emprestimo emp: emprestimos.values()){
+            if(emp.getUsuarioId().equals(leitor.getId()))
+                emprestimosLeitor.add(emp);
+        }
+        return emprestimosLeitor;
     }
 }

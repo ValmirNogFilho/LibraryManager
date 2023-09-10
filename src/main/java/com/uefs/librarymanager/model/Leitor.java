@@ -1,5 +1,6 @@
 package main.java.com.uefs.librarymanager.model;
 
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.statusLeitor;
 
 import java.util.Date;
@@ -8,16 +9,12 @@ public class Leitor extends Usuario{
 
     private Date inicioMulta;
     private int prazoMulta;
-    private int numerosEmprestimo;
-    private int numeroReservas;
     private statusLeitor status;
 
     public Leitor(String nome, String endereco, String telefone) {
         super(nome, endereco, telefone, null);
         this.inicioMulta = null;
         this.prazoMulta = 0;
-        this.numerosEmprestimo = 0;
-        this.numeroReservas = 0;
         this.status = statusLeitor.LIVRE;
     }
 
@@ -37,24 +34,19 @@ public class Leitor extends Usuario{
         this.prazoMulta = prazoMulta;
     }
 
-    public int getNumerosEmprestimo() {
-        return numerosEmprestimo;
-    }
-
-    public void setNumerosEmprestimo(int numerosEmprestimo) {
-        this.numerosEmprestimo = numerosEmprestimo;
-    }
-
-    public int getNumeroReservas() {
-        return numeroReservas;
-    }
-
-    public void setNumeroReservas(int numeroReservas) {
-        this.numeroReservas = numeroReservas;
-    }
-
     public statusLeitor getStatus() {
         return status;
+    }
+
+    public boolean podePegarLivro () throws UsuarioException {
+        switch(status){
+            case LIVRE:
+                return true;
+            case MULTADO:
+                throw new UsuarioException("Leitor multado.");
+            case BLOQUEADO:
+                throw new UsuarioException("Leitor bloqueado.");
+        }
     }
 
     public void setStatus(statusLeitor status) {

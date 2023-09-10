@@ -2,6 +2,7 @@ package main.java.com.uefs.librarymanager.dao.livro;
 import main.java.com.uefs.librarymanager.dao.CRUD;
 import main.java.com.uefs.librarymanager.exceptions.AutorException;
 import main.java.com.uefs.librarymanager.exceptions.CategoriaException;
+import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.model.Livro;
 
 import java.util.List;
@@ -24,5 +25,5 @@ public interface LivroDAO extends CRUD<Livro> {
 
     public void removerLivroDeAutor(Livro obj, String autor);
 
-
+    public Livro findByISBN(String ISBN) throws LivroException;
 }

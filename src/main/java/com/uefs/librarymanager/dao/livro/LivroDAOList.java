@@ -2,6 +2,7 @@ package main.java.com.uefs.librarymanager.dao.livro;
 
 import main.java.com.uefs.librarymanager.exceptions.AutorException;
 import main.java.com.uefs.librarymanager.exceptions.CategoriaException;
+import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.model.Livro;
 
 import java.util.*;
@@ -48,6 +49,14 @@ public class LivroDAOList implements LivroDAO{
     @Override
     public Livro findByPrimaryKey(String ISBN) {
         return livros.get(ISBN);
+    }
+
+    @Override
+    public Livro findByISBN(String ISBN) throws LivroException {
+        Livro l = findByPrimaryKey(ISBN);
+        if (l != null)
+            return l;
+        else throw new LivroException("Livro não encontrado.");
     }
 
     @Override

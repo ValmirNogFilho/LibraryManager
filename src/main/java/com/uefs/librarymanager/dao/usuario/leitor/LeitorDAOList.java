@@ -1,7 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.usuario.leitor;
 
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Usuario;
 
 import java.util.*;
 
@@ -46,4 +46,17 @@ public class LeitorDAOList implements LeitorDAO{
     public Leitor findByPrimaryKey(String id) {
         return leitores.get(id);
     }
+
+
+    @Override
+    public Leitor findById(String id) throws UsuarioException {
+        Leitor l = findByPrimaryKey(id);
+        if (l == null)
+            throw new UsuarioException("Leitor não encontrado");
+        else
+            return l;
+    }
+
+
+
 }

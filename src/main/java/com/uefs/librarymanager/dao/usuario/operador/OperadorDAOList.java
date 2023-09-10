@@ -2,9 +2,7 @@ package main.java.com.uefs.librarymanager.dao.usuario.operador;
 
 import main.java.com.uefs.librarymanager.model.Usuario;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OperadorDAOList implements OperadorDAO {
     private Map<String, Usuario> operadores;
@@ -38,7 +36,8 @@ public class OperadorDAOList implements OperadorDAO {
 
     @Override
     public List<Usuario> findMany() {
-        return operadores.values().stream().toList();
+        Collection<Usuario> valores = operadores.values();
+        return new ArrayList<Usuario>(valores);
     }
 
     @Override
