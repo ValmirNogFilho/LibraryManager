@@ -40,6 +40,6 @@ public class Bibliotecario extends Usuario {
             Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
             emprestimoDAO.create(emprestimo);
         }
-        // a ser implementado
+
     }
 }
