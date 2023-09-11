@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
+import main.java.com.uefs.librarymanager.exceptions.LivroException;
+
 import java.util.List;
 
 public class Livro {
@@ -83,6 +85,12 @@ public class Livro {
 
     public void setDisponiveis(int disponiveis) {
         this.disponiveis = disponiveis;
+    }
+
+    public boolean existemDisponiveis() throws LivroException {
+        if (getDisponiveis()> 0)
+            return true;
+        else throw new LivroException("Não há exemplares disponíveis do livro");
     }
 
     @Override

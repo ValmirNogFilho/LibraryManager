@@ -1,32 +1,44 @@
 package main.java.com.uefs.librarymanager.model;
 
+import utils.IDGenerator;
 import utils.statusEmprestimo;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
 public class Emprestimo {
-    private Date dataInicio;
-    private Date dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
     private String usuarioId;
     private String livroISBN;
     private int atraso;
     private statusEmprestimo status;
     private String id;
 
-    public Date getDataInicio() {
+    public Emprestimo(LocalDate dataInicio, LocalDate dataFim, String usuarioId, String livroISBN) {
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.usuarioId = usuarioId;
+        this.livroISBN = livroISBN;
+        this.atraso = 0;
+        this.status = statusEmprestimo.ANDAMENTO;
+        this.id = IDGenerator.geraID();
+    }
+
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFim() {
+    public LocalDate getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Date dataFim) {
+    public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
 

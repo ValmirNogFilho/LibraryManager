@@ -1,5 +1,6 @@
 package main.java.com.uefs.librarymanager.dao.reserva;
 
+import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Reserva;
 
@@ -53,5 +54,12 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva findByPrimaryKey(String ISBN) {
         return reservas.get(ISBN).removeFirst();
+    }
+
+
+    @Override
+    public boolean filaVazia(String ISBN) throws LivroException {
+        if(reservas.get(ISBN).isEmpty()) return true;
+        else throw new LivroException("A fila de reservas desse livro não está vazia");
     }
 }

@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.emprestimo;
 
+import main.java.com.uefs.librarymanager.exceptions.LivroException;
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import utils.statusEmprestimo;
@@ -57,7 +59,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     }
 
     @Override
-    public int QuantidadeEmAndamentoDoLeitor(Leitor leitor) {
+    public int quantidadeEmAndamentoDoLeitor(Leitor leitor) {
         int count = 0;
         for(Emprestimo e: emprestimos)
             if(e.getUsuarioId().equals(leitor.getId()) &&
@@ -65,4 +67,22 @@ public class EmprestimoDAOList implements EmprestimoDAO {
                 count++;
         return count;
     }
+
+    public boolean podeFazerMaisEmprestimos(Leitor leitor) throws UsuarioException {
+        if(quantidadeEmAndamentoDoLeitor(leitor) < 3)
+            return true;
+        else throw new UsuarioException("Leitor "+ leitor.getNome() + "não pode fazer mais do que três empréstimos");
+
+    }
+
+    @Override
+    public boolean usuarioNaoTemISBN(Leitor leitor, String ISBN) throws LivroException {
+        for(Emprestimo e: emprestimos)
+            if(e.getUsuarioId().equals(leitor.getId())
+            && e.getLivroISBN().equals(ISBN))
+                throw new LivroException("Leitor já fez empréstimo desse livro.");
+
+        return true;
+    }
+
 }

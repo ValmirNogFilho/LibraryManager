@@ -1,7 +1,11 @@
 package main.java.com.uefs.librarymanager.dao;
 
+import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
+import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOList;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAOList;
+import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
+import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAOList;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAOList;
 import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAO;
@@ -11,6 +15,8 @@ public class DAO {
     private static LeitorDAO leitorDAO;
     private static OperadorDAO operadorDAO;
     private static LivroDAO livroDAO;
+    private static EmprestimoDAO emprestimoDAO;
+    private static ReservaDAO reservaDAO;
 
     public static LeitorDAO getLeitorDAO() {
         if (leitorDAO == null)
@@ -29,5 +35,18 @@ public class DAO {
             livroDAO = new LivroDAOList();
         return livroDAO;
     }
+
+    public static EmprestimoDAO getEmprestimoDAO() {
+        if(emprestimoDAO == null)
+            emprestimoDAO = new EmprestimoDAOList();
+        return emprestimoDAO;
+    }
+
+    public static ReservaDAO getReservaDAO() {
+        if(reservaDAO == null)
+            reservaDAO = new ReservaDAOList();
+        return reservaDAO;
+    }
+
 
 }
