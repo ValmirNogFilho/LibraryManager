@@ -3,6 +3,7 @@ package main.java.com.uefs.librarymanager.model;
 import utils.statusEmprestimo;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Emprestimo {
     private Date dataInicio;
@@ -11,7 +12,7 @@ public class Emprestimo {
     private String livroISBN;
     private int atraso;
     private statusEmprestimo status;
-    private int id;
+    private String id;
 
     public Date getDataInicio() {
         return dataInicio;
@@ -61,12 +62,22 @@ public class Emprestimo {
         this.status = status;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Emprestimo that = (Emprestimo) o;
+        return Objects.equals(usuarioId, that.usuarioId) && Objects.equals(livroISBN, that.livroISBN) && Objects.equals(id, that.id);
+    }
+
+
 }
 

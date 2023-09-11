@@ -2,57 +2,67 @@ package main.java.com.uefs.librarymanager.dao.emprestimo;
 
 import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
+import utils.statusEmprestimo;
 
 import java.util.*;
 
 public class EmprestimoDAOList implements EmprestimoDAO {
 
-    private Map<String, Emprestimo> emprestimos;
+    private List<Emprestimo> emprestimos;
 
-    public EmprestimoDAOList(){emprestimos = new HashMap<String, Emprestimo>();}
+    public EmprestimoDAOList(){emprestimos = new ArrayList<Emprestimo>();}
 
     @Override
     public Emprestimo create(Emprestimo obj) {
-        emprestimos.put(String.valueOf(obj.getId()), obj);
+        emprestimos.add(obj);
         return obj;
     }
 
     @Override
     public void delete(Emprestimo obj) {
-        emprestimos.remove(obj.getId());
-
+        emprestimos.remove(obj);
     }
 
     @Override
-    public void deleteMany() {
-        emprestimos = new HashMap<String, Emprestimo>();
-    }
+    public void deleteMany() {emprestimos = new ArrayList<Emprestimo>();}
 
     @Override
     public Emprestimo update(Emprestimo obj) {
-        emprestimos.remove(obj.getId());
-        emprestimos.put(String.valueOf(obj.getId()), obj);
+        int i = emprestimos.indexOf(obj);
+        emprestimos.set(i, obj);
         return obj;
     }
 
     @Override
     public List<Emprestimo> findMany() {
-        Collection<Emprestimo> valores = emprestimos.values();
-        return new ArrayList<Emprestimo>(valores);
+        return emprestimos;
     }
 
     @Override
     public Emprestimo findByPrimaryKey(String Id) {
-        return emprestimos.get(Id);
+        for(Emprestimo e: emprestimos)
+            if(e.getId().equals(Id))
+                return e;
+        return null;
     }
 
     @Override
     public List<Emprestimo> findByLeitor(Leitor leitor) {
-        List<Emprestimo> emprestimosLeitor = new LinkedList<Emprestimo>();
-        for(Emprestimo emp: emprestimos.values()){
+        List<Emprestimo> emprestimosLeitor = new ArrayList<Emprestimo>();
+        for(Emprestimo emp: emprestimos){
             if(emp.getUsuarioId().equals(leitor.getId()))
                 emprestimosLeitor.add(emp);
         }
         return emprestimosLeitor;
+    }
+
+    @Override
+    public int QuantidadeEmAndamentoDoLeitor(Leitor leitor) {
+        int count = 0;
+        for(Emprestimo e: emprestimos)
+            if(e.getUsuarioId().equals(leitor.getId()) &&
+            e.getStatus().equals(statusEmprestimo.ANDAMENTO))
+                count++;
+        return count;
     }
 }

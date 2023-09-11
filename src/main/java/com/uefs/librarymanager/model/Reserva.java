@@ -1,15 +1,16 @@
 package main.java.com.uefs.librarymanager.model;
 
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Reserva {
     private String idUsuario;
     private int prazo;
-    private int id;
+    private String id;
     private String ISBN;
 
-    public Reserva(String idUsuario, int prazo, int id) {
+    public Reserva(String idUsuario, int prazo, String id) {
         this.idUsuario = idUsuario;
         this.prazo = prazo;
         this.id = id;
@@ -31,11 +32,11 @@ public class Reserva {
         this.prazo = prazo;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,4 +47,13 @@ public class Reserva {
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reserva reserva = (Reserva) o;
+        return Objects.equals(id, reserva.id) && Objects.equals(ISBN, reserva.ISBN);
+    }
+
 }

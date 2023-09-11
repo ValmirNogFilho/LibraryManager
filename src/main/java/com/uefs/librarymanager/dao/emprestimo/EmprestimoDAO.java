@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface EmprestimoDAO extends CRUD<Emprestimo> {
     public List<Emprestimo> findByLeitor(Leitor leitor);
-    public int quantidadeEmprestimos(String id);
+    public int QuantidadeEmAndamentoDoLeitor(Leitor leitor);
 }
