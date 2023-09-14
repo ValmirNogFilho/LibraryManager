@@ -61,9 +61,8 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     @Override
     public int quantidadeEmAndamentoDoLeitor(Leitor leitor) {
         int count = 0;
-        for(Emprestimo e: emprestimos)
-            if(e.getUsuarioId().equals(leitor.getId()) &&
-            e.getStatus().equals(statusEmprestimo.ANDAMENTO))
+        for(Emprestimo e: findByLeitor(leitor))
+            if(e.getStatus().equals(statusEmprestimo.ANDAMENTO))
                 count++;
         return count;
     }
