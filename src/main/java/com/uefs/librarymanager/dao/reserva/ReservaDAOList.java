@@ -59,7 +59,13 @@ public class ReservaDAOList implements ReservaDAO{
 
     @Override
     public boolean filaVazia(String ISBN) throws LivroException {
-        if(reservas.get(ISBN).isEmpty()) return true;
-        else throw new LivroException("A fila de reservas desse livro não está vazia");
+        LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
+        if(reservasDoLivro != null){
+            if(reservasDoLivro.isEmpty()){
+                return true;
+            }
+            else throw new LivroException(LivroException.FILA_NAO_VAZIA);
+        }
+        return true;
     }
 }

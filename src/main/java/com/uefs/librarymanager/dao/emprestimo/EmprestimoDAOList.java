@@ -71,7 +71,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     public boolean podeFazerMaisEmprestimos(Leitor leitor) throws UsuarioException {
         if(quantidadeEmAndamentoDoLeitor(leitor) < 3)
             return true;
-        else throw new UsuarioException("Leitor "+ leitor.getNome() + "não pode fazer mais do que três empréstimos");
+        else throw new UsuarioException(UsuarioException.LIMITE_EMPRESTIMOS);
 
     }
 
@@ -80,7 +80,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         for(Emprestimo e: emprestimos)
             if(e.getUsuarioId().equals(leitor.getId())
             && e.getLivroISBN().equals(ISBN))
-                throw new LivroException("Leitor já fez empréstimo desse livro.");
+                throw new LivroException(LivroException.LEITOR_TEM_ESSE_ISBN);
 
         return true;
     }

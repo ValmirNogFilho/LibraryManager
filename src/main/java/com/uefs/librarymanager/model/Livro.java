@@ -90,7 +90,7 @@ public class Livro {
     public boolean existemDisponiveis() throws LivroException {
         if (getDisponiveis()> 0)
             return true;
-        else throw new LivroException("Não há exemplares disponíveis do livro");
+        else throw new LivroException(LivroException.SEM_EXEMPLARES);
     }
 
     @Override
