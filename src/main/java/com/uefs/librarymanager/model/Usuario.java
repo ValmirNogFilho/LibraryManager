@@ -5,7 +5,7 @@ import utils.IDGenerator;
 
 import java.util.Objects;
 
-public abstract class Usuario {
+public class Usuario {
     private String nome;
     private String endereco;
     private String telefone;
