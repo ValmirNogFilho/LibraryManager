@@ -3,6 +3,7 @@ package main.java.com.uefs.librarymanager.model;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Livro {
     private String titulo;
@@ -12,9 +13,19 @@ public class Livro {
     private int anoDePublicacao;
     private String localizacao;
     private String categoria;
-    private int exemplares;
     private int disponiveis;
-    
+
+    public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao, String localizacao, String categoria, int disponiveis) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.editora = editora;
+        this.ISBN = ISBN;
+        this.anoDePublicacao = anoDePublicacao;
+        this.localizacao = localizacao;
+        this.categoria = categoria;
+        this.disponiveis = disponiveis;
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -71,14 +82,6 @@ public class Livro {
         this.categoria = categoria;
     }
 
-    public int getExemplares() {
-        return exemplares;
-    }
-
-    public void setExemplares(int exemplares) {
-        this.exemplares = exemplares;
-    }
-
     public int getDisponiveis() {
         return disponiveis;
     }
@@ -91,6 +94,14 @@ public class Livro {
         if (getDisponiveis()> 0)
             return true;
         else throw new LivroException(LivroException.SEM_EXEMPLARES);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Livro livro = (Livro) o;
+        return Objects.equals(ISBN, livro.ISBN);
     }
 
     @Override

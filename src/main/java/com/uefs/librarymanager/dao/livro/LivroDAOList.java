@@ -20,17 +20,33 @@ public class LivroDAOList implements LivroDAO{
     @Override
     public Livro create(Livro obj) {
         livros.put(obj.getISBN(), obj);
+        addLivroEmCategoria(obj);
+        addLivroEmAutor(obj);
         return obj;
     }
 
     @Override
     public void delete(Livro obj) {
         livros.remove(obj.getISBN());
+        LinkedList<String> exemplares = isbnPorCategorias.get(obj.getCategoria());
+        if(exemplares != null){
+            exemplares.remove(obj);
+            isbnPorCategorias.put(obj.getCategoria(), exemplares);
+        }
+
+        exemplares = isbnPorAutores.get(obj.getCategoria());
+        if(exemplares != null){
+            exemplares.remove(obj);
+            isbnPorCategorias.put(obj.getAutor(), exemplares);
+        }
+
     }
 
     @Override
     public void deleteMany() {
         livros = new HashMap<String, Livro>();
+        isbnPorAutores = new HashMap<String, LinkedList<String>>();
+        isbnPorCategorias = new HashMap<String, LinkedList<String>>();
     }
 
     @Override
@@ -66,18 +82,19 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public Livro addLivroEmCategoria(Livro obj) throws CategoriaException {
+    public Livro addLivroEmCategoria(Livro obj) {
         String categoria = obj.getCategoria();
-        LinkedList<String> isbns = isbnPorCategorias.get(categoria);
-        if (isbns != null) {
+
+        if(isbnPorCategorias.get(categoria) != null)
+            isbnPorCategorias.get(categoria).add(obj.getISBN());
+        else {
+            LinkedList<String> isbns = new LinkedList<>();
             isbns.add(obj.getISBN());
             isbnPorCategorias.put(categoria, isbns);
-            return obj;
         }
-        else
-            throw new CategoriaException("Categoria não encontrada.");
-    }
 
+        return obj;
+    }
     @Override
     public void removerLivroDeCategoria(Livro obj, String categoria) {
         LinkedList<String> isbns = isbnPorCategorias.get(categoria);
@@ -85,8 +102,10 @@ public class LivroDAOList implements LivroDAO{
             for (String i : isbns) {
                 if (i.equals(obj.getISBN())) {
                     int index = isbns.indexOf(i);
-                    if (index != -1)
+                    if (index != -1) {
                         isbns.remove(index);
+                        return;
+                    }
                 }
             }
             isbnPorCategorias.put(categoria, isbns);
@@ -102,6 +121,7 @@ public class LivroDAOList implements LivroDAO{
             Livro livro = livros.get(isbn);
             livrosDaCategoria.add(livro);
         }
+
         return livrosDaCategoria;
     }
 
@@ -123,16 +143,18 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public Livro addLivroEmAutor(Livro obj) throws AutorException {
+    public Livro addLivroEmAutor(Livro obj) {
         String autor = obj.getAutor();
-        LinkedList<String> isbns = isbnPorAutores.get(autor);
-        if (isbns != null) {
+
+        if(isbnPorAutores.get(autor) != null)
+            isbnPorAutores.get(autor).add(obj.getISBN());
+        else {
+            LinkedList<String> isbns = new LinkedList<>();
             isbns.add(obj.getISBN());
             isbnPorAutores.put(autor, isbns);
-            return obj;
         }
-        else
-            throw new AutorException("Autor não encontrado.");
+
+        return obj;
     }
 
     @Override
