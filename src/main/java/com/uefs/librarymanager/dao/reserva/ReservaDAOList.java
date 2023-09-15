@@ -15,7 +15,7 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva create(Reserva obj) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
-        reservasDoLivro.add(obj);
+        reservasDoLivro.addLast(obj);
         reservas.put(obj.getISBN(),reservasDoLivro);
         return obj;
     }
@@ -68,4 +68,6 @@ public class ReservaDAOList implements ReservaDAO{
         }
         return true;
     }
+
+
 }

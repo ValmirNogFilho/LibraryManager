@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
+import utils.IDGenerator;
+
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -10,10 +12,11 @@ public class Reserva {
     private String id;
     private String ISBN;
 
-    public Reserva(String idUsuario, int prazo, String id) {
+    public Reserva(String idUsuario, int prazo, String isbn) {
         this.idUsuario = idUsuario;
         this.prazo = prazo;
-        this.id = id;
+        this.ISBN = isbn;
+        this.id = IDGenerator.geraID();
     }
 
     public String getIdUsuario() {
