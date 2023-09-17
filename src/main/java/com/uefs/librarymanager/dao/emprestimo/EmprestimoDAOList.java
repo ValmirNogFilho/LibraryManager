@@ -95,27 +95,22 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     public void registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException,
             LivroException{
 
-        LeitorDAO leitorDao = DAO.getLeitorDAO();
-        LivroDAO livroDao = DAO.getLivroDAO();
-        EmprestimoDAO emprestimoDAO = DAO.getEmprestimoDAO();
-        ReservaDAO reservaDAO = DAO.getReservaDAO();
 
-
-        Leitor leitor = leitorDao.findById(objleitor.getId());
-        Livro livro = livroDao.findByISBN(objlivro.getISBN());
+        Leitor leitor = DAO.getLeitorDAO().findById(objleitor.getId());
+        Livro livro = DAO.getLivroDAO().findByISBN(objlivro.getISBN());
 
         if (leitor.podePegarLivro()
-                && emprestimoDAO.podeFazerMaisEmprestimos(leitor)
+                && podeFazerMaisEmprestimos(leitor)
                 && livro.existemDisponiveis()
-                && reservaDAO.filaVazia(livro.getISBN())
-                && emprestimoDAO.usuarioNaoTemISBN(leitor, livro.getISBN())
+                && DAO.getReservaDAO().filaVazia(livro.getISBN())
+                && usuarioNaoTemISBN(leitor, livro.getISBN())
         ){
             LocalDate inicio = LocalDate.now();
             LocalDate prazoFim = inicio.plusDays(7);
 
             Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
             emprestimo.setId(emprestimo.proximoID());
-            emprestimoDAO.create(emprestimo);
+            create(emprestimo);
         }
 
     }
