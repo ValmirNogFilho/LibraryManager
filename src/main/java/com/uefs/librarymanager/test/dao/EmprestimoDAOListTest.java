@@ -36,14 +36,14 @@ class EmprestimoDAOListTest {
         Emprestimo atual = new Emprestimo(LocalDate.now(), LocalDate.now().plusDays(7), l.getId(), "1234");
         atual.setId(esperado.getId());
         assertEquals(atual, esperado);
-        assertEquals(atual, DAO.getEmprestimoDAO().findByPrimaryKey(atual.getId()));
+        assertEquals(atual, DAO.getEmprestimoDAO().findByPrimaryKey("" + atual.getId()));
     }
 
     @Test
     void delete() {
         DAO.getEmprestimoDAO().delete(esperado);
         assertEquals(0, DAO.getEmprestimoDAO().findMany().size());
-        assertNull(DAO.getEmprestimoDAO().findByPrimaryKey(esperado.getId()));
+        assertNull(DAO.getEmprestimoDAO().findByPrimaryKey("" + esperado.getId()));
     }
 
     @Test
@@ -54,10 +54,10 @@ class EmprestimoDAOListTest {
 
     @Test
     void update() {
-        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey(esperado.getId()));
+        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey("" + esperado.getId()));
         esperado.setLivroISBN("7890");
         DAO.getEmprestimoDAO().update(esperado);
-        assertEquals("7890", DAO.getEmprestimoDAO().findByPrimaryKey(esperado.getId()).getLivroISBN());
+        assertEquals("7890", DAO.getEmprestimoDAO().findByPrimaryKey("" +  esperado.getId()).getLivroISBN());
     }
 
     @Test
@@ -67,7 +67,7 @@ class EmprestimoDAOListTest {
 
     @Test
     void findByPrimaryKey() {
-        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey(esperado.getId()));
+        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey("" + esperado.getId()));
     }
 
     @Test

@@ -48,8 +48,9 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
     @Override
     public Emprestimo findByPrimaryKey(String Id) {
+        Integer id = Integer.parseInt(Id);
         for(Emprestimo e: emprestimos)
-            if(e.getId().equals(Id))
+            if(e.getId() == id)
                 return e;
         return null;
     }
