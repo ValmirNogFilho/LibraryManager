@@ -14,7 +14,7 @@ public class Emprestimo {
     private String livroISBN;
     private int atraso;
     private statusEmprestimo status;
-    private String id;
+    private int id;
 
     public Emprestimo(LocalDate dataInicio, LocalDate dataFim, String usuarioId, String livroISBN) {
         this.dataInicio = dataInicio;
@@ -23,7 +23,11 @@ public class Emprestimo {
         this.livroISBN = livroISBN;
         this.atraso = 0;
         this.status = statusEmprestimo.ANDAMENTO;
-        this.id = IDGenerator.geraID();
+        this.id = 0;
+    }
+
+    public int proximoID(){
+        return id++;
     }
 
     public LocalDate getDataInicio() {
@@ -74,11 +78,11 @@ public class Emprestimo {
         this.status = status;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -113,6 +113,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
             LocalDate prazoFim = inicio.plusDays(7);
 
             Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
+            emprestimo.setId(emprestimo.proximoID());
             emprestimoDAO.create(emprestimo);
         }
 

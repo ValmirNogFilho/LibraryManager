@@ -9,14 +9,18 @@ import java.util.Queue;
 public class Reserva {
     private String idUsuario;
     private int prazo;
-    private String id;
+    private int id;
     private String ISBN;
 
     public Reserva(String idUsuario, int prazo, String isbn) {
         this.idUsuario = idUsuario;
         this.prazo = prazo;
         this.ISBN = isbn;
-        this.id = IDGenerator.geraID();
+        this.id = 0;
+    }
+
+    public int proximoID(){
+        return id++;
     }
 
     public String getIdUsuario() {
@@ -35,11 +39,11 @@ public class Reserva {
         this.prazo = prazo;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
