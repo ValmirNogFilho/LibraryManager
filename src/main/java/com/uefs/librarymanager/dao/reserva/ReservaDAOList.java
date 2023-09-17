@@ -7,10 +7,7 @@ import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ReservaDAOList implements ReservaDAO{
@@ -62,7 +59,6 @@ public class ReservaDAOList implements ReservaDAO{
         return reservas.get(ISBN).removeFirst();
     }
 
-
     @Override
     public boolean filaVazia(String ISBN) throws LivroException {
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
@@ -82,10 +78,19 @@ public class ReservaDAOList implements ReservaDAO{
                 DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())){
             Reserva reserva = new Reserva(leitor.getId(), 3, livro.getISBN());
             reserva.setId(reserva.proximoID());
-            DAO.getReservaDAO().create(reserva);
+            create(reserva);
             return reserva;
         }
         return null;
     }
 
+    @Override
+    public void cancelarReserva(Leitor leitor, Livro livro) {
+        LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
+        for(Reserva r: reservasDoLivro){
+            if(r.getIdUsuario().equals(leitor.getId()))
+                reservasDoLivro.remove(r);
+        }
+        reservas.put(livro.getISBN(), reservasDoLivro);
+    }
 }
