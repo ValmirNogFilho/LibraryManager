@@ -6,7 +6,6 @@ import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.statusLeitor;
 
 import java.util.Date;
-import java.util.Map;
 
 public class Leitor extends Usuario{
 
@@ -73,14 +72,5 @@ public class Leitor extends Usuario{
         this.status = status;
     }
 
-    public void registrarReserva( Livro livro) throws UsuarioException, LivroException {
-        if (podePegarLivro() &&
-            podeFazerMaisReservas() &&
-            DAO.getEmprestimoDAO().usuarioNaoTemISBN(this, livro.getISBN())){
-                Reserva reserva = new Reserva(getId(), 3, livro.getISBN());
-                DAO.getReservaDAO().create(reserva);
-        }
-    }
-
-
+    
 }

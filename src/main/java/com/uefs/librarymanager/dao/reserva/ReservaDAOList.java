@@ -1,10 +1,16 @@
 package main.java.com.uefs.librarymanager.dao.reserva;
 
+import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.model.Emprestimo;
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
+import main.java.com.uefs.librarymanager.model.Leitor;
+import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 public class ReservaDAOList implements ReservaDAO{
@@ -69,5 +75,16 @@ public class ReservaDAOList implements ReservaDAO{
         return true;
     }
 
+    @Override
+    public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
+        if (leitor.podePegarLivro() &&
+                leitor.podeFazerMaisReservas() &&
+                DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())){
+            Reserva reserva = new Reserva(leitor.getId(), 3, livro.getISBN());
+            DAO.getReservaDAO().create(reserva);
+            return reserva;
+        }
+        return null;
+    }
 
 }
