@@ -18,6 +18,9 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva create(Reserva obj) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
+        if(reservasDoLivro == null){
+            reservasDoLivro = new LinkedList<Reserva>();
+        }
         reservasDoLivro.addLast(obj);
         reservas.put(obj.getISBN(),reservasDoLivro);
         return obj;
@@ -38,7 +41,6 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva update(Reserva obj) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
-        int i = reservasDoLivro.indexOf(obj);
         reservasDoLivro.remove(obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
         return obj;
@@ -78,6 +80,8 @@ public class ReservaDAOList implements ReservaDAO{
                 DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())){
             Reserva reserva = new Reserva(leitor.getId(), 3, livro.getISBN());
             reserva.setId(reserva.proximoID());
+            leitor.setNumReservas(leitor.getNumReservas()+1);
+            DAO.getLeitorDAO().update(leitor);
             create(reserva);
             return reserva;
         }
@@ -87,10 +91,9 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public void cancelarReserva(Leitor leitor, Livro livro) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
-        for(Reserva r: reservasDoLivro){
+        for(Reserva r: reservasDoLivro)
             if(r.getIdUsuario().equals(leitor.getId()))
-                reservasDoLivro.remove(r);
-        }
-        reservas.put(livro.getISBN(), reservasDoLivro);
+                delete(r);
+
     }
 }

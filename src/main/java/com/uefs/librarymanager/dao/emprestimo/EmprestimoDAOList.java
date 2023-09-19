@@ -4,6 +4,7 @@ import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
 import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
+import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
@@ -17,11 +18,21 @@ import java.util.*;
 public class EmprestimoDAOList implements EmprestimoDAO {
 
     private List<Emprestimo> emprestimos;
+    private Integer proximoID;
 
-    public EmprestimoDAOList(){emprestimos = new ArrayList<Emprestimo>();}
+    public EmprestimoDAOList(){
+        emprestimos = new ArrayList<Emprestimo>();
+        proximoID = 0;
+    }
+
+    @Override
+    public int getProximoID() {
+        return proximoID++;
+    }
 
     @Override
     public Emprestimo create(Emprestimo obj) {
+        obj.setId(getProximoID());
         emprestimos.add(obj);
         return obj;
     }
@@ -92,13 +103,12 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     }
 
     @Override
-    public void registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException,
+    public Emprestimo registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException,
             LivroException{
 
 
         Leitor leitor = DAO.getLeitorDAO().findById(objleitor.getId());
         Livro livro = DAO.getLivroDAO().findByISBN(objlivro.getISBN());
-
         if (leitor.podePegarLivro()
                 && podeFazerMaisEmprestimos(leitor)
                 && livro.existemDisponiveis()
@@ -109,10 +119,26 @@ public class EmprestimoDAOList implements EmprestimoDAO {
             LocalDate prazoFim = inicio.plusDays(7);
 
             Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
-            emprestimo.setId(emprestimo.proximoID());
+            livro.setDisponiveis(livro.getDisponiveis()-1);
+            DAO.getLivroDAO().update(livro);
             create(emprestimo);
+            return emprestimo;
         }
-
+        return null;
     }
+
+    public void renovarEmprestimo(Leitor leitor, Livro livro) throws UsuarioException, EmprestimoException {
+        for(Emprestimo e: findByLeitor(leitor)){
+            if(e.getLivroISBN().equals(livro.getISBN())){
+                if(leitor.podePegarLivro() &&
+                e.podeRenovar()){
+                    e.setDataFim(e.getDataFim().plusDays(7));
+                    update(e);
+                }
+                return;
+            }
+        }
+    }
+
 
 }

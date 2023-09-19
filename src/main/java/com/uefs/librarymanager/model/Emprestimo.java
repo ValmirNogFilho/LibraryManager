@@ -1,5 +1,6 @@
 package main.java.com.uefs.librarymanager.model;
 
+import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import utils.IDGenerator;
 import utils.statusEmprestimo;
 
@@ -14,7 +15,8 @@ public class Emprestimo {
     private String livroISBN;
     private int atraso;
     private statusEmprestimo status;
-    private Integer id;
+    private Integer id = 0;
+    private int numeroRenovacoes;
 
     public Emprestimo(LocalDate dataInicio, LocalDate dataFim, String usuarioId, String livroISBN) {
         this.dataInicio = dataInicio;
@@ -24,11 +26,9 @@ public class Emprestimo {
         this.atraso = 0;
         this.status = statusEmprestimo.ANDAMENTO;
         this.id = 0;
+        this.numeroRenovacoes = 0;
     }
 
-    public int proximoID(){
-        return id++;
-    }
 
     public LocalDate getDataInicio() {
         return dataInicio;
@@ -86,6 +86,21 @@ public class Emprestimo {
         this.id = id;
     }
 
+
+
+    public int getNumeroRenovacoes() {
+        return numeroRenovacoes;
+    }
+
+    public boolean podeRenovar() throws EmprestimoException {
+        if (numeroRenovacoes == 0) return true;
+        else throw new EmprestimoException(EmprestimoException.LIMITE_RENOVACOES);
+    }
+
+
+    public void setNumeroRenovacoes(int numeroRenovacoes) {
+        this.numeroRenovacoes = numeroRenovacoes;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,7 +108,5 @@ public class Emprestimo {
         Emprestimo that = (Emprestimo) o;
         return Objects.equals(usuarioId, that.usuarioId) && Objects.equals(livroISBN, that.livroISBN) && Objects.equals(id, that.id);
     }
-
-
 }
 

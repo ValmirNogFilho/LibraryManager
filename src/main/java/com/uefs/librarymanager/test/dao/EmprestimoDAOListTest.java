@@ -1,16 +1,15 @@
 package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
-import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOList;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
+import main.java.com.uefs.librarymanager.model.Livro;
+import main.java.com.uefs.librarymanager.model.Reserva;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.function.Try;
 
 import java.time.LocalDate;
 
@@ -19,15 +18,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmprestimoDAOListTest {
     Emprestimo esperado;
     Leitor l;
+    Livro li;
     @BeforeEach
     void setUp() {
-        l = new Leitor("Fulano", "", "");
+        l = DAO.getLeitorDAO().create(new Leitor("Fulano", "", ""));
         esperado = DAO.getEmprestimoDAO().create(new Emprestimo(LocalDate.now(), LocalDate.now().plusDays(7), l.getId(), "1234"));
+        li = DAO.getLivroDAO().create(new Livro("a", "a",
+                "a", "12354", 1999, "a", "a", 10));
     }
 
     @AfterEach
     void tearDown() {
         DAO.getEmprestimoDAO().deleteMany();
+        DAO.getLivroDAO().deleteMany();
+        DAO.getLeitorDAO().deleteMany();
     }
 
     @Test
@@ -108,5 +112,60 @@ class EmprestimoDAOListTest {
         catch(Exception e){
             assertEquals(LivroException.LEITOR_TEM_ESSE_ISBN, e.getMessage());
         }
+    }
+
+    @Test
+    void failRegistrarEmprestimo() {
+        try{
+            DAO.getEmprestimoDAO().registrarEmprestimo(new Leitor("a", "b", "12345"), li);
+            fail("Exceção não detectada.");
+        }catch(Exception e){assertEquals(UsuarioException.NAO_EXISTENTE, e.getMessage());}
+
+        try{
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, new Livro("a", "a",
+                    "a", "12345", 1999, "a", "a", 10));
+            fail("Exceção não detectada.");
+        }catch(Exception e){assertEquals(LivroException.NAO_EXISTENTE, e.getMessage());}
+
+        try{
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
+            fail("Exceção não detectada.");
+        }catch(Exception e){assertEquals(LivroException.LEITOR_TEM_ESSE_ISBN, e.getMessage());}
+
+
+        try{
+            Reserva r = new Reserva(l.getId(), 2, li.getISBN());
+            DAO.getReservaDAO().create(r);
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
+            fail("Exceção não detectada.");
+        }catch(Exception e){assertEquals(LivroException.FILA_NAO_VAZIA, e.getMessage());}
+
+        DAO.getReservaDAO().deleteMany();
+
+        try{
+            Livro j = new Livro("a", "a", "a", "1", 2000, "a", "a", 10);
+            Livro k = new Livro("a", "a", "a", "2", 2000, "a", "a", 10);
+            Livro m = new Livro("a", "a", "a", "3", 2000, "a", "a", 10);
+            DAO.getLivroDAO().create(j);
+            DAO.getLivroDAO().create(k);
+            DAO.getLivroDAO().create(m);
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, j);
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, k);
+            DAO.getEmprestimoDAO().registrarEmprestimo(l, m);
+            fail("Exceção não detectada.");
+        }catch(Exception e){assertEquals(UsuarioException.LIMITE_EMPRESTIMOS, e.getMessage());}
+
+    }
+
+    @Test
+    void registrarEmprestimo() throws LivroException, UsuarioException {
+        Emprestimo emprestimo = DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
+        assertEquals(emprestimo, DAO.getEmprestimoDAO().findByPrimaryKey( String.valueOf(emprestimo.getId())));
+    }
+
+    @Test
+    void renovarEmprestimo(){
+
     }
 }

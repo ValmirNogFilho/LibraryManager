@@ -72,7 +72,7 @@ public class LivroDAOList implements LivroDAO{
         Livro l = findByPrimaryKey(ISBN);
         if (l != null)
             return l;
-        else throw new LivroException("Livro não encontrado.");
+        else throw new LivroException(LivroException.NAO_EXISTENTE);
     }
 
     @Override

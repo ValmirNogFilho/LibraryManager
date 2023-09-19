@@ -52,7 +52,7 @@ public class LeitorDAOList implements LeitorDAO{
     public Leitor findById(String id) throws UsuarioException {
         Leitor l = findByPrimaryKey(id);
         if (l == null)
-            throw new UsuarioException("Leitor não encontrado");
+            throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         else
             return l;
     }
