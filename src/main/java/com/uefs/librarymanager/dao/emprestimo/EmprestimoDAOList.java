@@ -127,17 +127,17 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         return null;
     }
 
-    public void renovarEmprestimo(Leitor leitor, Livro livro) throws UsuarioException, EmprestimoException {
+    public Emprestimo renovarEmprestimo(Leitor leitor, Livro livro) throws EmprestimoException {
         for(Emprestimo e: findByLeitor(leitor)){
             if(e.getLivroISBN().equals(livro.getISBN())){
-                if(leitor.podePegarLivro() &&
-                e.podeRenovar()){
+                if(e.podeRenovar()){
                     e.setDataFim(e.getDataFim().plusDays(7));
                     update(e);
+                    return e;
                 }
-                return;
             }
         }
+        return null;
     }
 
 

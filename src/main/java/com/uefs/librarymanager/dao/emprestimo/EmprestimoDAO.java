@@ -24,5 +24,5 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
     public boolean usuarioNaoTemISBN(Leitor leitor, String ISBN) throws LivroException;
     public Emprestimo registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException,
             LivroException;
-    public void renovarEmprestimo(Leitor leitor, Livro livro) throws UsuarioException, EmprestimoException;
+    public Emprestimo renovarEmprestimo(Leitor leitor, Livro livro) throws EmprestimoException;
 }

@@ -1,6 +1,7 @@
 package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
+import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
@@ -165,7 +166,22 @@ class EmprestimoDAOListTest {
     }
 
     @Test
-    void renovarEmprestimo(){
-
+    void failRenovarEmprestimo() throws LivroException, UsuarioException {
+        Emprestimo emp = DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
+        emp.setNumeroRenovacoes(1);
+        DAO.getEmprestimoDAO().update(emp);
+        try{
+            DAO.getEmprestimoDAO().renovarEmprestimo(l, li);
+        } catch(Exception e){
+            assertEquals(EmprestimoException.LIMITE_RENOVACOES, e.getMessage());
+        }
     }
+
+    @Test
+    void renovarEmprestimo() throws LivroException, UsuarioException, EmprestimoException {
+        DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
+        Emprestimo e = DAO.getEmprestimoDAO().renovarEmprestimo(l, li);
+        assertEquals(LocalDate.now().plusDays(14), e.getDataFim());
+    }
+
 }
