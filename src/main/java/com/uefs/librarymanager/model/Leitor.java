@@ -47,9 +47,9 @@ public class Leitor extends Usuario{
             case LIVRE:
                 return true;
             case MULTADO:
-                throw new UsuarioException("Leitor multado.");
+                throw new UsuarioException(UsuarioException.USUARIO_MULTADO);
             case BLOQUEADO:
-                throw new UsuarioException("Leitor bloqueado.");
+                throw new UsuarioException(UsuarioException.USUARIO_BLOQUEADO);
         }
         return false;
     }
