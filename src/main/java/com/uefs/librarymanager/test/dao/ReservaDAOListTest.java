@@ -106,11 +106,40 @@ class ReservaDAOListTest {
         }catch(Exception e){
             assertEquals(LivroException.LEITOR_TEM_ESSE_ISBN, e.getMessage());
         }
-        //a ser continuado
+        DAO.getLeitorDAO().deleteMany();
+        DAO.getLivroDAO().deleteMany();
+
+        try{
+            l.setStatus(statusLeitor.BLOQUEADO);
+            DAO.getReservaDAO().registrarReserva(l, li);
+            fail("O usuário conseguiu fazer a reserva estando bloqueado");
+        }catch(Exception e){
+            assertEquals(UsuarioException.USUARIO_BLOQUEADO, e.getMessage());
+        }
+
+        try{
+            l.setStatus(statusLeitor.MULTADO);
+            DAO.getReservaDAO().registrarReserva(l, li);
+            fail("O usuário conseguiu fazer a reserva estando multado");
+        }catch(Exception e){
+            assertEquals(UsuarioException.USUARIO_MULTADO, e.getMessage());
+        }
 
     }
 
     @Test
+    void registrarReserva() throws LivroException, UsuarioException {
+        Livro li2 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "123", 2000, "a", "a", 10));
+        int tamanho_inicial = DAO.getReservaDAO().findMany().size();
+        DAO.getReservaDAO().registrarReserva(l, li2);
+        assertEquals(tamanho_inicial+1, DAO.getReservaDAO().findMany().size());
+        assertEquals(l.getId(), r.getIdUsuario());
+        assertEquals(li.getISBN(), r.getISBN());
+    }
+
+    @Test
     void cancelarReserva() {
+        DAO.getReservaDAO().cancelarReserva(l, li);
+        assertNull(DAO.getReservaDAO().findByPrimaryKey(li.getISBN()));
     }
 }
