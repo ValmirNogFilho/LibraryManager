@@ -19,9 +19,7 @@ public class Reserva {
         this.id = 0;
     }
 
-    public int proximoID(){
-        return id++;
-    }
+
 
     public String getIdUsuario() {
         return idUsuario;
