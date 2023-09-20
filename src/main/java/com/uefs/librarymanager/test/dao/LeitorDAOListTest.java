@@ -2,7 +2,6 @@ package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +39,7 @@ class LeitorDAOListTest {
     void delete() {
         DAO.getLeitorDAO().delete(mario);
         int tamanho_esperado = 2;
-        Assertions.assertEquals(tamanho_esperado, DAO.getOperadorDAO().findMany().size());
+        Assertions.assertEquals(tamanho_esperado, DAO.getLeitorDAO().findMany().size());
     }
 
     @Test
@@ -58,9 +57,10 @@ class LeitorDAOListTest {
     }
 
     @Test
-    void findMany() {
+    int findMany() {
         DAO.getLeitorDAO().findMany();
         Assertions.assertEquals(3, DAO.getLeitorDAO().findMany().size());
+        return 3;
     }
 
     @Test
