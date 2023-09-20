@@ -13,7 +13,16 @@ import java.util.*;
 public class ReservaDAOList implements ReservaDAO{
 
     private Map<String, LinkedList<Reserva>> reservas;
-    public ReservaDAOList(){reservas = new HashMap<String, LinkedList<Reserva>>();}
+    private int proximoId;
+    public ReservaDAOList(){
+        reservas = new HashMap<String, LinkedList<Reserva>>();
+        proximoId = 0;
+    }
+
+    @Override
+    public int proximoID(){
+        return proximoId++;
+    }
 
     @Override
     public Reserva create(Reserva obj) {
@@ -42,6 +51,7 @@ public class ReservaDAOList implements ReservaDAO{
     public Reserva update(Reserva obj) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         reservasDoLivro.remove(obj);
+        reservasDoLivro.addLast(obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
         return obj;
     }
@@ -58,7 +68,10 @@ public class ReservaDAOList implements ReservaDAO{
 
     @Override
     public Reserva findByPrimaryKey(String ISBN) {
-        return reservas.get(ISBN).removeFirst();
+        if(reservas.get(ISBN) != null)
+            if(!reservas.get(ISBN).isEmpty())
+                return reservas.get(ISBN).removeFirst();
+        return null;
     }
 
     @Override
@@ -77,9 +90,10 @@ public class ReservaDAOList implements ReservaDAO{
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
         if (leitor.podePegarLivro() &&
                 leitor.podeFazerMaisReservas() &&
-                DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())){
+                DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN()))
+        {
             Reserva reserva = new Reserva(leitor.getId(), 3, livro.getISBN());
-            reserva.setId(reserva.proximoID());
+            reserva.setId(proximoID());
             leitor.setNumReservas(leitor.getNumReservas()+1);
             DAO.getLeitorDAO().update(leitor);
             create(reserva);

@@ -1,7 +1,5 @@
 package main.java.com.uefs.librarymanager.dao.livro;
 
-import main.java.com.uefs.librarymanager.exceptions.AutorException;
-import main.java.com.uefs.librarymanager.exceptions.CategoriaException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.model.Livro;
 
