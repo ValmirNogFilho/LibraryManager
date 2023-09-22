@@ -72,5 +72,4 @@ public class Leitor extends Usuario{
         this.status = status;
     }
 
-    
 }

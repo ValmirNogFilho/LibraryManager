@@ -15,7 +15,7 @@ public class Emprestimo {
     private String livroISBN;
     private int atraso;
     private statusEmprestimo status;
-    private Integer id = 0;
+    private Integer id;
     private int numeroRenovacoes;
 
     public Emprestimo(LocalDate dataInicio, LocalDate dataFim, String usuarioId, String livroISBN) {
@@ -85,8 +85,6 @@ public class Emprestimo {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 
     public int getNumeroRenovacoes() {
         return numeroRenovacoes;

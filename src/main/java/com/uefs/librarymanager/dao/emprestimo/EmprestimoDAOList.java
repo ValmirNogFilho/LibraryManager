@@ -1,5 +1,6 @@
 package main.java.com.uefs.librarymanager.dao.emprestimo;
 
+import jdk.jshell.execution.LoaderDelegate;
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
 import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
@@ -10,9 +11,12 @@ import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
+import main.java.com.uefs.librarymanager.model.Sistema;
 import utils.statusEmprestimo;
+import utils.statusLeitor;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class EmprestimoDAOList implements EmprestimoDAO {
@@ -138,6 +142,33 @@ public class EmprestimoDAOList implements EmprestimoDAO {
             }
         }
         return null;
+    }
+
+    @Override
+    public Livro devolverLivro(Emprestimo emprestimo) throws LivroException, UsuarioException {
+
+        Livro livro = DAO.getLivroDAO().findByISBN(emprestimo.getLivroISBN());
+        livro.setDisponiveis(livro.getDisponiveis()+1);
+
+        Leitor leitor = DAO.getLeitorDAO().findById(emprestimo.getUsuarioId());
+
+        long saldoAtraso = ChronoUnit.DAYS.between(emprestimo.getDataFim(), LocalDate.now());
+
+        if(saldoAtraso > 0){
+            int multa = 2 * (int) saldoAtraso;
+            emprestimo.setAtraso(multa);
+            emprestimo.setStatus(statusEmprestimo.MULTADO);
+            leitor.setStatus(statusLeitor.MULTADO);
+        }
+        else{
+            emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
+        }
+
+        DAO.getEmprestimoDAO().update(emprestimo);
+        DAO.getLivroDAO().update(livro);
+        DAO.getLeitorDAO().update(leitor);
+
+        return livro;
     }
 
 

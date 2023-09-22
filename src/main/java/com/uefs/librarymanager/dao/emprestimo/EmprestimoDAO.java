@@ -25,4 +25,7 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
     public Emprestimo registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException,
             LivroException;
     public Emprestimo renovarEmprestimo(Leitor leitor, Livro livro) throws EmprestimoException;
+
+    public Livro devolverLivro(Emprestimo emprestimo) throws LivroException, UsuarioException;
+
 }
