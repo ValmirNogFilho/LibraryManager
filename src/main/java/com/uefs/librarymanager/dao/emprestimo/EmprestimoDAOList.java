@@ -106,6 +106,19 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         return true;
     }
 
+    public int maiorAtraso(Leitor leitor){
+       List<Emprestimo> emprestimosDoLeitor = findByLeitor(leitor);
+       int atrasoMaior = emprestimosDoLeitor.get(0).getAtraso();
+
+       for(Emprestimo e: emprestimosDoLeitor){
+           if(e.getAtraso() > atrasoMaior)
+               atrasoMaior = e.getAtraso();
+       }
+
+       return atrasoMaior;
+    }
+
+
     @Override
     public Emprestimo registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException,
             LivroException{
@@ -152,11 +165,11 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
         Leitor leitor = DAO.getLeitorDAO().findById(emprestimo.getUsuarioId());
 
-        long saldoAtraso = ChronoUnit.DAYS.between(emprestimo.getDataFim(), LocalDate.now());
+        int saldoAtraso = (int) ChronoUnit.DAYS.between(emprestimo.getDataFim(), LocalDate.now());
 
         if(saldoAtraso > 0){
-            int multa = 2 * (int) saldoAtraso;
-            emprestimo.setAtraso(multa);
+            int maiorMulta = Math.max(saldoAtraso, maiorAtraso(leitor));
+            emprestimo.setAtraso(2 * maiorMulta);
             emprestimo.setStatus(statusEmprestimo.MULTADO);
             leitor.setStatus(statusLeitor.MULTADO);
         }
