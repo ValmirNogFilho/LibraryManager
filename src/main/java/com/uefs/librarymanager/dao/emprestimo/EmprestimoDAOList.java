@@ -106,6 +106,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         return true;
     }
 
+    @Override
     public int maiorAtraso(Leitor leitor){
        List<Emprestimo> emprestimosDoLeitor = findByLeitor(leitor);
        int atrasoMaior = emprestimosDoLeitor.get(0).getAtraso();
@@ -165,17 +166,10 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
         Leitor leitor = DAO.getLeitorDAO().findById(emprestimo.getUsuarioId());
 
-        int saldoAtraso = (int) ChronoUnit.DAYS.between(emprestimo.getDataFim(), LocalDate.now());
+        boolean estaMultado = Sistema.verificarPossivelMulta(emprestimo, leitor);
 
-        if(saldoAtraso > 0){
-            int maiorMulta = Math.max(saldoAtraso, maiorAtraso(leitor));
-            emprestimo.setAtraso(2 * maiorMulta);
-            emprestimo.setStatus(statusEmprestimo.MULTADO);
-            leitor.setStatus(statusLeitor.MULTADO);
-        }
-        else{
+        if(!estaMultado)
             emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
-        }
 
         DAO.getEmprestimoDAO().update(emprestimo);
         DAO.getLivroDAO().update(livro);
