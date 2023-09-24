@@ -1,15 +1,14 @@
 package main.java.com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.statusLeitor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Leitor extends Usuario{
 
-    private Date inicioMulta;
+    private LocalDate inicioMulta;
     private int prazoMulta;
     private statusLeitor status;
     private int numReservas;
@@ -22,11 +21,11 @@ public class Leitor extends Usuario{
         this.numReservas = 0;
     }
 
-    public Date getInicioMulta() {
+    public LocalDate getInicioMulta() {
         return inicioMulta;
     }
 
-    public void setInicioMulta(Date inicioMulta) {
+    public void setInicioMulta(LocalDate inicioMulta) {
         this.inicioMulta = inicioMulta;
     }
 
@@ -43,15 +42,11 @@ public class Leitor extends Usuario{
     }
 
     public boolean podePegarLivro () throws UsuarioException {
-        switch(status){
-            case LIVRE:
-                return true;
-            case MULTADO:
-                throw new UsuarioException(UsuarioException.USUARIO_MULTADO);
-            case BLOQUEADO:
-                throw new UsuarioException(UsuarioException.USUARIO_BLOQUEADO);
-        }
-        return false;
+        return switch (status) {
+            case LIVRE -> true;
+            case MULTADO -> throw new UsuarioException(UsuarioException.USUARIO_MULTADO);
+            case BLOQUEADO -> throw new UsuarioException(UsuarioException.USUARIO_BLOQUEADO);
+        };
     }
 
     public int getNumReservas() {
