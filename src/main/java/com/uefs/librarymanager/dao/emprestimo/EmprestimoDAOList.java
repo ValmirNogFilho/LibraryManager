@@ -145,10 +145,10 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         return null;
     }
 
-    public Emprestimo renovarEmprestimo(Leitor leitor, Livro livro) throws EmprestimoException {
+    public Emprestimo renovarEmprestimo(Leitor leitor, Livro livro) throws EmprestimoException, LivroException {
         for(Emprestimo e: findByLeitor(leitor)){
             if(e.getLivroISBN().equals(livro.getISBN())){
-                if(e.podeRenovar()){
+                if(e.podeRenovar() && DAO.getReservaDAO().filaVazia(livro.getISBN())){
                     e.setDataFim(e.getDataFim().plusDays(7));
                     update(e);
                     return e;
