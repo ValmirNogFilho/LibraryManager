@@ -18,8 +18,6 @@ public class Sistema {
             for (Emprestimo emprestimo: DAO.getEmprestimoDAO().findByLeitor(leitor)){
 
                 verificarPossivelMulta(emprestimo, leitor);
-                verificarPagamentoDeMulta(emprestimo);
-
                 DAO.getEmprestimoDAO().update(emprestimo);
             }
 
@@ -29,13 +27,6 @@ public class Sistema {
             DAO.getLeitorDAO().update(leitor);
         }
 
-    }
-
-    public static void verificarPagamentoDeMulta(Emprestimo emprestimo) {
-        boolean estaMultado = LocalDate.now().isAfter(emprestimo.getDataFim());
-        if(!estaMultado && emprestimo.getStatus().equals(statusEmprestimo.MULTADO)){
-            emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
-        }
     }
 
     public static boolean verificarPossivelMulta(Emprestimo emprestimo, Leitor leitor) {
@@ -56,6 +47,10 @@ public class Sistema {
 
         }
         return estaAtrasado;
+    }
+
+    public static void atualizarReservas(){
+        // a ser implementada
     }
 
 

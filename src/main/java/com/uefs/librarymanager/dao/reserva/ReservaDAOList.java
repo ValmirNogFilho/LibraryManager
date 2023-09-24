@@ -67,6 +67,12 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
+    public Map<String, LinkedList<Reserva>> findManyMap(){
+        return reservas;
+    }
+
+
+    @Override
     public Reserva findByPrimaryKey(String ISBN) {
         if(reservas.get(ISBN) != null)
             if(!reservas.get(ISBN).isEmpty())
@@ -106,8 +112,10 @@ public class ReservaDAOList implements ReservaDAO{
     public void cancelarReserva(Leitor leitor, Livro livro) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
         for(Reserva r: reservasDoLivro)
-            if(r.getIdUsuario().equals(leitor.getId()))
+            if(r.getIdUsuario().equals(leitor.getId())){
                 delete(r);
+                return;
+            }
 
     }
 }
