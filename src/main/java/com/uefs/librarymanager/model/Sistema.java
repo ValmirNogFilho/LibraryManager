@@ -11,28 +11,30 @@ public class Sistema {
 
     public static void atualizarMultas(){
 
-        for (Emprestimo emprestimo: DAO.getEmprestimoDAO().findMany()){
-            Leitor leitor = DAO.getLeitorDAO().findByPrimaryKey(emprestimo.getUsuarioId());
+        for (Leitor leitor: DAO.getLeitorDAO().findMany()){
+            if (leitor.getPrazoMulta() > 0)
+                leitor.setPrazoMulta(leitor.getPrazoMulta()-1);
 
-            verificarPossivelMulta(emprestimo, leitor);
-            verificarPagamentoDeMulta(emprestimo, leitor);
+            for (Emprestimo emprestimo: DAO.getEmprestimoDAO().findByLeitor(leitor)){
 
-            DAO.getEmprestimoDAO().update(emprestimo);
+                verificarPossivelMulta(emprestimo, leitor);
+                verificarPagamentoDeMulta(emprestimo);
+
+                DAO.getEmprestimoDAO().update(emprestimo);
+            }
+
+            if (leitor.getPrazoMulta()==0 && leitor.getStatus().equals(statusLeitor.MULTADO))
+                leitor.setStatus(statusLeitor.LIVRE);
+
             DAO.getLeitorDAO().update(leitor);
         }
+
     }
 
-    public static void verificarPagamentoDeMulta(Emprestimo emprestimo, Leitor leitor) {
-        int atraso = emprestimo.getAtraso();
-
-        if(atraso > 0){
-            emprestimo.setAtraso(atraso-1);
-            if(emprestimo.getAtraso() == 0){
-                emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
-                DAO.getEmprestimoDAO().update(emprestimo);
-                if(DAO.getEmprestimoDAO().maiorAtraso(leitor) == 0)
-                    leitor.setStatus(statusLeitor.LIVRE);
-            }
+    public static void verificarPagamentoDeMulta(Emprestimo emprestimo) {
+        boolean estaMultado = LocalDate.now().isAfter(emprestimo.getDataFim());
+        if(!estaMultado && emprestimo.getStatus().equals(statusEmprestimo.MULTADO)){
+            emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
         }
     }
 
@@ -40,11 +42,14 @@ public class Sistema {
         int saldoAtraso = (int) ChronoUnit.DAYS.between(emprestimo.getDataFim(), LocalDate.now());
 
         boolean estaAtrasado = saldoAtraso > 0;
+        int maiorMulta = Math.max(saldoAtraso, DAO.getEmprestimoDAO().maiorAtraso(leitor));
 
-        if(estaAtrasado) {
+        if(estaAtrasado && !(emprestimo.getStatus().equals(statusEmprestimo.MULTADO)) &&
+        maiorMulta <= saldoAtraso) {
 
-            int maiorMulta = Math.max(saldoAtraso, DAO.getEmprestimoDAO().maiorAtraso(leitor));
-            emprestimo.setAtraso(2 * maiorMulta);
+            leitor.setInicioMulta(LocalDate.now());
+            leitor.setPrazoMulta(2* maiorMulta);
+            emprestimo.setAtraso(saldoAtraso);
             emprestimo.setStatus(statusEmprestimo.MULTADO);
             leitor.setStatus(statusLeitor.MULTADO);
 
