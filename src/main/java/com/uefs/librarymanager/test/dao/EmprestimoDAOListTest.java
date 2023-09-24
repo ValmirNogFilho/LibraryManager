@@ -11,6 +11,8 @@ import main.java.com.uefs.librarymanager.model.Reserva;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.statusEmprestimo;
+import utils.statusLeitor;
 
 import java.time.LocalDate;
 
@@ -183,5 +185,31 @@ class EmprestimoDAOListTest {
         Emprestimo e = DAO.getEmprestimoDAO().renovarEmprestimo(l, li);
         assertEquals(LocalDate.now().plusDays(14), e.getDataFim());
     }
+
+    @Test
+    void devolverLivro() throws LivroException, UsuarioException {
+        Livro livro = DAO.getLivroDAO().create(new Livro
+                ("c", "c",
+                "c", "0310", 1999, "a", "a", 10)
+        );
+
+        Emprestimo e = DAO.getEmprestimoDAO().registrarEmprestimo(l, livro);
+        int numeroEmprestimos = DAO.getEmprestimoDAO().quantidadeEmAndamentoDoLeitor(l);
+
+
+        DAO.getEmprestimoDAO().devolverLivro(e);
+        assertEquals(statusEmprestimo.CONCLUIDO, e.getStatus());
+        assertEquals(10, livro.getDisponiveis());
+        assertEquals(numeroEmprestimos-1, DAO.getEmprestimoDAO().quantidadeEmAndamentoDoLeitor(l));
+
+        e.setDataFim(LocalDate.now().minusDays(1));
+        DAO.getEmprestimoDAO().create(e);
+        DAO.getEmprestimoDAO().devolverLivro(e);
+        assertEquals(statusEmprestimo.MULTADO, e.getStatus());
+        assertEquals(statusLeitor.MULTADO, l.getStatus());
+        assertEquals(DAO.getEmprestimoDAO().maiorAtraso(l), e.getAtraso());
+
+    }
+
 
 }
