@@ -12,12 +12,10 @@ import java.util.Map;
 
 public interface ReservaDAO extends CRUD<Reserva>{
     public int proximoID();
-
     Map<String, LinkedList<Reserva>> findManyMap();
-
     public boolean filaVazia(String ISBN) throws LivroException;
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException;
     public void cancelarReserva(Leitor leitor, Livro livro);
-    public Reserva popFila(String ISBN);
-
+    public Reserva popFila(String ISBN, int index);
+    public Reserva findById(int Id);
 }

@@ -54,15 +54,37 @@ public class Sistema {
         Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
         for(String ISBN: reservas.keySet()){
             Reserva primeiroFila = DAO.getReservaDAO().findByPrimaryKey(ISBN);
-
             //faltando a verificação de exemplares disponíveis para próximos da fila
             if(primeiroFila != null && DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis() > 0){
                 primeiroFila.setPrazo(primeiroFila.getPrazo()-1);
                 DAO.getReservaDAO().update(primeiroFila);
                 if(primeiroFila.getPrazo() == 0){
-                    DAO.getReservaDAO().popFila(ISBN);
+                    DAO.getReservaDAO().popFila(ISBN, 0);
                 }
             }
+        }
+    }
+
+    public static void gerirPrazoReservas(){
+        Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
+        for(String ISBN: reservas.keySet()){
+            LinkedList<Reserva> reservasISBN = reservas.get(ISBN);
+            if(!reservasISBN.isEmpty()){
+                int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
+                int disponiveisParaFila = Math.min(disponiveis, reservas.get(ISBN).size());
+
+                for(int i = 0; i < disponiveisParaFila; i++){
+                    Reserva leitorDaFila =  reservasISBN.get(i);
+                    leitorDaFila.setPrazo(leitorDaFila.getPrazo()-1);
+                    DAO.getReservaDAO().update(leitorDaFila);
+                    if(leitorDaFila.getPrazo() == 0){
+                        DAO.getReservaDAO().delete(leitorDaFila);
+                        i--;
+                        disponiveisParaFila--;
+                    }
+                }
+            }
+
         }
     }
 

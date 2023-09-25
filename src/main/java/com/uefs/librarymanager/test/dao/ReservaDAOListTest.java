@@ -59,7 +59,7 @@ class ReservaDAOListTest {
         String id = "5555";
         r.setIdUsuario(id);
         DAO.getReservaDAO().update(r);
-        assertEquals(id, DAO.getReservaDAO().findByPrimaryKey(li.getISBN()).getIdUsuario());
+        assertEquals(id, DAO.getReservaDAO().findById(r.getId()).getIdUsuario());
     }
 
     @Test

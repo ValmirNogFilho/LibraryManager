@@ -50,8 +50,11 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva update(Reserva obj) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
+        System.out.println(reservasDoLivro);
+        int index = reservasDoLivro.indexOf(obj);
         reservasDoLivro.remove(obj);
-        reservasDoLivro.addLast(obj);
+
+        reservasDoLivro.add(index, obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
         return obj;
     }
@@ -81,10 +84,19 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
-    public Reserva popFila(String ISBN) {
+    public Reserva findById(int Id) {
+        for(Reserva reserva: findMany()){
+            if(reserva.getId() == Id)
+                return reserva;
+        }
+        return null;
+    }
+
+    @Override
+    public Reserva popFila(String ISBN, int index) {
         if(reservas.get(ISBN) != null)
             if(!reservas.get(ISBN).isEmpty())
-                return reservas.get(ISBN).removeFirst();
+                return reservas.get(ISBN).remove(index);
         return null;
     }
 
