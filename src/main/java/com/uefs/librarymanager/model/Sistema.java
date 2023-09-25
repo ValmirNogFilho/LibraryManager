@@ -36,14 +36,13 @@ public class Sistema {
         int maiorMulta = Math.max(saldoAtraso, DAO.getEmprestimoDAO().maiorAtraso(leitor));
 
         if(estaAtrasado && !(emprestimo.getStatus().equals(statusEmprestimo.MULTADO)) &&
-        maiorMulta <= saldoAtraso) {
+        maiorMulta == saldoAtraso) {
 
             leitor.setInicioMulta(LocalDate.now());
             leitor.setPrazoMulta(2* maiorMulta);
             emprestimo.setAtraso(saldoAtraso);
             emprestimo.setStatus(statusEmprestimo.MULTADO);
             leitor.setStatus(statusLeitor.MULTADO);
-
 
         }
         return estaAtrasado;

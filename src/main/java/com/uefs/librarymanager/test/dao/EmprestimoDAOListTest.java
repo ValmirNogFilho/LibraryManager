@@ -4,10 +4,7 @@ import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Emprestimo;
-import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Livro;
-import main.java.com.uefs.librarymanager.model.Reserva;
+import main.java.com.uefs.librarymanager.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -204,8 +201,10 @@ class EmprestimoDAOListTest {
 
         e.setDataFim(LocalDate.now().minusDays(1));
         DAO.getEmprestimoDAO().create(e);
-        DAO.getEmprestimoDAO().devolverLivro(e);
+        Sistema.verificarPossivelMulta(e, l);
         assertEquals(statusEmprestimo.MULTADO, e.getStatus());
+        DAO.getEmprestimoDAO().devolverLivro(e);
+        assertEquals(statusEmprestimo.CONCLUIDO, e.getStatus());
         assertEquals(statusLeitor.MULTADO, l.getStatus());
         assertEquals(DAO.getEmprestimoDAO().maiorAtraso(l), e.getAtraso());
 

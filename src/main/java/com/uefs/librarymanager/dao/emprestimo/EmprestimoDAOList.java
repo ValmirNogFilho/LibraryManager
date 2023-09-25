@@ -166,10 +166,8 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
         Leitor leitor = DAO.getLeitorDAO().findById(emprestimo.getUsuarioId());
 
-        boolean estaMultado = Sistema.verificarPossivelMulta(emprestimo, leitor);
-
-        if(!estaMultado)
-            emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
+        Sistema.verificarPossivelMulta(emprestimo, leitor);
+        emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
 
         DAO.getEmprestimoDAO().update(emprestimo);
         DAO.getLivroDAO().update(livro);
