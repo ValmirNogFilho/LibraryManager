@@ -32,12 +32,9 @@ public class Relatorio {
     }
     public List<Livro> livrosMaisPopulares(int primeiros){
         List<Livro> livros = DAO.getLivroDAO().findMany();
+
         livros.sort(Comparator.comparingInt(Livro::getDisponiveis));
-        List<Livro> maisPopulares = new LinkedList<Livro>();
 
-        for(int i = 0; i < Math.min(livros.size(), primeiros); i++)
-            maisPopulares.add(livros.get(i));
-
-        return maisPopulares;
+        return livros.subList(0, Math.min(livros.size(), primeiros));
     }
 }
