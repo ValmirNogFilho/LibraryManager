@@ -80,7 +80,6 @@ public class Sistema {
                     if(leitorDaFila.getPrazo() == 0){
                         DAO.getReservaDAO().delete(leitorDaFila);
                         i--;
-                        disponiveisParaFila--;
                     }
                 }
             }
