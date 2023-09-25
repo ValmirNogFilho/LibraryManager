@@ -8,6 +8,7 @@ import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public interface ReservaDAO extends CRUD<Reserva>{
@@ -18,4 +19,5 @@ public interface ReservaDAO extends CRUD<Reserva>{
     public void cancelarReserva(Leitor leitor, Livro livro);
     public Reserva popFila(String ISBN, int index);
     public Reserva findById(int Id);
+    public List<Reserva> usuariosAptosParaEmprestimo(String ISBN);
 }

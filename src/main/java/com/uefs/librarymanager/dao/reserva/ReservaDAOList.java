@@ -138,4 +138,14 @@ public class ReservaDAOList implements ReservaDAO{
             }
 
     }
+
+    public List<Reserva> usuariosAptosParaEmprestimo(String ISBN){
+        LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
+        if(!reservasDoLivro.isEmpty()){
+            int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
+            return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));
+        }
+        return null;
+    }
+
 }
