@@ -25,7 +25,7 @@ public class Relatorio {
     public int numLivrosAtrasados(){
         int n = 0;
         for(Emprestimo e: DAO.getEmprestimoDAO().findMany()){
-            if(e.getStatus().equals(statusEmprestimo.ANDAMENTO) && e.getAtraso()>0)
+            if(e.getStatus().equals(statusEmprestimo.MULTADO))
                 n++;
         }
         return n;
