@@ -6,6 +6,8 @@ import utils.statusLeitor;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class Sistema {
 
@@ -49,7 +51,19 @@ public class Sistema {
     }
 
     public static void atualizarReservas(){
-        // a ser implementada
+        Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
+        for(String ISBN: reservas.keySet()){
+            Reserva primeiroFila = DAO.getReservaDAO().findByPrimaryKey(ISBN);
+
+            //faltando a verificação de exemplares disponíveis para próximos da fila
+            if(primeiroFila != null && DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis() > 0){
+                primeiroFila.setPrazo(primeiroFila.getPrazo()-1);
+                DAO.getReservaDAO().update(primeiroFila);
+                if(primeiroFila.getPrazo() == 0){
+                    DAO.getReservaDAO().popFila(ISBN);
+                }
+            }
+        }
     }
 
 

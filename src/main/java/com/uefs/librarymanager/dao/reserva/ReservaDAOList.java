@@ -76,6 +76,14 @@ public class ReservaDAOList implements ReservaDAO{
     public Reserva findByPrimaryKey(String ISBN) {
         if(reservas.get(ISBN) != null)
             if(!reservas.get(ISBN).isEmpty())
+                return reservas.get(ISBN).get(0);
+        return null;
+    }
+
+    @Override
+    public Reserva popFila(String ISBN) {
+        if(reservas.get(ISBN) != null)
+            if(!reservas.get(ISBN).isEmpty())
                 return reservas.get(ISBN).removeFirst();
         return null;
     }
