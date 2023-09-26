@@ -72,6 +72,18 @@ class LivroDAOListTest {
     }
 
     @Test
+    void findByTitulo(){
+        assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("test"));
+        assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("te"));
+        assertTrue(DAO.getLivroDAO().findByTitulo("abc").isEmpty());
+
+        Livro o = new Livro("Dom Casmurro", "maria", "editora", "12", 2000, "abc", "Exemplo",10);
+        assertEquals(DAO.getLivroDAO().findByTitulo("Dom").get(0), o);
+        assertEquals(DAO.getLivroDAO().findByTitulo("dom").get(0), o);
+        assertEquals(DAO.getLivroDAO().findByTitulo("DOM").get(0), o);
+    }
+
+    @Test
     void removerLivroDeCategoria() {
         int comprimento_inicial = DAO.getLivroDAO().findByCategoria("Exemplo").size();
         DAO.getLivroDAO().removerLivroDeCategoria(l, "Exemplo");
