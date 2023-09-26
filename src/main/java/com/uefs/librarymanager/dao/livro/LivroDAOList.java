@@ -74,6 +74,15 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
+    public List<Livro> findByTitulo(String titulo){
+        List<Livro> livrosTitulo = new LinkedList<Livro>();
+        for(Livro livro: findMany())
+            if(livro.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
+                livrosTitulo.add(livro);
+        return livrosTitulo;
+    }
+
+    @Override
     public void addCategoria(String categoria) {
         LinkedList<String> ISBNs = new LinkedList<String>();
         isbnPorCategorias.put(categoria, ISBNs);
