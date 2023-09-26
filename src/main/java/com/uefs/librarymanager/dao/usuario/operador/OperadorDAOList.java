@@ -1,5 +1,7 @@
 package main.java.com.uefs.librarymanager.dao.usuario.operador;
 
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
+import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Usuario;
 
 import java.util.*;
@@ -45,6 +47,14 @@ public class OperadorDAOList implements OperadorDAO {
         return operadores.get(id);
     }
 
+    @Override
+    public Usuario findById(String id) throws UsuarioException {
+        Usuario o = findByPrimaryKey(id);
+        if (o == null)
+            throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
+        else
+            return o;
+    }
 
 }
 
