@@ -1,6 +1,6 @@
 package main.java.com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.exceptions.SenhaInvalidaException;
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.IDGenerator;
 
 import java.util.Objects;
@@ -56,12 +56,12 @@ public class Usuario {
         return senha;
     }
 
-    public void setSenha(String senha) throws SenhaInvalidaException {
+    public void setSenha(String senha) throws UsuarioException {
         boolean permitido = (senha != null && senha.matches("[0-9]+") && senha.length() == 4);
         if (permitido)
             this.senha = senha;
         else
-            throw new SenhaInvalidaException("Senha inválida!");
+            throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
     }
 
     @Override
