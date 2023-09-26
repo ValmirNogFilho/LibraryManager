@@ -111,5 +111,6 @@ class RelatorioTest {
 
         assertEquals(livro2, Relatorio.livrosMaisPopulares(2).get(0));
         assertEquals(livrosPopulares, Relatorio.livrosMaisPopulares(2));
+        assertEquals(livrosPopulares, Relatorio.livrosMaisPopulares(50));
     }
 }
