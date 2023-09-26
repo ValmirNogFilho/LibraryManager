@@ -1,6 +1,7 @@
 package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.statusEmprestimo;
 import utils.statusLeitor;
 
@@ -87,5 +88,17 @@ public class Sistema {
         }
     }
 
+    public static Usuario login(String id, String senha, String cargo) throws UsuarioException {
+        Usuario obj = null;
+        if(cargo.equals("Administrador") || cargo.equals("Bibliotecario")){
+            obj = DAO.getOperadorDAO().findById(id);
+        } else if (cargo.equals("Leitor")) {
+            obj = (Leitor) DAO.getLeitorDAO().findById(id);
+        }
+        if(obj.getSenha().equals(senha)){
+            return obj;
+        }
+        else throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
+    }
 
 }
