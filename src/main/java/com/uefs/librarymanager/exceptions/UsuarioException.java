@@ -9,6 +9,7 @@ public class UsuarioException extends Exception{
     public static final String NAO_EXISTENTE = "Leitor não encontrado";
     public static final String USUARIO_MULTADO = "Leitor multado";
     public static final String USUARIO_BLOQUEADO = "Leitor bloqueado";
+    public static final String SENHA_INVALIDA = "Senha inválida";
     public UsuarioException(String message) {
         super(message);
     }
