@@ -12,8 +12,8 @@ import java.time.LocalDate;
 
 
 public class Bibliotecario extends Usuario {
-    public Bibliotecario(String nome, String endereco, String telefone, String senha) {
-        super(nome, endereco, telefone, senha);
+    public Bibliotecario(String nome, String endereco, String telefone) {
+        super(nome, endereco, telefone, null);
     }
 
 }
