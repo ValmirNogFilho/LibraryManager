@@ -7,10 +7,10 @@ import utils.statusEmprestimo;
 import java.util.*;
 
 public class Relatorio {
-    public int numLivrosEmprestados(){
+    public static int numLivrosEmprestados(){
         return DAO.getEmprestimoDAO().findMany().size();
     }
-    public int numLivrosReservados(){
+    public static int numLivrosReservados(){
         int n = 0;
         Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
         for(String ISBN: reservas.keySet()){
@@ -19,7 +19,7 @@ public class Relatorio {
         }
         return n;
     }
-    public int numLivrosAtrasados(){
+    public static int numLivrosAtrasados(){
         int n = 0;
         for(Emprestimo e: DAO.getEmprestimoDAO().findMany()){
             if(e.getStatus().equals(statusEmprestimo.MULTADO))
@@ -27,10 +27,10 @@ public class Relatorio {
         }
         return n;
     }
-    public List<Emprestimo> historicoEmprestimo(String idUsuario) throws UsuarioException {
+    public static List<Emprestimo> historicoEmprestimo(String idUsuario) throws UsuarioException {
         return DAO.getEmprestimoDAO().findByLeitor(DAO.getLeitorDAO().findById(idUsuario));
     }
-    public List<Livro> livrosMaisPopulares(int primeiros){
+    public static List<Livro> livrosMaisPopulares(int primeiros){
         List<Livro> livros = DAO.getLivroDAO().findMany();
 
         livros.sort(Comparator.comparingInt(Livro::getDisponiveis));
