@@ -2,19 +2,20 @@ package main.java.com.uefs.librarymanager.model;
 
 import utils.IDGenerator;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Reserva {
     private String idUsuario;
-    private int prazo;
+    private LocalDate dataFim;
     private int id;
     private String ISBN;
 
-    public Reserva(String idUsuario, int prazo, String isbn) {
+    public Reserva(String idUsuario, String isbn) {
         this.idUsuario = idUsuario;
-        this.prazo = prazo;
+        this.dataFim = null;
         this.ISBN = isbn;
         this.id = 0;
     }
@@ -29,12 +30,12 @@ public class Reserva {
         this.idUsuario = idUsuario;
     }
 
-    public int getPrazo() {
-        return prazo;
+    public LocalDate getDataFim() {
+        return dataFim;
     }
 
-    public void setPrazo(int prazo) {
-        this.prazo = prazo;
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 
     public int getId() {
