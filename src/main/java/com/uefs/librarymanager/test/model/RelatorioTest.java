@@ -26,7 +26,7 @@ class RelatorioTest {
         leitor = DAO.getLeitorDAO().create(new Leitor("a", "a", "12345678"));
         livro = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1234", 2020,
                 "a", "a", 20));
-        Livro livro2 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1235", 2020,
+        livro2 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1235", 2020,
                 "a", "a", 20));
     }
 
@@ -34,6 +34,7 @@ class RelatorioTest {
     void tearDown() {
         DAO.getLeitorDAO().deleteMany();
         DAO.getLivroDAO().deleteMany();
+        DAO.getEmprestimoDAO().deleteMany();
     }
 
     @Test
@@ -69,9 +70,13 @@ class RelatorioTest {
         Livro livro3 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1236", 2020,
                 "a", "a", 20));
 
+
         Emprestimo e = DAO.getEmprestimoDAO().registrarEmprestimo(leitor, livro);
+
         Emprestimo e2 = DAO.getEmprestimoDAO().registrarEmprestimo(leitor, livro2);
+
         Emprestimo e3 = DAO.getEmprestimoDAO().registrarEmprestimo(leitor, livro3);
+
 
         LinkedList<Emprestimo> emprestimos = new LinkedList<Emprestimo>();
         emprestimos.add(e);
@@ -87,11 +92,11 @@ class RelatorioTest {
         DAO.getEmprestimoDAO().update(e2);
         DAO.getEmprestimoDAO().update(e3);
 
-        emprestimos.add(e);
-        emprestimos.addLast(e2);
-        emprestimos.addLast(e3);
+        emprestimosalterados.add(e);
+        emprestimosalterados.addLast(e2);
+        emprestimosalterados.addLast(e3);
 
-        assertEquals(emprestimos, Relatorio.historicoEmprestimo(leitor.getId()));
+        assertEquals(emprestimosalterados, Relatorio.historicoEmprestimo(leitor.getId()));
 
     }
 
