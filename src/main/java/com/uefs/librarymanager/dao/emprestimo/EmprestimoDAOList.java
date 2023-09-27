@@ -129,6 +129,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         Livro livro = DAO.getLivroDAO().findByISBN(objlivro.getISBN());
         if (leitor.podePegarLivro()
                 && podeFazerMaisEmprestimos(leitor)
+                && leitorSemAtrasos(leitor)
                 && livro.existemDisponiveis()
                 && DAO.getReservaDAO().filaVazia(livro.getISBN())
                 && usuarioNaoTemISBN(leitor, livro.getISBN())
@@ -176,5 +177,13 @@ public class EmprestimoDAOList implements EmprestimoDAO {
         return livro;
     }
 
+    @Override
+    public boolean leitorSemAtrasos(Leitor leitor) throws UsuarioException {
+        for(Emprestimo emprestimo: findByLeitor(leitor))
+            if(LocalDate.now().isAfter(emprestimo.getDataFim())
+                    && !emprestimo.getStatus().equals(statusEmprestimo.CONCLUIDO))
+                throw new UsuarioException(UsuarioException.USUARIO_MULTADO);
+        return true;
+    }
 
 }
