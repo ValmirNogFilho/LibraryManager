@@ -3,11 +3,16 @@ package main.java.com.uefs.librarymanager.dao.reserva;
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
+import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 public class ReservaDAOList implements ReservaDAO{
@@ -50,7 +55,6 @@ public class ReservaDAOList implements ReservaDAO{
     @Override
     public Reserva update(Reserva obj) {
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
-        System.out.println(reservasDoLivro);
         int index = reservasDoLivro.indexOf(obj);
         reservasDoLivro.remove(obj);
 
@@ -93,14 +97,6 @@ public class ReservaDAOList implements ReservaDAO{
     }
 
     @Override
-    public Reserva popFila(String ISBN, int index) {
-        if(reservas.get(ISBN) != null)
-            if(!reservas.get(ISBN).isEmpty())
-                return reservas.get(ISBN).remove(index);
-        return null;
-    }
-
-    @Override
     public boolean filaVazia(String ISBN) throws LivroException {
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
         if(reservasDoLivro != null){
@@ -138,12 +134,36 @@ public class ReservaDAOList implements ReservaDAO{
             }
 
     }
-
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN){
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
         if(!reservasDoLivro.isEmpty()){
             int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
             return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));
+        }
+        return null;
+    }
+
+    @Override
+    public Emprestimo registrarEmprestimoPorReserva(Reserva reserva) throws LivroException, UsuarioException {
+        Leitor leitor = DAO.getLeitorDAO().findById(reserva.getIdUsuario());
+        Livro livro = DAO.getLivroDAO().findByPrimaryKey(reserva.getISBN());
+
+        if (leitor.podePegarLivro()
+                && DAO.getEmprestimoDAO().podeFazerMaisEmprestimos(leitor)
+                && DAO.getEmprestimoDAO().leitorSemAtrasos(leitor)
+                && livro.existemDisponiveis()
+                && DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())
+        )
+        {
+            LocalDate inicio = LocalDate.now();
+            LocalDate prazoFim = inicio.plusDays(7);
+
+            Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
+            livro.setDisponiveis(livro.getDisponiveis()-1);
+            DAO.getLivroDAO().update(livro);
+            DAO.getEmprestimoDAO().create(emprestimo);
+            delete(reserva);
+            return emprestimo;
         }
         return null;
     }
