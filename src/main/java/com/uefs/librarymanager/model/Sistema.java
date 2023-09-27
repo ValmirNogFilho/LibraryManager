@@ -50,6 +50,9 @@ public class Sistema {
             leitor.setStatus(statusLeitor.MULTADO);
 
         }
+        else if(LocalDate.now().isEqual(emprestimo.getDataFim())){
+            emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
+        }
         return estaAtrasado;
     }
 
