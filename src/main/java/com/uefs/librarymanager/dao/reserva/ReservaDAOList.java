@@ -118,7 +118,7 @@ public class ReservaDAOList implements ReservaDAO{
                 leitor.podeFazerMaisReservas() &&
                 DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN()))
         {
-            Reserva reserva = new Reserva(leitor.getId(), 3, livro.getISBN());
+            Reserva reserva = new Reserva(leitor.getId(), livro.getISBN());
             reserva.setId(proximoID());
             leitor.setNumReservas(leitor.getNumReservas()+1);
             DAO.getLeitorDAO().update(leitor);

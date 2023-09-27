@@ -135,7 +135,7 @@ class EmprestimoDAOListTest {
 
 
         try{
-            Reserva r = new Reserva(l.getId(), 2, li.getISBN());
+            Reserva r = new Reserva(l.getId(), li.getISBN());
             DAO.getReservaDAO().create(r);
             DAO.getEmprestimoDAO().registrarEmprestimo(l, li);
             fail("Exceção não detectada.");

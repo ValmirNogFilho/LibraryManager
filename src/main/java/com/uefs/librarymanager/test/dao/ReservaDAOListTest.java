@@ -26,7 +26,7 @@ class ReservaDAOListTest {
     void setUp() {
         li = new Livro("a", "a", "a", "1234", 2000, "a", "a", 10);
         l = new Leitor("a", "a", "7890");
-        r = new Reserva(l.getId(), 2, li.getISBN());
+        r = new Reserva(l.getId(), li.getISBN());
         DAO.getReservaDAO().create(r);
     }
 
@@ -73,7 +73,7 @@ class ReservaDAOListTest {
 
     @Test
     void findByPrimaryKey() {
-        Reserva r2 = new Reserva("1222", 3, "6767");
+        Reserva r2 = new Reserva("1222", "6767");
         assertNull(DAO.getReservaDAO().findByPrimaryKey(r2.getISBN()));
         assertEquals(l.getId(), DAO.getReservaDAO().findByPrimaryKey(li.getISBN()).getIdUsuario());
     }
