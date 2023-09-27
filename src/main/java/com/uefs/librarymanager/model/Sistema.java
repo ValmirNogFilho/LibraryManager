@@ -2,7 +2,6 @@ package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Validate;
 import utils.statusEmprestimo;
 import utils.statusLeitor;
 
@@ -62,7 +61,7 @@ public class Sistema {
                 Reserva reserva = reservas.get(ISBN).get(i);
                 if (i < disponiveis){
                     if(Objects.isNull(reserva.getDataFim())){
-                        reserva.setDataFim(LocalDate.now());
+                        reserva.setDataFim(LocalDate.now().plusDays(3));
                         DAO.getReservaDAO().update(reserva);
                     }
                     else if(reserva.getDataFim().isBefore(LocalDate.now())){
