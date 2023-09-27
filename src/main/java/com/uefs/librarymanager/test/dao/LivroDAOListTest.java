@@ -77,7 +77,8 @@ class LivroDAOListTest {
         assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("te"));
         assertTrue(DAO.getLivroDAO().findByTitulo("abc").isEmpty());
 
-        Livro o = new Livro("Dom Casmurro", "maria", "editora", "12", 2000, "abc", "Exemplo",10);
+        Livro o = DAO.getLivroDAO().create(new Livro("Dom Casmurro", "maria", "editora", "125",
+                2000, "abc", "Exemplo",10));
         assertEquals(DAO.getLivroDAO().findByTitulo("Dom").get(0), o);
         assertEquals(DAO.getLivroDAO().findByTitulo("dom").get(0), o);
         assertEquals(DAO.getLivroDAO().findByTitulo("DOM").get(0), o);
