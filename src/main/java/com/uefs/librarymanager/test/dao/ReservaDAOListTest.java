@@ -1,19 +1,16 @@
 package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
+import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
-import main.java.com.uefs.librarymanager.model.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.statusLeitor;
-
-import java.lang.reflect.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -142,4 +139,14 @@ class ReservaDAOListTest {
         DAO.getReservaDAO().cancelarReserva(l, li);
         assertNull(DAO.getReservaDAO().findByPrimaryKey(li.getISBN()));
     }
+
+    @Test
+    void registrarEmprestimoPorReserva() throws LivroException, UsuarioException {
+        DAO.getLivroDAO().create(li);
+        DAO.getLeitorDAO().create(l);
+        Emprestimo e = DAO.getReservaDAO().registrarEmprestimoPorReserva(r);
+        assertTrue(DAO.getReservaDAO().filaVazia(li.getISBN()));
+        assertEquals(e, DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(e.getId())));
+    }
+
 }
