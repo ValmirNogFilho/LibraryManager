@@ -1,18 +1,11 @@
 package main.java.com.uefs.librarymanager.dao.emprestimo;
 
 import main.java.com.uefs.librarymanager.dao.CRUD;
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
-import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
-import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
 import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Emprestimo;
-import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Livro;
+import main.java.com.uefs.librarymanager.model.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 
