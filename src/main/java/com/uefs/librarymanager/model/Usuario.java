@@ -5,6 +5,23 @@ import utils.IDGenerator;
 
 import java.util.Objects;
 
+/**
+ * Esta classe contém dados gerais de um usuário do sistema tais como: Nome, endereço, telefone, id e senha.
+ * Contando com verificação de validação de senha.
+ * Isso possibilita que esta classe possa ser extendida para tipos específicos de usuários como:
+ * Leitor;
+ * Administrador;
+ * Bibliotecário.
+ * Exemplo do uso:
+ * Usuario usuario = new Usuario ("nome", "endereco", "telefone", "senha")
+ * Além disso, no momento do cadastro do usuário, é gerado um ID único para ele.
+ * @author: Valmir Alves Nogueira Filho
+ * @author: Kevin Cordeiro Borges
+ * @see:java.util.objects
+ * @see: utils.IDGenerator
+ * @see: main.java.com.uefs.librarymanager.exceptions.UsuarioException
+ *
+ */
 public class Usuario {
     private String nome;
     private String endereco;
@@ -56,6 +73,13 @@ public class Usuario {
         return senha;
     }
 
+    /**
+     * Este método serve para verificar a validação da senha.
+     * Uma senha só será válida se, e somente se ela não for vazia (null) e for composta por quatro caracters numéricos.
+     * Caso a senha fuja de qualquer uma dessas duas regras, é posta em ação a exceção SENHA_INVALIDA.
+     * @param senha
+     * @throws UsuarioException
+     */
     public void setSenha(String senha) throws UsuarioException {
         boolean permitido = (senha != null && senha.matches("[0-9]+") && senha.length() == 4);
         if (permitido)
@@ -64,6 +88,13 @@ public class Usuario {
             throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
     }
 
+    /**
+     * Este método compara IDs de usuários, ele retorna valores booleanos para duas situações:
+     * IDs iguais retorna True;
+     * IDs distintos retorna False.
+     * @param o
+     * @return True or false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

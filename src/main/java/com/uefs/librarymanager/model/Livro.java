@@ -5,6 +5,23 @@ import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Esta classe é responsável por criar livros, contendo:
+ * Título;
+ * Autor;
+ * ISBN;
+ * Ano de publicação;
+ * Onde o livro fica localizado;
+ * Categoria a qual o livro pertence;
+ * Quantidade de exemplares disponíveis.
+ * Exemplo de uso:
+ * Livro livro = new Livro("titulo","autor","editora","ISBN","anoDePublicacao","categoria","disponiveis")
+ * @author Valmir ALves Nogueira Filho
+ * @author Kevin Cordeiro Borges
+ * @see main.java.com.uefs.librarymanager.exceptions.LivroException
+ * @see java.util.List
+ * @see java.util.Objects
+ */
 public class Livro {
     private String titulo;
     private String autor;
@@ -96,6 +113,13 @@ public class Livro {
         else throw new LivroException(LivroException.SEM_EXEMPLARES);
     }
 
+    /**
+     * Este método compara dois ISBNs e informa por meio de valor booleano se eles são iguais ou não.
+     * Para ISBNs iguais, True;
+     * Para ISBNs distintos, False;
+     * @param o
+     * @return True or False
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

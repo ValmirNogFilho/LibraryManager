@@ -6,6 +6,24 @@ import utils.statusLeitor;
 import java.time.LocalDate;
 import java.util.Date;
 
+/**
+ * Esta classe é uma extensão da classe "Usuario" contendo as especificidades do tipo de usuério leitor, tais quais:
+ * Data início da multa, caso o leitor esteja multado;
+ * Prazo da multa, caso o leitor esteja multado;
+ * Status do leitor, podendo o leitor ter tês estados:
+ * Livre: Leitor apto à fazer empréstimos e/ou reservas;
+ * Multado: Leitor penalisado por atraso de devolução de livro, gerando impedimento de fazer empréstimos e/ou reservas
+ * por tempo determinado;
+ * Bloqueado: Leitor penalisado por algum motivo grave, gerando impedimento de fazer empréstimos e/ou reservas por tempo
+ * indeterminado.
+ * Número de reservas do leitor.
+ * @author Valmir Alves Nogueira Filho
+ * @author Kevin Cordeiro Borges
+ * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
+ * @see utils.statusLeitor
+ * @see java.time.LocalDate
+ * @see java.util.Date
+ */
 public class Leitor extends Usuario{
 
     private LocalDate inicioMulta;
@@ -13,6 +31,16 @@ public class Leitor extends Usuario{
     private statusLeitor status;
     private int numReservas;
 
+    /**
+     * Este método inicializa com leitor em seu "estágio inicial" contendo:
+     * Valor nulo em "inicioMulta";
+     * Prazo da multa igual a zero;
+     * Status inicial como LIVRE;
+     * Número de reservas zerado.
+     * @param nome
+     * @param endereco
+     * @param telefone
+     */
     public Leitor(String nome, String endereco, String telefone) {
         super(nome, endereco, telefone, null);
         this.inicioMulta = null;
@@ -41,6 +69,11 @@ public class Leitor extends Usuario{
         return status;
     }
 
+    /**
+     * Este método é responsável por verificar se o leitor pode ou não pegar livros a partir do seu status no sistema.
+     * @return True caso o usuário esteja LIVRE e uma exceção caso o usuário esteja multado ou bloqueado.
+     * @throws UsuarioException
+     */
     public boolean podePegarLivro () throws UsuarioException {
         return switch (status) {
             case LIVRE -> true;
@@ -57,6 +90,12 @@ public class Leitor extends Usuario{
         this.numReservas = numReservas;
     }
 
+    /**
+     * Este método verifica a quantidade de reservas na conta do leitor.
+     * @return True, caso o usuário possua menos de duas reservas e uma exceção caso o usuário possua duas reservas e
+     * esteja tentando fazer mais.
+     * @throws UsuarioException
+     */
     public boolean podeFazerMaisReservas() throws UsuarioException {
         if (numReservas < 2)
             return true;
