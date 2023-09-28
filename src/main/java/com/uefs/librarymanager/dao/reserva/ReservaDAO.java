@@ -3,6 +3,7 @@ package main.java.com.uefs.librarymanager.dao.reserva;
 import main.java.com.uefs.librarymanager.dao.CRUD;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
+import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
@@ -17,7 +18,8 @@ public interface ReservaDAO extends CRUD<Reserva>{
     public boolean filaVazia(String ISBN) throws LivroException;
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException;
     public void cancelarReserva(Leitor leitor, Livro livro);
-    public Reserva popFila(String ISBN, int index);
+
     public Reserva findById(int Id);
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN);
+    public Emprestimo registrarEmprestimoPorReserva(Reserva reserva) throws LivroException, UsuarioException;
 }

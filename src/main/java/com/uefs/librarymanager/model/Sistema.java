@@ -1,13 +1,16 @@
 package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
+import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.statusEmprestimo;
 import utils.statusLeitor;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Sistema {
 
@@ -47,45 +50,47 @@ public class Sistema {
             leitor.setStatus(statusLeitor.MULTADO);
 
         }
+        else if(LocalDate.now().isEqual(emprestimo.getDataFim())){
+            emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
+        }
         return estaAtrasado;
     }
 
     public static void atualizarReservas(){
         Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
-        for(String ISBN: reservas.keySet()){
-            Reserva primeiroFila = DAO.getReservaDAO().findByPrimaryKey(ISBN);
-            //faltando a verificação de exemplares disponíveis para próximos da fila
-            if(primeiroFila != null && DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis() > 0){
-                primeiroFila.setPrazo(primeiroFila.getPrazo()-1);
-                DAO.getReservaDAO().update(primeiroFila);
-                if(primeiroFila.getPrazo() == 0){
-                    DAO.getReservaDAO().popFila(ISBN, 0);
-                }
-            }
-        }
-    }
-
-    public static void gerirPrazoReservas(){
-        Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
-        for(String ISBN: reservas.keySet()){
-            LinkedList<Reserva> reservasISBN = reservas.get(ISBN);
-            if(!reservasISBN.isEmpty()){
-                int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
-                int disponiveisParaFila = Math.min(disponiveis, reservas.get(ISBN).size());
-
-                for(int i = 0; i < disponiveisParaFila; i++){
-                    Reserva leitorDaFila =  reservasISBN.get(i);
-                    leitorDaFila.setPrazo(leitorDaFila.getPrazo()-1);
-                    DAO.getReservaDAO().update(leitorDaFila);
-                    if(leitorDaFila.getPrazo() == 0){
-                        DAO.getReservaDAO().delete(leitorDaFila);
-                        i--;
+        for(String ISBN: reservas.keySet()) {
+            int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
+            for(int i = 0; i< reservas.get(ISBN).size(); i++){
+                Reserva reserva = reservas.get(ISBN).get(i);
+                if (i < disponiveis){
+                    if(Objects.isNull(reserva.getDataFim())){
+                        reserva.setDataFim(LocalDate.now().plusDays(3));
+                        DAO.getReservaDAO().update(reserva);
+                    }
+                    else if(reserva.getDataFim().isBefore(LocalDate.now())){
+                        DAO.getReservaDAO().delete(reserva);
                     }
                 }
+                else{
+                    reserva.setDataFim(null);
+                    DAO.getReservaDAO().update(reserva);
+                }
             }
-
         }
     }
 
+
+    public static Usuario login(String id, String senha, String cargo) throws UsuarioException {
+        Usuario obj = null;
+        if(cargo.equals("Administrador") || cargo.equals("Bibliotecario")){
+            obj = DAO.getOperadorDAO().findById(id);
+        } else if (cargo.equals("Leitor")) {
+            obj = (Leitor) DAO.getLeitorDAO().findById(id);
+        }
+        if(obj.getSenha().equals(senha)){
+            return obj;
+        }
+        else throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
+    }
 
 }

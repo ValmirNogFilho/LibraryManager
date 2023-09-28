@@ -18,7 +18,7 @@ public interface LivroDAO extends CRUD<Livro> {
     public void addAutor(String autor);
 
     public List<Livro> findByAutor(String autor);
-
+    public List<Livro> findByTitulo(String titulo);
     public Livro addLivroEmAutor(Livro obj);
 
     public void removerLivroDeAutor(Livro obj, String autor);

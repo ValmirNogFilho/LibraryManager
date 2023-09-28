@@ -8,7 +8,12 @@ import java.util.*;
 
 public class Relatorio {
     public static int numLivrosEmprestados(){
-        return DAO.getEmprestimoDAO().findMany().size();
+        int n = 0;
+        for(Emprestimo e: DAO.getEmprestimoDAO().findMany()){
+            if(e.getStatus().equals(statusEmprestimo.ANDAMENTO))
+                n++;
+        }
+        return n;
     }
     public static int numLivrosReservados(){
         int n = 0;

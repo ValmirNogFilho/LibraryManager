@@ -1,19 +1,16 @@
 package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
+import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
-import main.java.com.uefs.librarymanager.model.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.statusLeitor;
-
-import java.lang.reflect.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +23,7 @@ class ReservaDAOListTest {
     void setUp() {
         li = new Livro("a", "a", "a", "1234", 2000, "a", "a", 10);
         l = new Leitor("a", "a", "7890");
-        r = new Reserva(l.getId(), 2, li.getISBN());
+        r = new Reserva(l.getId(), li.getISBN());
         DAO.getReservaDAO().create(r);
     }
 
@@ -73,7 +70,7 @@ class ReservaDAOListTest {
 
     @Test
     void findByPrimaryKey() {
-        Reserva r2 = new Reserva("1222", 3, "6767");
+        Reserva r2 = new Reserva("1222", "6767");
         assertNull(DAO.getReservaDAO().findByPrimaryKey(r2.getISBN()));
         assertEquals(l.getId(), DAO.getReservaDAO().findByPrimaryKey(li.getISBN()).getIdUsuario());
     }
@@ -142,4 +139,14 @@ class ReservaDAOListTest {
         DAO.getReservaDAO().cancelarReserva(l, li);
         assertNull(DAO.getReservaDAO().findByPrimaryKey(li.getISBN()));
     }
+
+    @Test
+    void registrarEmprestimoPorReserva() throws LivroException, UsuarioException {
+        DAO.getLivroDAO().create(li);
+        DAO.getLeitorDAO().create(l);
+        Emprestimo e = DAO.getReservaDAO().registrarEmprestimoPorReserva(r);
+        assertTrue(DAO.getReservaDAO().filaVazia(li.getISBN()));
+        assertEquals(e, DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(e.getId())));
+    }
+
 }
