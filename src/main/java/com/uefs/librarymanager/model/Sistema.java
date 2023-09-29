@@ -38,11 +38,11 @@ public class Sistema {
      * 1 dia é decrementado. Caso o prazo da multa do leitor já estiver acabado, o status do leitor é alterado de MULTADO para LIVRE.
      * Ao fim, é feito um update(atualização) da situação do leitor.
      */
-    public static void atualizarMultas(){
-
+    public static void atualizarMultas(LocalDate ultimoAcesso){
         for (Leitor leitor: DAO.getLeitorDAO().findMany()){
-            if (leitor.getPrazoMulta() > 0)
-                leitor.setPrazoMulta(leitor.getPrazoMulta()-1);
+            int intervaloDias = Math.min(leitor.getPrazoMulta(), (int) ChronoUnit.DAYS.between(ultimoAcesso, LocalDate.now()));
+            // contabiliza quantidade de dias passados desde a última execução do método
+            leitor.setPrazoMulta(leitor.getPrazoMulta()-intervaloDias);
 
             for (Emprestimo emprestimo: DAO.getEmprestimoDAO().findByLeitor(leitor)){
 

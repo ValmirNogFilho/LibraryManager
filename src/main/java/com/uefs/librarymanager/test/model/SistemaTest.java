@@ -36,21 +36,23 @@ class SistemaTest {
 
     @Test
     void atualizarMultas() {
-        verificarPossivelMulta();
-        Sistema.atualizarMultas();
+        LocalDate ultimoAcesso = LocalDate.now().minusDays(1);
         l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         emprestimo = DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(emprestimo.getId()));
+        emprestimo.setDataFim(LocalDate.now().minusDays(1));
+        DAO.getEmprestimoDAO().update(emprestimo);
+        Sistema.atualizarMultas(ultimoAcesso);
 
         assertEquals(l.getStatus(), statusLeitor.MULTADO);
-        assertEquals(l.getPrazoMulta(), 3);
+        assertEquals(2,l.getPrazoMulta());
         assertEquals(emprestimo.getStatus(), statusEmprestimo.MULTADO);
-        assertEquals(emprestimo.getAtraso(), 2);
+        assertEquals(emprestimo.getAtraso(), 1);
 
-        Sistema.atualizarMultas();
-        Sistema.atualizarMultas();
+        Sistema.atualizarMultas(ultimoAcesso);
+        Sistema.atualizarMultas(ultimoAcesso);
         emprestimo.setDataFim(LocalDate.now());
         DAO.getEmprestimoDAO().update(emprestimo);
-        Sistema.atualizarMultas();
+        Sistema.atualizarMultas(ultimoAcesso);
 
         assertEquals(l.getStatus(), statusLeitor.LIVRE);
         assertEquals(l.getPrazoMulta(), 0);
