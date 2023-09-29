@@ -8,6 +8,29 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Esta classe é responsável por registrar um empréstimo contendo as informações:
+ * Data de início do empréstimo;
+ * Data estabelecida para devolução do livro;
+ * ID do usuário que está fazendo o empréstimo;
+ * ISBN do livro;
+ * Com base na data de início e data final do empréstimo, é verificado se há atraso;
+ * Status do empréstimo, podendo ser:
+ * Em andamento;
+ * Concluído;
+ * Em atraso (este estado remete ao atraso do leitor em concluir o empréstimo).
+ * ID do empréstimo;
+ * Número de renovações.
+ * @author Valmir Alves Nogueira Filho
+ * @author Kevin Cordeiro Borges
+ * @see main.java.com.uefs.librarymanager.exceptions.EmprestimoException
+ * @see utils.IDGenerator
+ * @see utils.statusEmprestimo
+ * @see java.time.LocalDate
+ * @see java.util.Date
+ * @see java.util.Objects
+ *
+ */
 public class Emprestimo {
     private LocalDate dataInicio;
     private LocalDate dataFim;
@@ -90,6 +113,13 @@ public class Emprestimo {
         return numeroRenovacoes;
     }
 
+    /**
+     * Este método verifica se há alguma renovação constando no histórico de determinado empréstimo, caso não tenha havido
+     * alguma renovação (numeroRenovacoes == 0), a renovação é efetuada. Caso já tenha ocorido alguma renovação, não é
+     * possível renovar o empréstimo novamente.
+     * @return True, caso o não haja renovações de dado empréstimo ou uma exceção caso já tenha ocorrido uma renovação.
+     * @throws EmprestimoException
+     */
     public boolean podeRenovar() throws EmprestimoException {
         if (numeroRenovacoes == 0) return true;
         else throw new EmprestimoException(EmprestimoException.LIMITE_RENOVACOES);
@@ -99,6 +129,12 @@ public class Emprestimo {
     public void setNumeroRenovacoes(int numeroRenovacoes) {
         this.numeroRenovacoes = numeroRenovacoes;
     }
+
+    /**
+     * Este método compara se dois IDs de usuário, dois ISBNs de livro e dois IDs de empréstimo são iguais.
+     * @param o
+     * @return True, caso não haja qualquer desigualdade entre os objetos comparados, caso contrário é retornado False.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

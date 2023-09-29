@@ -1,16 +1,15 @@
 package main.java.com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
-import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
-import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
-import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-
-import java.time.LocalDate;
-
-
+/**
+ * Esta classe é uma extensão da classe "Usuario", ela é responsável por registrar um bibliotecário no sistema contando com
+ * algumas informações, tais como:
+ * Nome do bibliotecário;
+ * Endereço do bibliotecário;
+ * Telefone do bibliotecário;
+ * Senha.
+ * @author Valmir Alves Nogueira Filho
+ * @author Kevin Cordeiro Borges
+ */
 public class Bibliotecario extends Usuario {
     public Bibliotecario(String nome, String endereco, String telefone) {
         super(nome, endereco, telefone, null);
