@@ -175,5 +175,12 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
         return livro;
     }
-
+    @Override
+    public boolean leitorSemAtrasos(Leitor leitor) throws UsuarioException{
+        for(Emprestimo emprestimo: findByLeitor(leitor)){
+            if(!emprestimo.getStatus().equals(statusEmprestimo.CONCLUIDO) && LocalDate.now().isAfter(emprestimo.getDataFim()))
+                return false;
+        }
+        return true;
+    }
 }
