@@ -35,7 +35,8 @@ public class Sistema {
     /**
      * Este método corresponde à tarefa de Atualizar multas.
      * O método verifica se dado leitor possui multa, caso ele esteja com a multa definida (já tenha devolvido o livro),
-     * 1 dia é decrementado. Caso o prazo da multa do leitor já estiver acabado, o status do leitor é alterado de MULTADO para LIVRE.
+     * é decrementado a quantidade de dias passados desde a última execução do método. Caso o prazo da multa do leitor já estiver acabado,
+     * o status do leitor é alterado de MULTADO para LIVRE.
      * Ao fim, é feito um update(atualização) da situação do leitor.
      */
     public static void atualizarMultas(LocalDate ultimoAcesso){
