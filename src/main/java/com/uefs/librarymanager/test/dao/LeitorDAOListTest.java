@@ -29,6 +29,7 @@ class LeitorDAOListTest {
 
     @Test
     void create() {
+        //conferindo se leitor criado é igual ao registrado no DAO
         Leitor esperado = DAO.getLeitorDAO().create(new Leitor("lucas", "ali", "4002-8922"));
         esperado.setId(lucas.getId());
         Leitor atual = lucas;
@@ -37,6 +38,7 @@ class LeitorDAOListTest {
 
     @Test
     void delete() {
+        //conferindo se a lista é subtraída e se o objeto não é encontrado na lista
         DAO.getLeitorDAO().delete(mario);
         int tamanho_esperado = 2;
         Assertions.assertEquals(tamanho_esperado, DAO.getLeitorDAO().findMany().size());
@@ -50,6 +52,7 @@ class LeitorDAOListTest {
 
     @Test
     void update() {
+        //conferindo se as alterações de nome e telefone são registradas no DAO
         laiza.setNome("Laiza Gordiano");
         laiza.setTelefone("75 98129-7333");
         Leitor atual = DAO.getLeitorDAO().update(laiza);
@@ -66,7 +69,7 @@ class LeitorDAOListTest {
     @Test
     void findByPrimaryKey() {
         Leitor esperado = new Leitor("fabricio", "ala", "1123-9876");
-        esperado.setId(mario.getId());
+        esperado.setId(mario.getId()); //mudando chave primária usada no equals() para comparar 2 objetos
         Leitor atual = DAO.getLeitorDAO().findByPrimaryKey(esperado.getId());
         Assertions.assertEquals(esperado, atual);
     }

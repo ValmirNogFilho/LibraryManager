@@ -61,6 +61,7 @@ class LivroDAOListTest {
     @Test
     void findMany() {
         assertEquals(3, DAO.getLivroDAO().findMany().size());
+        //conferindo igualdade de cada um dos livros registrados
         assertEquals(l, DAO.getLivroDAO().findMany().get(2));
         assertEquals(m, DAO.getLivroDAO().findMany().get(0));
         assertEquals(n, DAO.getLivroDAO().findMany().get(1));
@@ -73,12 +74,15 @@ class LivroDAOListTest {
 
     @Test
     void findByTitulo(){
+        //conferindo busca de string completa do título ou de substrings contidas
         assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("test"));
         assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("te"));
+        //conferindo a geração de lista vazia para títulos não encontrados
         assertTrue(DAO.getLivroDAO().findByTitulo("abc").isEmpty());
 
         Livro o = DAO.getLivroDAO().create(new Livro("Dom Casmurro", "maria", "editora", "125",
                 2000, "abc", "Exemplo",10));
+        //conferindo a busca sucessiva por livro a partir de substrings e de buscas com ou sem capitalização
         assertEquals(DAO.getLivroDAO().findByTitulo("Dom").get(0), o);
         assertEquals(DAO.getLivroDAO().findByTitulo("dom").get(0), o);
         assertEquals(DAO.getLivroDAO().findByTitulo("DOM").get(0), o);
@@ -86,6 +90,7 @@ class LivroDAOListTest {
 
     @Test
     void removerLivroDeCategoria() {
+        //conferindo exclusão de isbn da lista da categoria a ter um livro subtraído
         int comprimento_inicial = DAO.getLivroDAO().findByCategoria("Exemplo").size();
         DAO.getLivroDAO().removerLivroDeCategoria(l, "Exemplo");
         assertEquals(comprimento_inicial-1, DAO.getLivroDAO().findByCategoria("Exemplo").size());
@@ -93,6 +98,7 @@ class LivroDAOListTest {
 
     @Test
     void findByCategoria() {
+        //conferindo busca sucessiva de livros por uma categoria
         DAO.getLivroDAO().create(l);
         DAO.getLivroDAO().create(m);
         assertEquals(l, DAO.getLivroDAO().findByCategoria("Exemplo").get(0));
@@ -101,12 +107,14 @@ class LivroDAOListTest {
 
     @Test
     void findByAutor() {
+        //conferindo busca sucessiva de livros por um autor
         DAO.getLivroDAO().create(n);
         assertEquals(n, DAO.getLivroDAO().findByAutor("maria").get(0));
     }
 
     @Test
     void removerLivroDeAutor() {
+        //conferindo remoção de livro de uma lista de autores
         int comprimento_inicial = DAO.getLivroDAO().findByAutor("maria").size();
         DAO.getLivroDAO().removerLivroDeAutor(n, "maria");
         assertEquals(comprimento_inicial-1, DAO.getLivroDAO().findByAutor("maria").size());

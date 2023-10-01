@@ -36,11 +36,18 @@ class SistemaTest {
 
     @Test
     void atualizarMultas() {
+        //simulando último acesso do método a ser testado. Esse valor
+        // é usado para calcular a quantidade de dias que deve ser subtraída da multa dos leitores
         LocalDate ultimoAcesso = LocalDate.now().minusDays(1);
         l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         emprestimo = DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(emprestimo.getId()));
+        //simulando atraso na entrega do empréstimo e o atualizando no EmprestimoDAO
         emprestimo.setDataFim(LocalDate.now().minusDays(1));
         DAO.getEmprestimoDAO().update(emprestimo);
+
+        //atualização deve tornar empréstimo e leitor multado
+        //(sendo o leitor multado com o dobro de dias do atraso do empréstimo)
+
         Sistema.atualizarMultas(ultimoAcesso);
 
         assertEquals(l.getStatus(), statusLeitor.MULTADO);
@@ -48,10 +55,13 @@ class SistemaTest {
         assertEquals(emprestimo.getStatus(), statusEmprestimo.MULTADO);
         assertEquals(emprestimo.getAtraso(), 1);
 
+
+        //executando o método mais duas vezes para simular contabilização de 3 dias
         Sistema.atualizarMultas(ultimoAcesso);
         Sistema.atualizarMultas(ultimoAcesso);
         emprestimo.setDataFim(LocalDate.now());
         DAO.getEmprestimoDAO().update(emprestimo);
+        //o método deve cancelar a multa do empréstimo e do leitor, zerando o prazo de multa do último
         Sistema.atualizarMultas(ultimoAcesso);
 
         assertEquals(l.getStatus(), statusLeitor.LIVRE);
@@ -63,16 +73,23 @@ class SistemaTest {
 
     @Test
     void verificarPossivelMulta() {
+        //submétodo utilizado dentro de atualizarMultas()
+        //simulando atraso em empréstimo e o atualizando em EmpréstimoDAO
         emprestimo.setDataFim(LocalDate.now().minusDays(2));
         DAO.getEmprestimoDAO().update(emprestimo);
+
         Sistema.verificarPossivelMulta(emprestimo, l);
         l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         emprestimo = DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(emprestimo.getId()));
+
+        //verificação deve tornar empréstimo e leitor multado
+        // (sendo o leitor multado com o dobro de dias do atraso do empréstimo)
         assertEquals(l.getStatus(), statusLeitor.MULTADO);
         assertEquals(l.getPrazoMulta(), 4);
         assertEquals(emprestimo.getStatus(), statusEmprestimo.MULTADO);
         assertEquals(emprestimo.getAtraso(), 2);
 
+        //aumentando a data fim do empréstimo para mantê-lo em status de "andamento"
         emprestimo.setDataFim(LocalDate.now().plusDays(2));
         DAO.getEmprestimoDAO().update(emprestimo);
         boolean estaMultado = Sistema.verificarPossivelMulta(emprestimo, l);
@@ -82,24 +99,33 @@ class SistemaTest {
 
     @Test
     void atualizarReservas() {
+        //deixando a geração de empréstimo permitida apenas ao primeiro aguardador na fila do livro
         li.setDisponiveis(1);
         DAO.getLivroDAO().update(li);
+
+        //até o momento a reserva do primeiro aguardador deve ser null
         assertNull(reserva.getDataFim());
+
         Sistema.atualizarReservas();
+        //a partir daqui, o leitor tem o prazo de 3 dias para buscar o livro, senão será excluído da fila
         reserva = DAO.getReservaDAO().findById(reserva.getId());
         assertEquals(LocalDate.now().plusDays(3), reserva.getDataFim());
 
-        li.setDisponiveis(0);
+        li.setDisponiveis(0); //com nenhum livro disponível, ninguém na fila pode gerar emprestimo dele
         DAO.getLivroDAO().update(li);
         Sistema.atualizarReservas();
         reserva = DAO.getReservaDAO().findById(reserva.getId());
+        //a dataFim de prazo do primeiro aguardador da fila para buscar livro deve ser null
         assertNull(reserva.getDataFim());
 
         li.setDisponiveis(1);
         DAO.getLivroDAO().update(li);
+        //simulando ultrapassagem do prazo para primeiro aguardador na fila buscar o livro
         reserva.setDataFim(LocalDate.now().minusDays(1));
         DAO.getReservaDAO().update(reserva);
         Sistema.atualizarReservas();
+        //a reserva do primeiro aguardador deve ser removida da fila,
+        //sendo o retorno da operação de busca igual a null
         reserva = DAO.getReservaDAO().findById(reserva.getId());
         assertNull(reserva);
 
