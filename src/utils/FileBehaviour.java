@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public abstract class FileBehaviour {
     public static final File DIRETORIO = new File("cache");
-    public static final String EXTENSAO = "kv";
+    public static final String EXTENSAO = ".kv";
 
     public static File gerarArquivo(String nomearquivo) {
 

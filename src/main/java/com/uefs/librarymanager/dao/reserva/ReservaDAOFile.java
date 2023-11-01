@@ -31,7 +31,7 @@ public class ReservaDAOFile implements ReservaDAO{
             fileOutStream = new FileOutputStream(NOMEARQUIVO + FileBehaviour.EXTENSAO);
             fileInStream = new FileInputStream(NOMEARQUIVO + FileBehaviour.EXTENSAO);
             writeStream = new ObjectOutputStream(fileOutStream);
-            readStream = new ObjectInputStream(fileInStream);]
+            readStream = new ObjectInputStream(fileInStream);
             return true;
         } catch (Exception ex) {
             return false;
