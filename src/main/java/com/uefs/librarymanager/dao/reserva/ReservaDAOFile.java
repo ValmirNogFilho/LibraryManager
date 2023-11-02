@@ -1,5 +1,6 @@
 package main.java.com.uefs.librarymanager.dao.reserva;
 
+import main.java.com.uefs.librarymanager.dao.DAO;
 import utils.FileBehaviour;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
@@ -9,6 +10,7 @@ import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Reserva;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,6 +69,7 @@ public class ReservaDAOFile implements ReservaDAO{
         try {
             writeStream.writeObject(reservas);
         } catch (IOException ex) {
+            closeStreams();
             return null;
         }
         closeStreams();
@@ -82,6 +85,7 @@ public class ReservaDAOFile implements ReservaDAO{
         reservasDoLivro.remove(obj);
         reservas.put(obj.getISBN(),reservasDoLivro);
         try {
+            deleteMany();
             writeStream.writeObject(reservas);
         } catch (IOException ex){}
     }
@@ -94,7 +98,9 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public Reserva update(Reserva obj) {
+        openStreams();
         Map<String, LinkedList<Reserva>> reservas = findManyMap();
+
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         int index = reservasDoLivro.indexOf(obj);
         reservasDoLivro.remove(obj);
@@ -102,6 +108,14 @@ public class ReservaDAOFile implements ReservaDAO{
         reservasDoLivro.add(index, obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
 
+        try {
+            deleteMany();
+            writeStream.writeObject(reservas);
+        } catch (IOException ex){
+            closeStreams();
+            return null;
+        }
+        closeStreams();
         return obj;
     }
 
@@ -159,26 +173,98 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
-        return null;
+        if (!openStreams()){
+            return null;
+        }
+
+        if (!(leitor.podePegarLivro() &&
+                leitor.podeFazerMaisReservas() &&
+                DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())))
+            return null;
+
+        Reserva reserva = new Reserva(leitor.getId(), livro.getISBN());
+        reserva.setId(proximoID());
+        leitor.setNumReservas(leitor.getNumReservas()+1);
+        DAO.getLeitorDAO().update(leitor);
+        create(reserva);
+
+        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+
+        try {
+            deleteMany();
+            writeStream.writeObject(reservas);
+        } catch (IOException ex){
+            closeStreams();
+            return null;
+        }
+        return reserva;
+
     }
 
     @Override
     public void cancelarReserva(Leitor leitor, Livro livro) {
+        if (!openStreams()){
+            return;
+        }
 
+        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+
+        LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
+        for(Reserva r: reservasDoLivro)
+            if(r.getIdUsuario().equals(leitor.getId())){
+                delete(r);
+                try {
+                    deleteMany();
+                    writeStream.writeObject(reservas);
+                } catch (IOException ex){
+                    closeStreams();
+                    return;
+                }
+            }
     }
 
     @Override
     public Reserva findById(int Id) {
+        for(Reserva reserva: findMany()){
+            if(reserva.getId() == Id)
+                return reserva;
+        }
         return null;
     }
 
     @Override
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN) {
+        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+
+        LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
+        if(!reservasDoLivro.isEmpty()){
+            int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
+            return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));
+        }
         return null;
     }
 
     @Override
     public Emprestimo registrarEmprestimoPorReserva(Reserva reserva) throws LivroException, UsuarioException {
-        return null;
+        Leitor leitor = DAO.getLeitorDAO().findById(reserva.getIdUsuario());
+        Livro livro = DAO.getLivroDAO().findByPrimaryKey(reserva.getISBN());
+
+        if (!(leitor.podePegarLivro()
+                && DAO.getEmprestimoDAO().podeFazerMaisEmprestimos(leitor)
+                && DAO.getEmprestimoDAO().leitorSemAtrasos(leitor)
+                && livro.existemDisponiveis()
+                && DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())
+        ))
+            return null;
+
+        LocalDate inicio = LocalDate.now();
+        LocalDate prazoFim = inicio.plusDays(7);
+
+        Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
+        livro.setDisponiveis(livro.getDisponiveis()-1);
+        DAO.getLivroDAO().update(livro);
+        DAO.getEmprestimoDAO().create(emprestimo);
+        delete(reserva);
+        return emprestimo;
     }
 }
