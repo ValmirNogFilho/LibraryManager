@@ -1,4 +1,4 @@
-package main.java.com.uefs.librarymanager.test.dao;
+package main.java.com.uefs.librarymanager.test.dao.memory;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
