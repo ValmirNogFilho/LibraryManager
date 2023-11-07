@@ -5,10 +5,12 @@ import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOList;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAOList;
 import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
+import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAOFile;
 import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAOList;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAOList;
 import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAO;
+import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAOFile;
 import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAOList;
 
 public class DAO {
@@ -26,7 +28,8 @@ public class DAO {
 
     public static OperadorDAO getOperadorDAO() {
         if(operadorDAO == null)
-            operadorDAO = new OperadorDAOList();
+            //operadorDAO = new OperadorDAOList();
+            operadorDAO = new OperadorDAOFile();
         return operadorDAO;
     }
 
@@ -44,7 +47,8 @@ public class DAO {
 
     public static ReservaDAO getReservaDAO() {
         if(reservaDAO == null)
-            reservaDAO = new ReservaDAOList();
+            //reservaDAO = new ReservaDAOList();
+            reservaDAO = new ReservaDAOFile();
         return reservaDAO;
     }
 
