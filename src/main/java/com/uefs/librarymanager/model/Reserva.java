@@ -2,6 +2,7 @@ package main.java.com.uefs.librarymanager.model;
 
 import utils.IDGenerator;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.PriorityQueue;
@@ -19,7 +20,7 @@ import java.util.Queue;
  * @see java.util.PriorityQueue
  * @see java.util.Queue
  */
-public class Reserva {
+public class Reserva implements Serializable {
     private String idUsuario;
     private LocalDate dataFim;
     private int id;

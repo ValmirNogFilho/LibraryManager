@@ -3,6 +3,7 @@ package main.java.com.uefs.librarymanager.model;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import utils.IDGenerator;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Objects;
  * @see: main.java.com.uefs.librarymanager.exceptions.UsuarioException
  *
  */
-public class Usuario {
+public class Usuario implements Serializable {
     private String nome;
     private String endereco;
     private String telefone;
