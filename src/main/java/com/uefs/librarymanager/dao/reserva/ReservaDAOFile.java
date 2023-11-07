@@ -18,44 +18,17 @@ import java.util.Map;
 
 public class ReservaDAOFile implements ReservaDAO{
     private File arquivo;
-    private FileOutputStream fileOutStream;
-    private FileInputStream fileInStream;
-    private ObjectInputStream readStream;
-    private ObjectOutputStream writeStream;
     private static final String NOMEARQUIVO = "reservas";
     private int proximoId;
     public ReservaDAOFile() {
         arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
     }
 
-    private boolean openStreams(){
-        try {
-            fileOutStream = new FileOutputStream(NOMEARQUIVO + FileBehaviour.EXTENSAO);
-            fileInStream = new FileInputStream(NOMEARQUIVO + FileBehaviour.EXTENSAO);
-            writeStream = new ObjectOutputStream(fileOutStream);
-            readStream = new ObjectInputStream(fileInStream);
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-    }
-
-    private void closeStreams(){
-        try {
-            writeStream.close();
-            readStream.close();
-        } catch (IOException e) {
-            return;
-        }
-    }
-
     @Override
     public Reserva create(Reserva obj) {
-        if (!openStreams()){
-            return null;
-        }
 
         Map<String, LinkedList<Reserva>> reservas = findManyMap();
+
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
 
         if (reservasDoLivro == null) {
@@ -65,40 +38,46 @@ public class ReservaDAOFile implements ReservaDAO{
         obj.setId(proximoID());
         reservasDoLivro.addLast(obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
-
-        try {
-            writeStream.writeObject(reservas);
-        } catch (IOException ex) {
-            closeStreams();
+        deleteMany();
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
+            out.writeObject(reservas);
+            out.flush();
+        } catch (IOException e) {
             return null;
         }
-        closeStreams();
 
         return obj;
 
     }
-
     @Override
     public void delete(Reserva obj) {
         Map<String, LinkedList<Reserva>> reservas = findManyMap();
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         reservasDoLivro.remove(obj);
         reservas.put(obj.getISBN(),reservasDoLivro);
-        try {
-            deleteMany();
-            writeStream.writeObject(reservas);
-        } catch (IOException ex){}
+        deleteMany();
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
+            out.writeObject(reservas);
+            out.flush();
+        } catch (IOException e) {}
+//        try {
+//            deleteMany();
+//
+//        } catch (IOException ignored){}
     }
 
     @Override
     public void deleteMany() {
-        arquivo.delete();
-        arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
+        try {
+            new FileOutputStream(arquivo).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Reserva update(Reserva obj) {
-        openStreams();
+
         Map<String, LinkedList<Reserva>> reservas = findManyMap();
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
@@ -107,21 +86,21 @@ public class ReservaDAOFile implements ReservaDAO{
 
         reservasDoLivro.add(index, obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
-
-        try {
-            deleteMany();
-            writeStream.writeObject(reservas);
-        } catch (IOException ex){
-            closeStreams();
+        deleteMany();
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
+            out.writeObject(reservas);
+            out.flush();
+        } catch (IOException e) {
             return null;
         }
-        closeStreams();
+
         return obj;
     }
 
     @Override
     public List<Reserva> findMany() {
         Map<String, LinkedList<Reserva>> reservas = findManyMap();
+
         LinkedList<Reserva> todasReservas = new LinkedList<Reserva>();
         for(String isbn: reservas.keySet()){
             LinkedList<Reserva> res = reservas.get(isbn);
@@ -147,12 +126,11 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public Map<String, LinkedList<Reserva>> findManyMap() {
-        HashMap<String, LinkedList<Reserva>> reservas;
+        Map<String, LinkedList<Reserva>> reservas;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivo))) {
+            reservas = (Map<String, LinkedList<Reserva>>) in.readObject();
 
-        try{
-            reservas = (HashMap<String, LinkedList<Reserva>>) readStream.readObject();
-        }
-        catch(Exception arquivoVazio){
+        } catch (IOException | ClassNotFoundException e) {
             reservas = new HashMap<>();
         }
         return reservas;
@@ -173,9 +151,6 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
-        if (!openStreams()){
-            return null;
-        }
 
         if (!(leitor.podePegarLivro() &&
                 leitor.podeFazerMaisReservas() &&
@@ -188,39 +163,27 @@ public class ReservaDAOFile implements ReservaDAO{
         DAO.getLeitorDAO().update(leitor);
         create(reserva);
 
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
-
-        try {
-            deleteMany();
-            writeStream.writeObject(reservas);
-        } catch (IOException ex){
-            closeStreams();
-            return null;
-        }
         return reserva;
 
     }
 
     @Override
     public void cancelarReserva(Leitor leitor, Livro livro) {
-        if (!openStreams()){
-            return;
-        }
 
         Map<String, LinkedList<Reserva>> reservas = findManyMap();
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
         for(Reserva r: reservasDoLivro)
             if(r.getIdUsuario().equals(leitor.getId())){
-                delete(r);
-                try {
-                    deleteMany();
-                    writeStream.writeObject(reservas);
-                } catch (IOException ex){
-                    closeStreams();
-                    return;
-                }
+                reservasDoLivro.remove(r);
+                reservas.put(r.getISBN(),reservasDoLivro);
+                deleteMany();
+                try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
+                    out.writeObject(reservas);
+                    out.flush();
+                } catch (IOException e) {}
             }
+
     }
 
     @Override
