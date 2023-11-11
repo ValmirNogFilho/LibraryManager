@@ -53,19 +53,14 @@ public class OperadorDAOFile implements OperadorDAO{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
     public Usuario update(Usuario obj) {
         Map<String, Usuario> operadores = findManyMap();
         operadores.remove(obj.getId());
-        operadores.put(obj.getId(), obj);
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            out.writeObject(operadores);
-        } catch (IOException e) {
-            obj = null;
-        }
-        return obj;
+        return create(obj);
     }
 
     @Override
