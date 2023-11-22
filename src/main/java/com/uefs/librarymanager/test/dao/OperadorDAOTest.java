@@ -1,6 +1,7 @@
 package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
+import main.java.com.uefs.librarymanager.model.Livro;
 import main.java.com.uefs.librarymanager.model.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,22 +17,19 @@ class OperadorDAOTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getOperadorDAO().deleteMany();
         kevin = DAO.getOperadorDAO().create(new Usuario("Kevin", "UEFS", "4002-8922", "1234"));
         valmir = DAO.getOperadorDAO().create(new Usuario("valmir", "rua o", "5698-7854", "6547"));
         henry = DAO.getOperadorDAO().create(new Usuario("henry", "rua a", "1235-8963","9632"));
     }
 
-    @AfterEach
-    void tearDown() {
-        DAO.getOperadorDAO().deleteMany();
-    }
+
 
     @Test
     void create() {
-        Usuario esperado = new Usuario("lula","09", "45", "9874");
-        esperado.setId(kevin.getId());
-        Usuario atual = kevin;
-        assertEquals(esperado, atual);
+        Usuario mario = DAO.getOperadorDAO().create(new Usuario("mario", "a", "1234", "54321"));
+        assertEquals(mario, DAO.getOperadorDAO().findByPrimaryKey(mario.getId()));
+        assertEquals(4, DAO.getOperadorDAO().findMany().size());
     }
 
     @Test
