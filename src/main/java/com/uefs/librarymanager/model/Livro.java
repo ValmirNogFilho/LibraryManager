@@ -2,6 +2,7 @@ package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ import java.util.Objects;
  * @see java.util.List
  * @see java.util.Objects
  */
-public class Livro {
+public class Livro implements Serializable {
     private String titulo;
     private String autor;
     private String editora;
