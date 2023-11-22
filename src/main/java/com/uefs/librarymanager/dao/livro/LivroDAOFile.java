@@ -75,17 +75,6 @@ public class LivroDAOFile implements LivroDAO{
                 .filter(l -> l.getCategoria().equals(categoria))
                 .collect(Collectors.toList());
 
-//        ArrayList<Livro> livros = new ArrayList<>();
-//
-//        for (String isbn: findManyMap().keySet()) {
-//            Livro livro = findByPrimaryKey(isbn);
-//
-//            if(livro.getCategoria().equals(categoria))
-//                livros.add(livro);
-//        }
-//
-//        return livros;
-
     }
 
     @Override
@@ -103,12 +92,7 @@ public class LivroDAOFile implements LivroDAO{
                 .stream()
                 .filter(l -> l.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
                 .collect(Collectors.toList());
-//
-//        List<Livro> livrosTitulo = new LinkedList<Livro>();
-//        for(Livro livro: findMany())
-//            if(livro.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
-//                livrosTitulo.add(livro);
-//        return livrosTitulo;
+
     }
 
    
