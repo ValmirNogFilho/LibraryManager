@@ -3,16 +3,13 @@ package main.java.com.uefs.librarymanager.dao;
 import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
 import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOList;
 import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
-import main.java.com.uefs.librarymanager.dao.livro.LivroDAOList;
+import main.java.com.uefs.librarymanager.dao.livro.LivroDAOFile;
 import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
 import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAOFile;
-import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAOList;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
 import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAOFile;
-import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAOList;
 import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAO;
 import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAOFile;
-import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAOList;
 
 public class DAO {
     private static LeitorDAO leitorDAO;
@@ -37,7 +34,8 @@ public class DAO {
 
     public static LivroDAO getLivroDAO() {
         if(livroDAO == null)
-            livroDAO = new LivroDAOList();
+            //livroDAO = new LivroDAOList();
+            livroDAO = new LivroDAOFile();
         return livroDAO;
     }
 
