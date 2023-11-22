@@ -2,10 +2,7 @@ package utils;
 
 import main.java.com.uefs.librarymanager.model.Usuario;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +27,34 @@ public abstract class FileBehaviour {
             }
         }
         return arquivo;
+    }
+
+    public static <V> Map<String, V> consultarArquivo(File file){
+        Map<String, V> map;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            map = (Map<String, V>) in.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            map = new HashMap<>();
+        }
+        return map;
+    }
+
+    public static boolean sobreescreverArquivo(File arquivo, Map map){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
+            out.writeObject(map);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static void apagarConteudoArquivo(File arquivo) {
+        try {
+            new FileOutputStream(arquivo).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

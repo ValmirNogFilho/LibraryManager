@@ -17,17 +17,18 @@ import java.util.List;
 import java.util.Map;
 
 public class ReservaDAOFile implements ReservaDAO{
-    private File arquivo;
+    private File arquivo, arquivoId;
     private static final String NOMEARQUIVO = "reservas";
     private int proximoId;
     public ReservaDAOFile() {
         arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
+        arquivoId = FileBehaviour.gerarArquivo("id" + NOMEARQUIVO);
     }
 
     @Override
     public Reserva create(Reserva obj) {
 
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
 
@@ -38,47 +39,32 @@ public class ReservaDAOFile implements ReservaDAO{
         obj.setId(proximoID());
         reservasDoLivro.addLast(obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
-        deleteMany();
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
-            out.writeObject(reservas);
-            out.flush();
-        } catch (IOException e) {
-            return null;
-        }
+
+        FileBehaviour.sobreescreverArquivo(arquivo, reservas);
 
         return obj;
 
     }
     @Override
     public void delete(Reserva obj) {
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         reservasDoLivro.remove(obj);
         reservas.put(obj.getISBN(),reservasDoLivro);
-        deleteMany();
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
-            out.writeObject(reservas);
-            out.flush();
-        } catch (IOException e) {}
-//        try {
-//            deleteMany();
-//
-//        } catch (IOException ignored){}
+
+        FileBehaviour.sobreescreverArquivo(arquivo, reservas);
+
     }
 
     @Override
     public void deleteMany() {
-        try {
-            new FileOutputStream(arquivo).close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileBehaviour.apagarConteudoArquivo(arquivo);
     }
 
     @Override
     public Reserva update(Reserva obj) {
 
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         int index = reservasDoLivro.indexOf(obj);
@@ -86,20 +72,15 @@ public class ReservaDAOFile implements ReservaDAO{
 
         reservasDoLivro.add(index, obj);
         reservas.put(obj.getISBN(), reservasDoLivro);
-        deleteMany();
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
-            out.writeObject(reservas);
-            out.flush();
-        } catch (IOException e) {
-            return null;
-        }
+
+        FileBehaviour.sobreescreverArquivo(arquivo, reservas);
 
         return obj;
     }
 
     @Override
     public List<Reserva> findMany() {
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
 
         LinkedList<Reserva> todasReservas = new LinkedList<Reserva>();
         for(String isbn: reservas.keySet()){
@@ -112,7 +93,7 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public Reserva findByPrimaryKey(String ISBN) {
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
         if(reservas.get(ISBN) != null)
             if(!reservas.get(ISBN).isEmpty())
                 return reservas.get(ISBN).get(0);
@@ -121,24 +102,32 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public int proximoID() {
-        return proximoId++;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivoId))) {
+            proximoId = (int) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            proximoId = 0;
+        }
+
+        proximoId++;
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivoId))) {
+            out.writeObject(proximoId);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return proximoId;
     }
 
     @Override
     public Map<String, LinkedList<Reserva>> findManyMap() {
-        Map<String, LinkedList<Reserva>> reservas;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivo))) {
-            reservas = (Map<String, LinkedList<Reserva>>) in.readObject();
-
-        } catch (IOException | ClassNotFoundException e) {
-            reservas = new HashMap<>();
-        }
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
         return reservas;
     }
 
     @Override
     public boolean filaVazia(String ISBN) throws LivroException {
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
         if(reservasDoLivro != null){
             if(reservasDoLivro.isEmpty()){
@@ -170,18 +159,14 @@ public class ReservaDAOFile implements ReservaDAO{
     @Override
     public void cancelarReserva(Leitor leitor, Livro livro) {
 
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
         for(Reserva r: reservasDoLivro)
             if(r.getIdUsuario().equals(leitor.getId())){
                 reservasDoLivro.remove(r);
                 reservas.put(r.getISBN(),reservasDoLivro);
-                deleteMany();
-                try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))){
-                    out.writeObject(reservas);
-                    out.flush();
-                } catch (IOException e) {}
+                FileBehaviour.sobreescreverArquivo(arquivo, reservas);
             }
 
     }
@@ -197,7 +182,7 @@ public class ReservaDAOFile implements ReservaDAO{
 
     @Override
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN) {
-        Map<String, LinkedList<Reserva>> reservas = findManyMap();
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
         if(!reservasDoLivro.isEmpty()){

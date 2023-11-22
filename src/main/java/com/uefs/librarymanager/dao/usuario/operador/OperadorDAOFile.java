@@ -23,54 +23,46 @@ public class OperadorDAOFile implements OperadorDAO{
     @Override
     public Usuario create(Usuario obj) {
 
-        Map<String, Usuario> operadores = findManyMap();
+        Map<String, Usuario> operadores = FileBehaviour.consultarArquivo(arquivo);
         operadores.put(obj.getId(), obj);
         deleteMany();
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-           out.writeObject(operadores);
-        } catch (IOException e) {
-            obj = null;
-        }
+        FileBehaviour.sobreescreverArquivo(arquivo, operadores);
         return obj;
 
     }
     @Override
     public void delete(Usuario obj) {
-        Map<String, Usuario> operadores = findManyMap();
+        Map<String, Usuario> operadores = FileBehaviour.consultarArquivo(arquivo);
         operadores.remove(obj.getId());
         deleteMany();
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            out.writeObject(operadores);
-        } catch (IOException e) {}
+        FileBehaviour.sobreescreverArquivo(arquivo, operadores);
     }
 
     @Override
     public void deleteMany() {
-        try {
-            new FileOutputStream(arquivo).close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        FileBehaviour.apagarConteudoArquivo(arquivo);
     }
 
     @Override
     public Usuario update(Usuario obj) {
-        Map<String, Usuario> operadores = findManyMap();
+        Map<String, Usuario> operadores = FileBehaviour.consultarArquivo(arquivo);
         operadores.remove(obj.getId());
         return create(obj);
     }
 
     @Override
     public List<Usuario> findMany() {
-        return new ArrayList<Usuario>(findManyMap().values());
+        Map<String, Usuario> map = FileBehaviour.consultarArquivo(arquivo);
+        return new ArrayList<Usuario>(map.values());
     }
 
     @Override
     public Usuario findByPrimaryKey(String PrimaryKey) {
-        return findManyMap().get(PrimaryKey);
+        Map<String, Usuario> map = FileBehaviour.consultarArquivo(arquivo);
+
+        return map.get(PrimaryKey);
     }
 
     @Override
@@ -82,18 +74,4 @@ public class OperadorDAOFile implements OperadorDAO{
             return o;
     }
 
-    private Map<String, Usuario> findManyMap() {
-        Map<String, Usuario> operadores;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivo))) {
-            operadores = (Map<String, Usuario>) in.readObject();
-
-        } catch (IOException e){
-            operadores = new HashMap<>();
-        }
-        catch (ClassNotFoundException e) {
-            operadores = new HashMap<>();
-        }
-        return operadores;
-
-    }
 }

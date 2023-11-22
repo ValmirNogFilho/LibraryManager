@@ -22,15 +22,11 @@ public class LeitorDAOFile implements LeitorDAO{
 
     @Override
     public Leitor create(Leitor obj) {
-        Map<String, Leitor> leitores = findManyMap();
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
         leitores.put(obj.getId(),obj);
         deleteMany();
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            out.writeObject(leitores);
-        } catch (IOException e) {
-            obj = null;
-        }
+        FileBehaviour.sobreescreverArquivo(arquivo, leitores);
         return obj;
 
     }
@@ -38,30 +34,22 @@ public class LeitorDAOFile implements LeitorDAO{
 
     @Override
     public void delete(Leitor obj) {
-        Map<String, Leitor> leitores = findManyMap();
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
         leitores.remove(obj.getId());
         deleteMany();
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            out.writeObject(leitores);
-        } catch (IOException e) {}
-
+        FileBehaviour.sobreescreverArquivo(arquivo, leitores);
 
     }
 
     @Override
     public void deleteMany() {
-        try {
-            new FileOutputStream(arquivo).close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        FileBehaviour.apagarConteudoArquivo(arquivo);
     }
 
     @Override
     public Leitor update(Leitor obj) {
-        Map<String, Leitor> leitores = findManyMap();
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
         leitores.remove(obj.getId());
         return create(obj);
 
@@ -69,12 +57,14 @@ public class LeitorDAOFile implements LeitorDAO{
 
     @Override
     public List<Leitor> findMany() {
-        return new ArrayList<Leitor>(findManyMap().values());
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        return new ArrayList<Leitor>(leitores.values());
     }
 
     @Override
     public Leitor findByPrimaryKey(String PrimaryKey) {
-        return findManyMap().get(PrimaryKey);
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        return leitores.get(PrimaryKey);
     }
 
     @Override
@@ -84,19 +74,5 @@ public class LeitorDAOFile implements LeitorDAO{
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         else
             return o;
-    }
-
-    private Map<String, Leitor> findManyMap() {
-        Map<String, Leitor> leitores;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivo))) {
-            leitores = (Map<String, Leitor>) in.readObject();
-
-        } catch (IOException e){
-            leitores = new HashMap<>();
-        }
-        catch (ClassNotFoundException e) {
-            leitores = new HashMap<>();
-        }
-        return leitores;
     }
 }
