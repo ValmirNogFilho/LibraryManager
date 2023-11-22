@@ -21,38 +21,8 @@ import java.util.List;
  *
  */
 public interface LivroDAO extends CRUD<Livro> {
-    /**
-     * Este método adiciona uma categoria ao livro
-     * @param categoria
-     */
-    public void addCategoria(String categoria);
 
-    /**
-     * Este método adiciona o livro de dada categoria a um acervo da própria catégoria
-     * @param obj
-     * @return obj
-     */
-    public Livro addLivroEmCategoria(Livro obj);
-
-    /**
-     * Este método remove o livro de dada categoria do acervo da própria categoria
-     * @param obj
-     * @param categoria
-     */
-    public void removerLivroDeCategoria(Livro obj, String categoria);
-
-    /**
-     * Este método adiciona um livro à uma LinkedList de dada categoria.
-     * @param categoria
-     * @return todos os livros da categoria
-     */
     public List<Livro> findByCategoria(String categoria);
-
-    /**
-     * Este método adiciona um livro a um acervo de ISBN por um dado autor específico.
-     * @param autor
-     */
-    public void addAutor(String autor);
 
     /**
      * Este método adiciona dado livro à uma LinkedList de um dado autor, formando uma espécie de acervo por autor, todos
@@ -69,19 +39,6 @@ public interface LivroDAO extends CRUD<Livro> {
      */
     public List<Livro> findByTitulo(String titulo);
 
-    /**
-     * Este método adiciona dado livro numa espécie de acervo de livros de um mesmo autor por meio de uma LinkedList.
-     * @param obj
-     * @return obj
-     */
-    public Livro addLivroEmAutor(Livro obj);
-
-    /**
-     * Este método remove um dado livro do "acervo" de livros de um determinado autor.
-     * @param obj
-     * @param autor
-     */
-    public void removerLivroDeAutor(Livro obj, String autor);
 
     /**
      * Este método faz a busca de um livro pelo seu "Primarykey" que neste caaso é o ISBN do livro.
