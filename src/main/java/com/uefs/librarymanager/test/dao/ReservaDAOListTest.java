@@ -1,4 +1,4 @@
-package main.java.com.uefs.librarymanager.test.dao.disk;
+package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.LivroException;
@@ -12,12 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.statusLeitor;
 
-import java.util.LinkedList;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class ReservaDAOFileTest {
+class ReservaDAOListTest {
 
     Livro li;
     Leitor l;
@@ -38,7 +35,6 @@ class ReservaDAOFileTest {
     @Test
     void create() {
         Reserva r2 = DAO.getReservaDAO().findByPrimaryKey(li.getISBN());
-        assertNotNull(r2);
         assertEquals(li.getISBN(), r2.getISBN());
         assertEquals(l.getId(), r2.getIdUsuario());
     }
@@ -165,12 +161,5 @@ class ReservaDAOFileTest {
         assertTrue(DAO.getReservaDAO().filaVazia(li.getISBN()));
         assertEquals(e, DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(e.getId())));
     }
-
-    @Test
-    void findManyMap(){
-        Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
-
-    }
-
 
 }
