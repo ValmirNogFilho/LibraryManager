@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmprestimoDAOListTest {
+class EmprestimoDAOTest {
     Emprestimo esperado;
     Leitor l;
     Livro li;

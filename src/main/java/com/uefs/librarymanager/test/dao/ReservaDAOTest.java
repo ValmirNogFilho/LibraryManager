@@ -14,7 +14,7 @@ import utils.statusLeitor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ReservaDAOListTest {
+class ReservaDAOTest {
 
     Livro li;
     Leitor l;

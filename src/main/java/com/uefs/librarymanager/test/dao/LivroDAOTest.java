@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LivroDAOListTest {
+class LivroDAOTest {
     Livro l, m, n;
     @BeforeEach
     void setUp() {

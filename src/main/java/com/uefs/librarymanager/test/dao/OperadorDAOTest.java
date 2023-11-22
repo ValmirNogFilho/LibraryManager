@@ -1,7 +1,6 @@
 package main.java.com.uefs.librarymanager.test.dao;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class OperadorDAOListTest {
+class OperadorDAOTest {
 
     Usuario kevin;
     Usuario valmir;
