@@ -1,6 +1,6 @@
-package main.java.com.uefs.librarymanager.utils;
+package com.uefs.librarymanager.utils;
 
-import main.java.com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.model.Usuario;
 
 import java.io.*;
 import java.nio.file.Files;

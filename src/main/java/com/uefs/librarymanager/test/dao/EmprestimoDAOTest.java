@@ -1,21 +1,22 @@
-package main.java.com.uefs.librarymanager.test.dao;
+package com.uefs.librarymanager.test.dao;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.*;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.EmprestimoException;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
-import main.java.com.uefs.librarymanager.utils.statusLeitor;
+import com.uefs.librarymanager.utils.statusEmprestimo;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmprestimoDAOTest {
+
     Emprestimo esperado;
     Leitor l;
     Livro li;
@@ -207,6 +208,8 @@ class EmprestimoDAOTest {
 
         Emprestimo e = DAO.getEmprestimoDAO().registrarEmprestimo(l, livro);
         //o número de exemplares disponíveis do livro deve ser decrementado em um
+
+        livro = DAO.getLivroDAO().findByPrimaryKey(livro.getISBN());
         assertEquals(9, livro.getDisponiveis());
         int numeroEmprestimos = DAO.getEmprestimoDAO().quantidadeEmAndamentoDoLeitor(l);
 
@@ -214,6 +217,7 @@ class EmprestimoDAOTest {
         DAO.getEmprestimoDAO().devolverLivro(e);
         //após devolução de livro, o status do empréstimo deve ser concluído
         assertEquals(statusEmprestimo.CONCLUIDO, e.getStatus());
+        livro = DAO.getLivroDAO().findByPrimaryKey(livro.getISBN());
         //o número de exemplares disponíveis do livro deve ser incrementado a um novamente
         assertEquals(10, livro.getDisponiveis());
         //o número de empréstimos em andamento do leitor deve ser decrementado em um

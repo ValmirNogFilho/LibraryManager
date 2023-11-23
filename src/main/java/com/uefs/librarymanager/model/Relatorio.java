@@ -1,9 +1,8 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
-
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.statusEmprestimo;
 import java.util.*;
 
 /**
@@ -15,8 +14,8 @@ import java.util.*;
  * Relação dos livros mais populares da biblioteca.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.DAO
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
+ * @see DAO
+ * @see UsuarioException
  * @see statusEmprestimo
  * @see java.util
  */

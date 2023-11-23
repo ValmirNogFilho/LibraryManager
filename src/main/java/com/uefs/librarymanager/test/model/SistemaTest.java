@@ -1,12 +1,12 @@
-package main.java.com.uefs.librarymanager.test.model;
+package com.uefs.librarymanager.test.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.model.*;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
-import main.java.com.uefs.librarymanager.utils.statusLeitor;
+import com.uefs.librarymanager.utils.statusEmprestimo;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 
@@ -49,7 +49,7 @@ class SistemaTest {
         //(sendo o leitor multado com o dobro de dias do atraso do empréstimo)
 
         Sistema.atualizarMultas(ultimoAcesso);
-
+        l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         assertEquals(l.getStatus(), statusLeitor.MULTADO);
         assertEquals(2,l.getPrazoMulta());
         assertEquals(emprestimo.getStatus(), statusEmprestimo.MULTADO);
@@ -63,7 +63,7 @@ class SistemaTest {
         DAO.getEmprestimoDAO().update(emprestimo);
         //o método deve cancelar a multa do empréstimo e do leitor, zerando o prazo de multa do último
         Sistema.atualizarMultas(ultimoAcesso);
-
+        l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         assertEquals(l.getStatus(), statusLeitor.LIVRE);
         assertEquals(l.getPrazoMulta(), 0);
         assertEquals(emprestimo.getStatus(), statusEmprestimo.CONCLUIDO);
@@ -84,6 +84,7 @@ class SistemaTest {
 
         //verificação deve tornar empréstimo e leitor multado
         // (sendo o leitor multado com o dobro de dias do atraso do empréstimo)
+
         assertEquals(l.getStatus(), statusLeitor.MULTADO);
         assertEquals(l.getPrazoMulta(), 4);
         assertEquals(emprestimo.getStatus(), statusEmprestimo.MULTADO);

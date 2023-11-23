@@ -1,15 +1,15 @@
-package main.java.com.uefs.librarymanager.dao;
+package com.uefs.librarymanager.dao;
 
-import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
-import main.java.com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOList;
-import main.java.com.uefs.librarymanager.dao.livro.LivroDAO;
-import main.java.com.uefs.librarymanager.dao.livro.LivroDAOFile;
-import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAO;
-import main.java.com.uefs.librarymanager.dao.reserva.ReservaDAOFile;
-import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
-import main.java.com.uefs.librarymanager.dao.usuario.leitor.LeitorDAOFile;
-import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAO;
-import main.java.com.uefs.librarymanager.dao.usuario.operador.OperadorDAOFile;
+import com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
+import com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOList;
+import com.uefs.librarymanager.dao.livro.LivroDAO;
+import com.uefs.librarymanager.dao.livro.LivroDAOFile;
+import com.uefs.librarymanager.dao.reserva.ReservaDAO;
+import com.uefs.librarymanager.dao.reserva.ReservaDAOFile;
+import com.uefs.librarymanager.dao.usuario.leitor.LeitorDAO;
+import com.uefs.librarymanager.dao.usuario.leitor.LeitorDAOFile;
+import com.uefs.librarymanager.dao.usuario.operador.OperadorDAO;
+import com.uefs.librarymanager.dao.usuario.operador.OperadorDAOFile;
 
 public class DAO {
     private static LeitorDAO leitorDAO;

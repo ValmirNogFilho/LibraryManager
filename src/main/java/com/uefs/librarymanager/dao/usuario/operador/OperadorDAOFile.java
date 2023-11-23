@@ -1,8 +1,8 @@
-package main.java.com.uefs.librarymanager.dao.usuario.operador;
+package com.uefs.librarymanager.dao.usuario.operador;
 
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Usuario;
-import main.java.com.uefs.librarymanager.utils.FileBehaviour;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.FileBehaviour;
 
 import java.io.*;
 import java.util.ArrayList;

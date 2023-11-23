@@ -1,8 +1,8 @@
-package main.java.com.uefs.librarymanager.test.dao;
+package com.uefs.librarymanager.test.dao;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.model.Livro;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,7 +95,6 @@ class LivroDAOTest {
     void findByCategoria() {
         //conferindo busca sucessiva de livros por uma categoria
         assertEquals(m, DAO.getLivroDAO().findByCategoria("Exemplo").get(0));
-        System.out.println(DAO.getLivroDAO().findByCategoria("Exemplo"));
         assertEquals(n, DAO.getLivroDAO().findByCategoria("Exemplo").get(1));
     }
 

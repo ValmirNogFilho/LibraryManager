@@ -1,7 +1,7 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.utils.IDGenerator;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.IDGenerator;
 
 import java.io.Serializable;
 import java.util.Objects;

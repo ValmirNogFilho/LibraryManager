@@ -1,7 +1,7 @@
-package main.java.com.uefs.librarymanager.test.dao;
+package com.uefs.librarymanager.test.dao;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.Leitor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

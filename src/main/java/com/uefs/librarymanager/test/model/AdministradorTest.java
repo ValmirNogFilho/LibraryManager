@@ -1,13 +1,13 @@
-package main.java.com.uefs.librarymanager.test.model;
+package com.uefs.librarymanager.test.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.*;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
-import main.java.com.uefs.librarymanager.utils.statusLeitor;
+import com.uefs.librarymanager.utils.statusEmprestimo;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 

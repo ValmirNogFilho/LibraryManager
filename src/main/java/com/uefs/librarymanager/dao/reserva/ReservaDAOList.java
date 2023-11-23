@@ -1,12 +1,12 @@
-package main.java.com.uefs.librarymanager.dao.reserva;
+package com.uefs.librarymanager.dao.reserva;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Emprestimo;
-import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Livro;
-import main.java.com.uefs.librarymanager.model.Reserva;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Emprestimo;
+import com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.model.Reserva;
 
 import java.time.LocalDate;
 import java.util.HashMap;

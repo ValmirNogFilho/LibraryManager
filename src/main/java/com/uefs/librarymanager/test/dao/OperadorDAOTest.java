@@ -1,9 +1,7 @@
-package main.java.com.uefs.librarymanager.test.dao;
+package com.uefs.librarymanager.test.dao;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.model.Livro;
-import main.java.com.uefs.librarymanager.model.Usuario;
-import org.junit.jupiter.api.AfterEach;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

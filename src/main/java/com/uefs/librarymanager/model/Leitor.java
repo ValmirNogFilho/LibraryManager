@@ -1,7 +1,7 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.utils.statusLeitor;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 
@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * Número de reservas do leitor.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
+ * @see UsuarioException
  * @see statusLeitor
  * @see java.time.LocalDate
  * @see java.util.Date

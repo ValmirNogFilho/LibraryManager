@@ -1,4 +1,4 @@
-package main.java.com.uefs.librarymanager.utils;
+package com.uefs.librarymanager.utils;
 
 /**
  * Esta essa classe é responsável por armazenar os possíveis estados de um empréstimo:

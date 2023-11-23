@@ -1,7 +1,8 @@
-package main.java.com.uefs.librarymanager.dao.livro;
+package com.uefs.librarymanager.dao.livro;
+
 import main.java.com.uefs.librarymanager.dao.CRUD;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.model.Livro;
 
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
  * Remover o autor.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
- * @see main.java.com.uefs.librarymanager.exceptions.LivroException
- * @see main.java.com.uefs.librarymanager.model.Livro
+ * @see CRUD
+ * @see LivroException
+ * @see Livro
  * @see java.util.List
  *
  */

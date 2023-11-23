@@ -1,4 +1,4 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
 import java.util.ArrayList;
 import java.util.List;

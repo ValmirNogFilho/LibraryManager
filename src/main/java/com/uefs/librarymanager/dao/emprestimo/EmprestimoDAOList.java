@@ -1,17 +1,20 @@
-package main.java.com.uefs.librarymanager.dao.emprestimo;
+package com.uefs.librarymanager.dao.emprestimo;
 
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.*;
-import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
+import com.uefs.librarymanager.model.Emprestimo;
+import com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+//import com.uefs.librarymanager.model.*;
+
+import com.uefs.librarymanager.exceptions.EmprestimoException;
+import com.uefs.librarymanager.model.Sistema;
+import com.uefs.librarymanager.utils.statusEmprestimo;
 
 import java.time.LocalDate;
 import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmprestimoDAOList implements EmprestimoDAO {
 
@@ -132,6 +135,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
             Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
             livro.setDisponiveis(livro.getDisponiveis()-1);
+
             DAO.getLivroDAO().update(livro);
             create(emprestimo);
             return emprestimo;

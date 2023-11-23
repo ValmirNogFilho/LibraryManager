@@ -1,8 +1,8 @@
-package main.java.com.uefs.librarymanager.dao.livro;
+package com.uefs.librarymanager.dao.livro;
 
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.model.Livro;
-import main.java.com.uefs.librarymanager.utils.FileBehaviour;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.utils.FileBehaviour;
 
 import java.io.File;
 import java.util.*;

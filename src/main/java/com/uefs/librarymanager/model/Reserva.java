@@ -1,6 +1,6 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.utils.IDGenerator;
+import com.uefs.librarymanager.utils.IDGenerator;
 
 import java.io.Serializable;
 import java.time.LocalDate;

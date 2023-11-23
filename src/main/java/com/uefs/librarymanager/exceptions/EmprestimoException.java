@@ -1,6 +1,6 @@
-package main.java.com.uefs.librarymanager.exceptions;
+package com.uefs.librarymanager.exceptions;
 
-import javax.print.DocFlavor;
+
 
 public class EmprestimoException extends Exception {
     public static final String LIMITE_RENOVACOES = "Limite de reservas excedido.";

@@ -1,7 +1,7 @@
-package main.java.com.uefs.librarymanager.dao.usuario.leitor;
+package com.uefs.librarymanager.dao.usuario.leitor;
 
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Leitor;
 
 import java.util.*;
 

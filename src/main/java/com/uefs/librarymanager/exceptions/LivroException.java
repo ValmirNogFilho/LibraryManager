@@ -1,4 +1,4 @@
-package main.java.com.uefs.librarymanager.exceptions;
+package com.uefs.librarymanager.exceptions;
 
 public class LivroException extends Exception{
     public static final String FILA_NAO_VAZIA = "A fila de reservas desse livro não está vazia";
