@@ -6,7 +6,7 @@ import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Emprestimo;
 import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
-import utils.FileBehaviour;
+import main.java.com.uefs.librarymanager.utils.FileBehaviour;
 
 import java.io.File;
 import java.util.List;

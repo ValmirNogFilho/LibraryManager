@@ -10,7 +10,7 @@ import main.java.com.uefs.librarymanager.model.Reserva;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.statusLeitor;
+import main.java.com.uefs.librarymanager.utils.statusLeitor;
 
 import static org.junit.jupiter.api.Assertions.*;
 

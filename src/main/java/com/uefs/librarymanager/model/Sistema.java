@@ -2,13 +2,12 @@ package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusEmprestimo;
-import utils.statusLeitor;
+import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
+import main.java.com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,8 +21,8 @@ import java.util.Objects;
  * @author: Kevin Cordeiro Borges
  * @see: main.java.com.uefs.librarymanager.dao.DAO
  * @see: main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see: utils.statusEmprestimo
- * @see: utils.statusLeitor
+ * @see: main.java.com.uefs.librarymanager.utils.statusEmprestimo
+ * @see: main.java.com.uefs.librarymanager.utils.statusLeitor
  * @see: java.time.LocaleDate
  * @see: java.time.temporal.ChronoUnit
  * @see: java.util.LinkedList

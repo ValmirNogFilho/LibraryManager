@@ -2,13 +2,10 @@ package main.java.com.uefs.librarymanager.dao.usuario.operador;
 
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
 import main.java.com.uefs.librarymanager.model.Usuario;
-import utils.FileBehaviour;
+import main.java.com.uefs.librarymanager.utils.FileBehaviour;
 
 import java.io.*;
-import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

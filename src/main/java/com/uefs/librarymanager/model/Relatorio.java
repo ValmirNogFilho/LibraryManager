@@ -2,7 +2,7 @@ package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusEmprestimo;
+import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ import java.util.*;
  * @author Kevin Cordeiro Borges
  * @see main.java.com.uefs.librarymanager.dao.DAO
  * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see utils.statusEmprestimo
+ * @see statusEmprestimo
  * @see java.util
  */
 public class Relatorio {

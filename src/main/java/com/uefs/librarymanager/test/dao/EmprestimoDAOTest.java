@@ -8,8 +8,8 @@ import main.java.com.uefs.librarymanager.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.statusEmprestimo;
-import utils.statusLeitor;
+import main.java.com.uefs.librarymanager.utils.statusEmprestimo;
+import main.java.com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 

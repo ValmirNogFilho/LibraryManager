@@ -1,4 +1,4 @@
-package utils;
+package main.java.com.uefs.librarymanager.utils;
 
 /**
  * Esta classe é responsável por armazenar os possíveis estados (status) de um leitor:

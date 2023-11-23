@@ -1,12 +1,10 @@
 package main.java.com.uefs.librarymanager.model;
 
-import utils.IDGenerator;
+import main.java.com.uefs.librarymanager.utils.IDGenerator;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * Esta classe gerencia as reservas da biblioteca, recebendo o ID do usuário e o ISBN do livro que o usuário deseja fazer
@@ -14,7 +12,7 @@ import java.util.Queue;
  * representada pela variável "dataFim". Além disso, cada reserva possui seu ID próprio.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see utils.IDGenerator
+ * @see IDGenerator
  * @see java.time.LocalDate
  * @see java.util.Objects
  * @see java.util.PriorityQueue

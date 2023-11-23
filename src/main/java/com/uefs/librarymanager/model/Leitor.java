@@ -1,10 +1,9 @@
 package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusLeitor;
+import main.java.com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Esta classe é uma extensão da classe "Usuario" contendo as especificidades do tipo de usuério leitor, tais quais:
@@ -20,7 +19,7 @@ import java.util.Date;
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
  * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see utils.statusLeitor
+ * @see statusLeitor
  * @see java.time.LocalDate
  * @see java.util.Date
  */

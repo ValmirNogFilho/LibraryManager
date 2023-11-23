@@ -2,7 +2,7 @@ package main.java.com.uefs.librarymanager.model;
 
 import main.java.com.uefs.librarymanager.dao.DAO;
 import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusLeitor;
+import main.java.com.uefs.librarymanager.utils.statusLeitor;
 
 /**
  * Esta classe é responsável por registrar um administrador no sistema da biblioteca.
@@ -18,7 +18,7 @@ import utils.statusLeitor;
  * @author Kevin Cordeiro Borges
  * @see main.java.com.uefs.librarymanager.dao.DAO
  * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see utils.statusLeitor
+ * @see statusLeitor
  */
 public class Administrador extends Usuario {
 
