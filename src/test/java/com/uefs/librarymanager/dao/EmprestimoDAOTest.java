@@ -1,4 +1,4 @@
-package com.uefs.librarymanager.test.dao;
+package com.uefs.librarymanager.dao;
 
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.EmprestimoException;

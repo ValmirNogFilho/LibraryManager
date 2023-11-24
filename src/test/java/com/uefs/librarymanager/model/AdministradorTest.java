@@ -1,4 +1,4 @@
-package com.uefs.librarymanager.test.model;
+package com.uefs.librarymanager.model;
 
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.LivroException;
