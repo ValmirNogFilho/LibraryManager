@@ -110,7 +110,7 @@ public class ReservaDAOList implements ReservaDAO{
 
     @Override
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
-        if (leitor.podePegarLivro() &&
+        if (leitor.temStatusLivre() &&
                 leitor.podeFazerMaisReservas() &&
                 DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN()))
         {
@@ -148,7 +148,7 @@ public class ReservaDAOList implements ReservaDAO{
         Leitor leitor = DAO.getLeitorDAO().findById(reserva.getIdUsuario());
         Livro livro = DAO.getLivroDAO().findByPrimaryKey(reserva.getISBN());
 
-        if (leitor.podePegarLivro()
+        if (leitor.temStatusLivre()
                 && DAO.getEmprestimoDAO().podeFazerMaisEmprestimos(leitor)
                 && DAO.getEmprestimoDAO().leitorSemAtrasos(leitor)
                 && livro.existemDisponiveis()
@@ -166,6 +166,15 @@ public class ReservaDAOList implements ReservaDAO{
             return emprestimo;
         }
         return null;
+    }
+
+    @Override
+    public void removerReservasDe(Leitor l) {
+        for(String ISBN: reservas.keySet())
+            for(Reserva reserva: reservas.get(ISBN))
+                if(reserva.getIdUsuario().equals(l.getId()))
+                    delete(reserva);
+
     }
 
 }

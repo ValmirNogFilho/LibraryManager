@@ -140,7 +140,7 @@ public class ReservaDAOFile implements ReservaDAO{
     @Override
     public Reserva registrarReserva(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
 
-        if (!(leitor.podePegarLivro() &&
+        if (!(leitor.temStatusLivre() &&
                 leitor.podeFazerMaisReservas() &&
                 DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())))
             return null;
@@ -196,7 +196,7 @@ public class ReservaDAOFile implements ReservaDAO{
         Leitor leitor = DAO.getLeitorDAO().findById(reserva.getIdUsuario());
         Livro livro = DAO.getLivroDAO().findByPrimaryKey(reserva.getISBN());
 
-        if (!(leitor.podePegarLivro()
+        if (!(leitor.temStatusLivre()
                 && DAO.getEmprestimoDAO().podeFazerMaisEmprestimos(leitor)
                 && DAO.getEmprestimoDAO().leitorSemAtrasos(leitor)
                 && livro.existemDisponiveis()
@@ -213,5 +213,24 @@ public class ReservaDAOFile implements ReservaDAO{
         DAO.getEmprestimoDAO().create(emprestimo);
         delete(reserva);
         return emprestimo;
+    }
+
+    @Override
+    public void removerReservasDe(Leitor l) {
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        LinkedList<Reserva> reservasDoLivro;
+
+        for(String ISBN: reservas.keySet()) {
+            reservasDoLivro = reservas.get(ISBN);
+            for (Reserva reserva: reservasDoLivro){
+                if(reserva.getIdUsuario().equals(l.getId())){
+                    reservasDoLivro.remove(reserva);
+                    reservas.put(reserva.getISBN(),reservasDoLivro);
+                }
+            }
+        }
+
+        FileBehaviour.sobreescreverArquivo(arquivo, reservas);
+
     }
 }
