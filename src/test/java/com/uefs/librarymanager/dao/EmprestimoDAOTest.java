@@ -211,7 +211,7 @@ class EmprestimoDAOTest {
 
         livro = DAO.getLivroDAO().findByPrimaryKey(livro.getISBN());
         assertEquals(9, livro.getDisponiveis());
-        int numeroEmprestimos = DAO.getEmprestimoDAO().quantidadeEmAndamentoDoLeitor(l);
+        int numeroEmprestimos = DAO.getEmprestimoDAO().qtdEmprestimosEmAndamentoDe(l);
 
 
         DAO.getEmprestimoDAO().devolverLivro(e);
@@ -221,7 +221,7 @@ class EmprestimoDAOTest {
         //o número de exemplares disponíveis do livro deve ser incrementado a um novamente
         assertEquals(10, livro.getDisponiveis());
         //o número de empréstimos em andamento do leitor deve ser decrementado em um
-        assertEquals(numeroEmprestimos-1, DAO.getEmprestimoDAO().quantidadeEmAndamentoDoLeitor(l));
+        assertEquals(numeroEmprestimos-1, DAO.getEmprestimoDAO().qtdEmprestimosEmAndamentoDe(l));
 
         //alterando empréstimo para simular uma devoulução atrasada
         e.setDataFim(LocalDate.now().minusDays(1));

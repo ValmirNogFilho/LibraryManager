@@ -61,7 +61,7 @@ public class EmprestimoDAOFile implements EmprestimoDAO{
     }
 
     @Override
-    public int quantidadeEmAndamentoDoLeitor(Leitor leitor) {
+    public int qtdEmprestimosEmAndamentoDe(Leitor leitor) {
         return 0;
     }
 

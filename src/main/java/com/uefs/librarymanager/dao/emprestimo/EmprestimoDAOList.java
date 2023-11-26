@@ -78,7 +78,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     }
 
     @Override
-    public int quantidadeEmAndamentoDoLeitor(Leitor leitor) {
+    public int qtdEmprestimosEmAndamentoDe(Leitor leitor) {
         int count = 0;
         for(Emprestimo e: findByLeitor(leitor))
             if(e.getStatus().equals(statusEmprestimo.ANDAMENTO))
@@ -87,7 +87,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     }
 
     public boolean podeFazerMaisEmprestimos(Leitor leitor) throws UsuarioException {
-        if(quantidadeEmAndamentoDoLeitor(leitor) < 3)
+        if(qtdEmprestimosEmAndamentoDe(leitor) < 3)
             return true;
         else throw new UsuarioException(UsuarioException.LIMITE_EMPRESTIMOS);
 
@@ -124,7 +124,7 @@ public class EmprestimoDAOList implements EmprestimoDAO {
 
         Leitor leitor = DAO.getLeitorDAO().findById(objleitor.getId());
         Livro livro = DAO.getLivroDAO().findByISBN(objlivro.getISBN());
-        if (leitor.podePegarLivro()
+        if (leitor.temStatusLivre()
                 && podeFazerMaisEmprestimos(leitor)
                 && livro.existemDisponiveis()
                 && DAO.getReservaDAO().filaVazia(livro.getISBN())
