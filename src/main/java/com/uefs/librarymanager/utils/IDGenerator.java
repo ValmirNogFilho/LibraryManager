@@ -23,18 +23,18 @@ import static java.util.Calendar.YEAR;
 public class IDGenerator {
     public static LinkedList<String> IDsRegistrados = new LinkedList<String>();
     public static String geraID() {
-        Calendar c = Calendar.getInstance();
-        int ano = c.get(Calendar.YEAR);
-        ano %=  100;
-        Random random = new Random();
-        Integer randint;
         String id;
+
+        Calendar calendar = Calendar.getInstance();
+        int anoCadastro = calendar.get(Calendar.YEAR) %  100;
+        Integer randint;
         do{
-            randint = 1000 + random.nextInt(9999);
-            id = ano + randint.toString();
+            randint = 1000 + new Random().nextInt(9999);
+            id = anoCadastro + randint.toString();
         }
         while(IDsRegistrados.contains(id));
         IDsRegistrados.add(id);
+
         return id;
     }
 }
