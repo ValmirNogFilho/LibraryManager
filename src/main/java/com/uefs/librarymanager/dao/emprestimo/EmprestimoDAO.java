@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.dao.emprestimo;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
@@ -41,7 +41,7 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
      * @param leitor
      * @return quantidade de empréstimos em andamento de dado leitor
      */
-    public int quantidadeEmAndamentoDoLeitor(Leitor leitor);
+    public int qtdEmprestimosEmAndamentoDe(Leitor leitor);
 
     /**
      * Este método verifica se o leitor pode fazer mais empréstimos. Caso o usuário possua uma quantia menor que três

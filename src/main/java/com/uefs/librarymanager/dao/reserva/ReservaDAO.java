@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.dao.reserva;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Emprestimo;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Registrar empréstimo por reserva.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
+ * @see CRUD
  * @see LivroException
  * @see UsuarioException
  * @see Emprestimo
@@ -110,4 +110,11 @@ public interface ReservaDAO extends CRUD<Reserva>{
      * @throws UsuarioException
      */
     public Emprestimo registrarEmprestimoPorReserva(Reserva reserva) throws LivroException, UsuarioException;
+
+
+    /**
+     * Remove todas as reservas feitas pelo leitor associado ao objeto Leitor l.
+     * @param l
+     */
+    public void removerReservasDe(Leitor l);
 }

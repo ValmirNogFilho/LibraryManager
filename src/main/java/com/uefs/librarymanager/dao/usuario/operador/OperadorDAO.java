@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.dao.usuario.operador;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Usuario;
 
@@ -9,7 +9,7 @@ import com.uefs.librarymanager.model.Usuario;
  * administrador ou um bibliotecário.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
+ * @see CRUD
  * @see UsuarioException
  * @see Usuario
  */

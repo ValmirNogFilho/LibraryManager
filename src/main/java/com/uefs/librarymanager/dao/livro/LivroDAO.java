@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.dao.livro;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.model.Livro;
 
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public interface LivroDAO extends CRUD<Livro> {
 
-    public List<Livro> findByCategoria(String categoria);
+    public List<Livro> findBooksByCategoria(String categoria);
 
     /**
      * Este método adiciona dado livro à uma LinkedList de um dado autor, formando uma espécie de acervo por autor, todos
@@ -31,14 +31,14 @@ public interface LivroDAO extends CRUD<Livro> {
      * @param autor
      * @return todos os livros do autor.
      */
-    public List<Livro> findByAutor(String autor);
+    public List<Livro> findBooksByAutor(String autor);
 
     /**
      * Este método agrupa livros de mesmo título numa lista
      * @param titulo
      * @return lista com livros de mesmo título.
      */
-    public List<Livro> findByTitulo(String titulo);
+    public List<Livro> findBooksByTitulo(String titulo);
 
 
     /**

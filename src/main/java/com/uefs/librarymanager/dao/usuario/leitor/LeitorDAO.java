@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.dao.usuario.leitor;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 /**
@@ -9,7 +9,7 @@ import com.uefs.librarymanager.model.Leitor;
  * de algum livro.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
+ * @see CRUD
  * @see UsuarioException
  * @see Leitor
  */
