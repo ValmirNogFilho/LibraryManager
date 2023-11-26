@@ -66,23 +66,22 @@ public class LivroDAOFile implements LivroDAO{
     public Livro findByPrimaryKey(String ISBN) {
         return findManyMap().get(ISBN);
     }
-    
-    @Override
-    public List<Livro> findByCategoria(String categoria) {
 
+    private List<Livro> findBy(String identificador){
         return findMany()
                 .stream()
-                .filter(l -> l.getCategoria().equals(categoria))
+                .filter(l -> l.getCategoria().equals(identificador))
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<Livro> findByCategoria(String categoria) {
+        return findBy(categoria);
     }
 
     @Override
     public List<Livro> findByAutor(String autor) {
-        return findMany()
-                .stream()
-                .filter(l -> l.getAutor().equals(autor))
-                .collect(Collectors.toList());
+        return findBy(autor);
     }
 
     @Override
