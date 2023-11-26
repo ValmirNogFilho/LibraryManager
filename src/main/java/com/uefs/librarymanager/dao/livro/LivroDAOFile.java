@@ -11,13 +11,10 @@ import java.util.stream.Collectors;
 public class LivroDAOFile implements LivroDAO{
 
     File arquivo;
-   
-
-    private static final String NOMEARQUIVOLIVROS = "livros";
+    private static final String NOMEARQUIVO= "livros";
   
     public LivroDAOFile(){
-        arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVOLIVROS);
-    
+        arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
     }
 
     @Override
@@ -67,7 +64,7 @@ public class LivroDAOFile implements LivroDAO{
         return findManyMap().get(ISBN);
     }
 
-    private List<Livro> findBy(String identificador){
+    private List<Livro> findBooksBy(String identificador){
         return findMany()
                 .stream()
                 .filter(l -> l.getCategoria().equals(identificador))
@@ -75,23 +72,21 @@ public class LivroDAOFile implements LivroDAO{
     }
 
     @Override
-    public List<Livro> findByCategoria(String categoria) {
-        return findBy(categoria);
+    public List<Livro> findBooksByCategoria(String categoria) {
+        return findBooksBy(categoria);
     }
 
     @Override
-    public List<Livro> findByAutor(String autor) {
-        return findBy(autor);
+    public List<Livro> findBooksByAutor(String autor) {
+        return findBooksBy(autor);
     }
 
     @Override
-    public List<Livro> findByTitulo(String titulo) {
-
+    public List<Livro> findBooksByTitulo(String titulo) {
         return findMany()
                 .stream()
                 .filter(l -> l.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
                 .collect(Collectors.toList());
-
     }
 
    

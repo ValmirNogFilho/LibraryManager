@@ -73,7 +73,7 @@ public class LivroDAOList implements LivroDAO{
     }
 
     @Override
-    public List<Livro> findByTitulo(String titulo){
+    public List<Livro> findBooksByTitulo(String titulo){
         List<Livro> livrosTitulo = new LinkedList<Livro>();
         for(Livro livro: findMany())
             if(livro.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
@@ -84,7 +84,7 @@ public class LivroDAOList implements LivroDAO{
 
 
     @Override
-    public List<Livro> findByCategoria(String categoria) {
+    public List<Livro> findBooksByCategoria(String categoria) {
         return findMany()
                 .stream()
                 .filter(l -> l.getCategoria().equals(categoria))
@@ -93,7 +93,7 @@ public class LivroDAOList implements LivroDAO{
 
 
     @Override
-    public List<Livro> findByAutor(String autor) {
+    public List<Livro> findBooksByAutor(String autor) {
         return findMany()
                 .stream()
                 .filter(l -> l.getAutor().equals(autor))

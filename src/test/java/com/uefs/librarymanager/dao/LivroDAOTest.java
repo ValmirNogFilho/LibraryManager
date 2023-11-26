@@ -78,31 +78,31 @@ class LivroDAOTest {
     @Test
     void findByTitulo(){
         //conferindo busca de string completa do título ou de substrings contidas
-        assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("test"));
-        assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findByTitulo("te"));
+        assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findBooksByTitulo("test"));
+        assertEquals(DAO.getLivroDAO().findMany(), DAO.getLivroDAO().findBooksByTitulo("te"));
         //conferindo a geração de lista vazia para títulos não encontrados
-        assertTrue(DAO.getLivroDAO().findByTitulo("abc").isEmpty());
+        assertTrue(DAO.getLivroDAO().findBooksByTitulo("abc").isEmpty());
 
         Livro o = DAO.getLivroDAO().create(new Livro("Dom Casmurro", "maria", "editora", "125",
                 2000, "abc", "Exemplo",10));
         //conferindo a busca sucessiva por livro a partir de substrings e de buscas com ou sem capitalização
-        assertEquals(DAO.getLivroDAO().findByTitulo("Dom").get(0), o);
-        assertEquals(DAO.getLivroDAO().findByTitulo("dom").get(0), o);
-        assertEquals(DAO.getLivroDAO().findByTitulo("DOM").get(0), o);
+        assertEquals(DAO.getLivroDAO().findBooksByTitulo("Dom").get(0), o);
+        assertEquals(DAO.getLivroDAO().findBooksByTitulo("dom").get(0), o);
+        assertEquals(DAO.getLivroDAO().findBooksByTitulo("DOM").get(0), o);
     }
 
     @Test
     void findByCategoria() {
         //conferindo busca sucessiva de livros por uma categoria
-        assertEquals(m, DAO.getLivroDAO().findByCategoria("Exemplo").get(0));
-        assertEquals(n, DAO.getLivroDAO().findByCategoria("Exemplo").get(1));
+        assertEquals(m, DAO.getLivroDAO().findBooksByCategoria("Exemplo").get(0));
+        assertEquals(n, DAO.getLivroDAO().findBooksByCategoria("Exemplo").get(1));
     }
 
     @Test
     void findByAutor() {
         //conferindo busca sucessiva de livros por um autor
         DAO.getLivroDAO().create(n);
-        assertEquals(n, DAO.getLivroDAO().findByAutor("maria").get(0));
+        assertEquals(n, DAO.getLivroDAO().findBooksByAutor("maria").get(0));
     }
 
 }
