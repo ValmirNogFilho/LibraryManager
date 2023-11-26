@@ -73,7 +73,7 @@ public class Leitor extends Usuario{
      * @return True caso o usuário esteja LIVRE e uma exceção caso o usuário esteja multado ou bloqueado.
      * @throws UsuarioException
      */
-    public boolean podePegarLivro () throws UsuarioException {
+    public boolean temStatusLivre() throws UsuarioException {
         return switch (status) {
             case LIVRE -> true;
             case MULTADO -> throw new UsuarioException(UsuarioException.USUARIO_MULTADO);
