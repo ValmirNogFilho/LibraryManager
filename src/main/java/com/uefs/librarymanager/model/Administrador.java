@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.model;
 
 
+import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
@@ -99,8 +100,12 @@ public class Administrador extends Usuario {
      * Este método deleta a conta de dado leitor "l".
      * @param l
      */
-    public void removerLeitor(Leitor l){
+    public void removerLeitor(Leitor l) throws EmprestimoException {
+        if(DAO.getEmprestimoDAO().qtdEmprestimosEmAndamentoDe(l) > 0){
+            throw new EmprestimoException(EmprestimoException.USUARIO_AINDA_TEM_EMPRESTIMOS);
+        }
         DAO.getLeitorDAO().delete(l);
+
     }
 
     /**

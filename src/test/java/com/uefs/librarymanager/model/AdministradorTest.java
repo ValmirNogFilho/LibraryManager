@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.model;
 
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.*;
@@ -108,7 +109,7 @@ class AdministradorTest {
     }
 
     @Test
-    void removerLeitor() {
+    void removerLeitor() throws EmprestimoException {
         Leitor l = DAO.getLeitorDAO().create(new Leitor("fulano", "abc", "12345678"));
         a.removerLeitor(l);
         assertNull(DAO.getLeitorDAO().findByPrimaryKey(l.getId()));
