@@ -162,4 +162,11 @@ class ReservaDAOTest {
         assertEquals(e, DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(e.getId())));
     }
 
+    @Test
+    void removerReservasDe(){
+        assertEquals(r, DAO.getReservaDAO().findById(r.getId()));
+        DAO.getReservaDAO().removerReservasDe(l);
+        assertNull(DAO.getReservaDAO().findById(r.getId()));
+    }
+
 }
