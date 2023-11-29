@@ -1,7 +1,8 @@
-package main.java.com.uefs.librarymanager.dao.livro;
-import main.java.com.uefs.librarymanager.dao.CRUD;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.model.Livro;
+package com.uefs.librarymanager.dao.livro;
+
+import com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.model.Livro;
 
 import java.util.List;
 
@@ -14,45 +15,15 @@ import java.util.List;
  * Remover o autor.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
- * @see main.java.com.uefs.librarymanager.exceptions.LivroException
- * @see main.java.com.uefs.librarymanager.model.Livro
+ * @see CRUD
+ * @see LivroException
+ * @see Livro
  * @see java.util.List
  *
  */
 public interface LivroDAO extends CRUD<Livro> {
-    /**
-     * Este método adiciona uma categoria ao livro
-     * @param categoria
-     */
-    public void addCategoria(String categoria);
 
-    /**
-     * Este método adiciona o livro de dada categoria a um acervo da própria catégoria
-     * @param obj
-     * @return obj
-     */
-    public Livro addLivroEmCategoria(Livro obj);
-
-    /**
-     * Este método remove o livro de dada categoria do acervo da própria categoria
-     * @param obj
-     * @param categoria
-     */
-    public void removerLivroDeCategoria(Livro obj, String categoria);
-
-    /**
-     * Este método adiciona um livro à uma LinkedList de dada categoria.
-     * @param categoria
-     * @return todos os livros da categoria
-     */
-    public List<Livro> findByCategoria(String categoria);
-
-    /**
-     * Este método adiciona um livro a um acervo de ISBN por um dado autor específico.
-     * @param autor
-     */
-    public void addAutor(String autor);
+    public List<Livro> findBooksByCategoria(String categoria);
 
     /**
      * Este método adiciona dado livro à uma LinkedList de um dado autor, formando uma espécie de acervo por autor, todos
@@ -60,28 +31,15 @@ public interface LivroDAO extends CRUD<Livro> {
      * @param autor
      * @return todos os livros do autor.
      */
-    public List<Livro> findByAutor(String autor);
+    public List<Livro> findBooksByAutor(String autor);
 
     /**
      * Este método agrupa livros de mesmo título numa lista
      * @param titulo
      * @return lista com livros de mesmo título.
      */
-    public List<Livro> findByTitulo(String titulo);
+    public List<Livro> findBooksByTitulo(String titulo);
 
-    /**
-     * Este método adiciona dado livro numa espécie de acervo de livros de um mesmo autor por meio de uma LinkedList.
-     * @param obj
-     * @return obj
-     */
-    public Livro addLivroEmAutor(Livro obj);
-
-    /**
-     * Este método remove um dado livro do "acervo" de livros de um determinado autor.
-     * @param obj
-     * @param autor
-     */
-    public void removerLivroDeAutor(Livro obj, String autor);
 
     /**
      * Este método faz a busca de um livro pelo seu "Primarykey" que neste caaso é o ISBN do livro.

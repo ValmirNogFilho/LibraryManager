@@ -1,14 +1,13 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusEmprestimo;
-import utils.statusLeitor;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.statusEmprestimo;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,8 +21,8 @@ import java.util.Objects;
  * @author: Kevin Cordeiro Borges
  * @see: main.java.com.uefs.librarymanager.dao.DAO
  * @see: main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see: utils.statusEmprestimo
- * @see: utils.statusLeitor
+ * @see: main.java.com.uefs.librarymanager.utils.statusEmprestimo
+ * @see: main.java.com.uefs.librarymanager.utils.statusLeitor
  * @see: java.time.LocaleDate
  * @see: java.time.temporal.ChronoUnit
  * @see: java.util.LinkedList
@@ -48,7 +47,7 @@ public class Sistema {
             for (Emprestimo emprestimo: DAO.getEmprestimoDAO().findByLeitor(leitor)){
 
                 verificarPossivelMulta(emprestimo, leitor);
-                DAO.getEmprestimoDAO().update(emprestimo);
+
             }
 
             if (leitor.getPrazoMulta()==0 && leitor.getStatus().equals(statusLeitor.MULTADO))
@@ -92,6 +91,8 @@ public class Sistema {
         else if(LocalDate.now().isEqual(emprestimo.getDataFim())){
             emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
         }
+        DAO.getEmprestimoDAO().update(emprestimo);
+        DAO.getLeitorDAO().update(leitor);
         return estaAtrasado;
     }
 

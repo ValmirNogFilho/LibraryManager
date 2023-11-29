@@ -1,8 +1,11 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.dao.DAO;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusLeitor;
+
+import com.uefs.librarymanager.exceptions.EmprestimoException;
+import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 /**
  * Esta classe é responsável por registrar um administrador no sistema da biblioteca.
@@ -16,9 +19,9 @@ import utils.statusLeitor;
  * Esta classe é uma extensão da classe "Usuario"
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.DAO
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see utils.statusLeitor
+ * @see DAO
+ * @see UsuarioException
+ * @see statusLeitor
  */
 public class Administrador extends Usuario {
 
@@ -97,8 +100,12 @@ public class Administrador extends Usuario {
      * Este método deleta a conta de dado leitor "l".
      * @param l
      */
-    public void removerLeitor(Leitor l){
+    public void removerLeitor(Leitor l) throws EmprestimoException {
+        if(DAO.getEmprestimoDAO().qtdEmprestimosEmAndamentoDe(l) > 0){
+            throw new EmprestimoException(EmprestimoException.USUARIO_AINDA_TEM_EMPRESTIMOS);
+        }
         DAO.getLeitorDAO().delete(l);
+
     }
 
     /**

@@ -1,10 +1,9 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import utils.statusLeitor;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Esta classe é uma extensão da classe "Usuario" contendo as especificidades do tipo de usuério leitor, tais quais:
@@ -19,8 +18,8 @@ import java.util.Date;
  * Número de reservas do leitor.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see utils.statusLeitor
+ * @see UsuarioException
+ * @see statusLeitor
  * @see java.time.LocalDate
  * @see java.util.Date
  */
@@ -74,7 +73,7 @@ public class Leitor extends Usuario{
      * @return True caso o usuário esteja LIVRE e uma exceção caso o usuário esteja multado ou bloqueado.
      * @throws UsuarioException
      */
-    public boolean podePegarLivro () throws UsuarioException {
+    public boolean temStatusLivre() throws UsuarioException {
         return switch (status) {
             case LIVRE -> true;
             case MULTADO -> throw new UsuarioException(UsuarioException.USUARIO_MULTADO);

@@ -1,10 +1,10 @@
-package main.java.com.uefs.librarymanager.dao.emprestimo;
+package com.uefs.librarymanager.dao.emprestimo;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.*;
+import com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.exceptions.EmprestimoException;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.*;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import java.util.List;
  * fazer verificações nas contas dos leitores para checar se eles podem fazer empréstimos, por exemplo.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
- * @see main.java.com.uefs.librarymanager.exceptions.EmprestimoException
- * @see main.java.com.uefs.librarymanager.exceptions.LivroException
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see main.java.com.uefs.librarymanager.model
+ * @see CRUD
+ * @see EmprestimoException
+ * @see LivroException
+ * @see UsuarioException
+ * @see com.uefs.librarymanager.model
  * @see  java.util.List
  */
 
@@ -43,7 +43,7 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
      * @param leitor
      * @return quantidade de empréstimos em andamento de dado leitor
      */
-    public int quantidadeEmAndamentoDoLeitor(Leitor leitor);
+    public int qtdEmprestimosEmAndamentoDe(Leitor leitor);
 
     /**
      * Este método verifica se o leitor pode fazer mais empréstimos. Caso o usuário possua uma quantia menor que três

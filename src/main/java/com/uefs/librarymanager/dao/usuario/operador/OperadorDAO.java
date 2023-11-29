@@ -1,17 +1,17 @@
-package main.java.com.uefs.librarymanager.dao.usuario.operador;
+package com.uefs.librarymanager.dao.usuario.operador;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Usuario;
 
 /**
  * Esta interface é responsável por conter um método que diz respeito ao "OperadorDAO". Um operador pode ser um
  * administrador ou um bibliotecário.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see main.java.com.uefs.librarymanager.model.Usuario
+ * @see CRUD
+ * @see UsuarioException
+ * @see Usuario
  */
 public interface OperadorDAO extends CRUD<Usuario> {
     /**

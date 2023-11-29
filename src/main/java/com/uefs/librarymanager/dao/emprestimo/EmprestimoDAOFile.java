@@ -1,12 +1,12 @@
-package main.java.com.uefs.librarymanager.dao.emprestimo;
+package com.uefs.librarymanager.dao.emprestimo;
 
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Emprestimo;
-import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Livro;
-import utils.FileBehaviour;
+import com.uefs.librarymanager.exceptions.EmprestimoException;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Emprestimo;
+import com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.utils.FileBehaviour;
 
 import java.io.*;
 import java.util.*;
@@ -68,7 +68,7 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
     }
 
     @Override
-    public int quantidadeEmAndamentoDoLeitor(Leitor leitor) {
+    public int qtdEmprestimosEmAndamentoDe(Leitor leitor) {
         return 0;
     }
 

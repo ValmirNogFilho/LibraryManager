@@ -1,7 +1,8 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.LivroException;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,11 +19,11 @@ import java.util.Objects;
  * Livro livro = new Livro("titulo","autor","editora","ISBN","anoDePublicacao","categoria","disponiveis")
  * @author Valmir ALves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.exceptions.LivroException
+ * @see LivroException
  * @see java.util.List
  * @see java.util.Objects
  */
-public class Livro {
+public class Livro implements Serializable {
     private String titulo;
     private String autor;
     private String editora;

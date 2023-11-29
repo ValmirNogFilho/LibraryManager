@@ -1,11 +1,10 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
 
-import main.java.com.uefs.librarymanager.exceptions.EmprestimoException;
-import utils.IDGenerator;
-import utils.statusEmprestimo;
+import com.uefs.librarymanager.exceptions.EmprestimoException;
+import com.uefs.librarymanager.utils.IDGenerator;
+import com.uefs.librarymanager.utils.statusEmprestimo;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -23,9 +22,9 @@ import java.util.Objects;
  * Número de renovações.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.exceptions.EmprestimoException
- * @see utils.IDGenerator
- * @see utils.statusEmprestimo
+ * @see EmprestimoException
+ * @see IDGenerator
+ * @see statusEmprestimo
  * @see java.time.LocalDate
  * @see java.util.Date
  * @see java.util.Objects

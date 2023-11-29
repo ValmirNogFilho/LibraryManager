@@ -1,4 +1,6 @@
-package main.java.com.uefs.librarymanager.model;
+package com.uefs.librarymanager.model;
+
+import com.uefs.librarymanager.model.Usuario;
 
 /**
  * Esta classe é uma extensão da classe "Usuario", ela é responsável por registrar um bibliotecário no sistema contando com

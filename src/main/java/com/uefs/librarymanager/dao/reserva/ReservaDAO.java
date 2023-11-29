@@ -1,12 +1,12 @@
-package main.java.com.uefs.librarymanager.dao.reserva;
+package com.uefs.librarymanager.dao.reserva;
 
-import main.java.com.uefs.librarymanager.dao.CRUD;
-import main.java.com.uefs.librarymanager.exceptions.LivroException;
-import main.java.com.uefs.librarymanager.exceptions.UsuarioException;
-import main.java.com.uefs.librarymanager.model.Emprestimo;
-import main.java.com.uefs.librarymanager.model.Leitor;
-import main.java.com.uefs.librarymanager.model.Livro;
-import main.java.com.uefs.librarymanager.model.Reserva;
+import com.uefs.librarymanager.dao.CRUD;
+import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Emprestimo;
+import com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.model.Reserva;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,13 +20,13 @@ import java.util.Map;
  * Registrar empréstimo por reserva.
  * @author Valmir Alves Nogueira Filho
  * @author Kevin Cordeiro Borges
- * @see main.java.com.uefs.librarymanager.dao.CRUD
- * @see main.java.com.uefs.librarymanager.exceptions.LivroException
- * @see main.java.com.uefs.librarymanager.exceptions.UsuarioException
- * @see main.java.com.uefs.librarymanager.model.Emprestimo
- * @see main.java.com.uefs.librarymanager.model.Leitor
- * @see main.java.com.uefs.librarymanager.model.Livro
- * @see main.java.com.uefs.librarymanager.model.Reserva
+ * @see CRUD
+ * @see LivroException
+ * @see UsuarioException
+ * @see Emprestimo
+ * @see Leitor
+ * @see Livro
+ * @see Reserva
  * @see java.util.LinkedList
  * @see java.util.List
  * @see java.util.Map
@@ -110,4 +110,11 @@ public interface ReservaDAO extends CRUD<Reserva>{
      * @throws UsuarioException
      */
     public Emprestimo registrarEmprestimoPorReserva(Reserva reserva) throws LivroException, UsuarioException;
+
+
+    /**
+     * Remove todas as reservas feitas pelo leitor associado ao objeto Leitor l.
+     * @param l
+     */
+    public void removerReservasDe(Leitor l);
 }
