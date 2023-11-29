@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class OperadorDAOFile implements OperadorDAO{
+public class OperadorDAODisk implements OperadorDAO{
 
     File arquivo;
     private static String NOMEARQUIVO = "operadores";
-    public OperadorDAOFile(){
+    public OperadorDAODisk(){
         arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
     }
 

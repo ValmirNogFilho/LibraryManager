@@ -15,11 +15,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class ReservaDAOFile implements ReservaDAO{
+public class ReservaDAODisk implements ReservaDAO{
     private File arquivo, arquivoId;
     private static final String NOMEARQUIVO = "reservas";
     private int proximoId;
-    public ReservaDAOFile() {
+    public ReservaDAODisk() {
         arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
         arquivoId = FileBehaviour.gerarArquivo("id" + NOMEARQUIVO);
     }

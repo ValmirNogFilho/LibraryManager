@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class LeitorDAOFile implements LeitorDAO{
+public class LeitorDAODisk implements LeitorDAO{
 
     File arquivo;
 
-    public LeitorDAOFile(){
+    public LeitorDAODisk(){
         arquivo = FileBehaviour.gerarArquivo("leitores");
     }
 

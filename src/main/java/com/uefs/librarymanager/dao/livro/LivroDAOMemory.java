@@ -6,11 +6,11 @@ import com.uefs.librarymanager.model.Livro;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class LivroDAOList implements LivroDAO{
+public class LivroDAOMemory implements LivroDAO{
     Map<String, Livro> livros;
     HashMap<String, LinkedList<String>> isbnPorCategorias;
     Map<String, LinkedList<String>> isbnPorAutores;
-    public LivroDAOList() {
+    public LivroDAOMemory() {
         livros = new HashMap<String, Livro>();
         isbnPorCategorias = new HashMap<String, LinkedList<String>>();
         isbnPorAutores = new HashMap<String, LinkedList<String>>();

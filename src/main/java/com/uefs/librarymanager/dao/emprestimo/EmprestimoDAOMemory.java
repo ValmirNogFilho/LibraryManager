@@ -16,12 +16,12 @@ import com.uefs.librarymanager.utils.statusEmprestimo;
 import java.time.LocalDate;
 import java.util.*;
 
-public class EmprestimoDAOList implements EmprestimoDAO {
+public class EmprestimoDAOMemory implements EmprestimoDAO {
 
     private List<Emprestimo> emprestimos;
     private Integer proximoID;
 
-    public EmprestimoDAOList(){
+    public EmprestimoDAOMemory(){
         emprestimos = new ArrayList<Emprestimo>();
         proximoID = 0;
     }

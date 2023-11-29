@@ -5,11 +5,11 @@ import com.uefs.librarymanager.model.Leitor;
 
 import java.util.*;
 
-public class LeitorDAOList implements LeitorDAO{
+public class LeitorDAOMemory implements LeitorDAO{
 
     private Map<String, Leitor> leitores;
 
-    public LeitorDAOList(){
+    public LeitorDAOMemory(){
         leitores = new HashMap<String, Leitor>();
     }
 

@@ -1,15 +1,14 @@
 package com.uefs.librarymanager.dao.usuario.operador;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
-import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
 
 import java.util.*;
 
-public class OperadorDAOList implements OperadorDAO {
+public class OperadorDAOMemory implements OperadorDAO {
     private Map<String, Usuario> operadores;
 
-    public OperadorDAOList() {
+    public OperadorDAOMemory() {
         operadores = new HashMap<String, Usuario>();
     }
 

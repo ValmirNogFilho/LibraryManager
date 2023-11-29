@@ -8,12 +8,12 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class LivroDAOFile implements LivroDAO{
+public class LivroDAODisk implements LivroDAO{
 
     File arquivo;
     private static final String NOMEARQUIVO= "livros";
   
-    public LivroDAOFile(){
+    public LivroDAODisk(){
         arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
     }
 

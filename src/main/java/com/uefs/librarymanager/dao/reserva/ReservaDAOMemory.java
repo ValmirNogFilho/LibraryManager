@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ReservaDAOList implements ReservaDAO{
+public class ReservaDAOMemory implements ReservaDAO{
 
     private Map<String, LinkedList<Reserva>> reservas;
     private int proximoId;
-    public ReservaDAOList(){
+    public ReservaDAOMemory(){
         reservas = new HashMap<String, LinkedList<Reserva>>();
         proximoId = 0;
     }
