@@ -30,6 +30,11 @@ public class EmprestimoDAOList implements EmprestimoDAO {
     }
 
     @Override
+    public int proximoID() {
+        return proximoID++;
+    }
+
+    @Override
     public int getProximoID() {
         return proximoID++;
     }

@@ -22,6 +22,8 @@ import java.util.List;
  */
 
 public interface EmprestimoDAO extends CRUD<Emprestimo> {
+    int proximoID();
+
     /**
      * Este método incrementa o integer proximoID, fazendo assim que haja uma sucessão crescente de IDs
      * @return próximo ID com relação ao anterior

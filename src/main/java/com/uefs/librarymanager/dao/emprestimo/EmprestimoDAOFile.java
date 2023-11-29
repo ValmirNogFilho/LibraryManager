@@ -8,17 +8,17 @@ import main.java.com.uefs.librarymanager.model.Leitor;
 import main.java.com.uefs.librarymanager.model.Livro;
 import utils.FileBehaviour;
 
-import java.io.File;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-public class EmprestimoDAOFile implements EmprestimoDAO{
+public class EmprestimoDAOFile implements EmprestimoDAO {
 
     File arquivo;
-
+    private Integer proximoId;
+    private List<Emprestimo> emprestimos;
     public EmprestimoDAOFile(){
         arquivo = FileBehaviour.gerarArquivo("emprestimos");
     }
-
 
     @Override
     public Emprestimo create(Emprestimo obj) {
@@ -27,7 +27,6 @@ public class EmprestimoDAOFile implements EmprestimoDAO{
 
     @Override
     public void delete(Emprestimo obj) {
-
     }
 
     @Override
@@ -36,9 +35,9 @@ public class EmprestimoDAOFile implements EmprestimoDAO{
     }
 
     @Override
-    public Emprestimo update(Emprestimo obj) {
-        return null;
-    }
+    public Emprestimo update(Emprestimo obj) { return null;
+        }
+
 
     @Override
     public List<Emprestimo> findMany() {
@@ -46,8 +45,15 @@ public class EmprestimoDAOFile implements EmprestimoDAO{
     }
 
     @Override
-    public Emprestimo findByPrimaryKey(String PrimaryKey) {
+    public Emprestimo findByPrimaryKey(String Id) {
+
         return null;
+    }
+
+
+    @Override
+    public int proximoID() {
+        return 0;
     }
 
     @Override
@@ -57,6 +63,7 @@ public class EmprestimoDAOFile implements EmprestimoDAO{
 
     @Override
     public List<Emprestimo> findByLeitor(Leitor leitor) {
+
         return null;
     }
 
@@ -99,4 +106,7 @@ public class EmprestimoDAOFile implements EmprestimoDAO{
     public boolean leitorSemAtrasos(Leitor leitor) throws UsuarioException {
         return false;
     }
+
+
 }
+
