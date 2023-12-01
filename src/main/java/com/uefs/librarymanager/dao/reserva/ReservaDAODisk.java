@@ -27,7 +27,7 @@ public class ReservaDAODisk implements ReservaDAO{
     @Override
     public Reserva create(Reserva obj) {
 
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
 
@@ -46,7 +46,7 @@ public class ReservaDAODisk implements ReservaDAO{
     }
     @Override
     public void delete(Reserva obj) {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         reservasDoLivro.remove(obj);
         reservas.put(obj.getISBN(),reservasDoLivro);
@@ -63,7 +63,7 @@ public class ReservaDAODisk implements ReservaDAO{
     @Override
     public Reserva update(Reserva obj) {
 
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(obj.getISBN());
         int index = reservasDoLivro.indexOf(obj);
@@ -79,7 +79,7 @@ public class ReservaDAODisk implements ReservaDAO{
 
     @Override
     public List<Reserva> findMany() {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> todasReservas = new LinkedList<Reserva>();
         for(String isbn: reservas.keySet()){
@@ -92,7 +92,7 @@ public class ReservaDAODisk implements ReservaDAO{
 
     @Override
     public Reserva findByPrimaryKey(String ISBN) {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
         if(reservas.get(ISBN) != null)
             if(!reservas.get(ISBN).isEmpty())
                 return reservas.get(ISBN).get(0);
@@ -120,13 +120,13 @@ public class ReservaDAODisk implements ReservaDAO{
 
     @Override
     public Map<String, LinkedList<Reserva>> findManyMap() {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
         return reservas;
     }
 
     @Override
     public boolean filaVazia(String ISBN) throws LivroException {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
         if(reservasDoLivro != null){
             if(reservasDoLivro.isEmpty()){
@@ -158,7 +158,7 @@ public class ReservaDAODisk implements ReservaDAO{
     @Override
     public void cancelarReserva(Leitor leitor, Livro livro) {
 
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
         for(Reserva r: reservasDoLivro)
@@ -181,7 +181,7 @@ public class ReservaDAODisk implements ReservaDAO{
 
     @Override
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN) {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
         if(!reservasDoLivro.isEmpty()){
@@ -217,7 +217,7 @@ public class ReservaDAODisk implements ReservaDAO{
 
     @Override
     public void removerReservasDe(Leitor l) {
-        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, LinkedList<Reserva>> reservas = FileBehaviour.consultarArquivoMap(arquivo);
         LinkedList<Reserva> reservasDoLivro;
 
         for(String ISBN: reservas.keySet()) {
