@@ -196,24 +196,38 @@ public class ReservaDAODisk implements ReservaDAO{
         Leitor leitor = DAO.getLeitorDAO().findById(reserva.getIdUsuario());
         Livro livro = DAO.getLivroDAO().findByPrimaryKey(reserva.getISBN());
 
-        if (!(leitor.temStatusLivre()
+        if (!emprestimoPossivel(leitor, livro))
+            return null;
+
+        subtrairLivroDoEstoque(livro);
+        delete(reserva);
+
+        return DAO.getEmprestimoDAO().create(
+                produzirEmprestimoComPrazo(leitor, livro)
+        );
+    }
+
+    private boolean emprestimoPossivel(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
+        return (leitor.temStatusLivre()
                 && DAO.getEmprestimoDAO().podeFazerMaisEmprestimos(leitor)
                 && DAO.getEmprestimoDAO().leitorSemAtrasos(leitor)
                 && livro.existemDisponiveis()
                 && DAO.getEmprestimoDAO().usuarioNaoTemISBN(leitor, livro.getISBN())
-        ))
-            return null;
+        );
+    }
 
+    private Emprestimo produzirEmprestimoComPrazo(Leitor leitor, Livro livro){
         LocalDate inicio = LocalDate.now();
         LocalDate prazoFim = inicio.plusDays(7);
 
-        Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
+        return new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
+    }
+
+    private void subtrairLivroDoEstoque(Livro livro){
         livro.setDisponiveis(livro.getDisponiveis()-1);
         DAO.getLivroDAO().update(livro);
-        DAO.getEmprestimoDAO().create(emprestimo);
-        delete(reserva);
-        return emprestimo;
     }
+
 
     @Override
     public void removerReservasDe(Leitor l) {
