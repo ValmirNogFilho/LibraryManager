@@ -52,6 +52,7 @@ class SistemaTest {
         l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         assertEquals(l.getStatus(), statusLeitor.MULTADO);
         assertEquals(2,l.getPrazoMulta());
+        emprestimo = DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(emprestimo.getId()));
         assertEquals(emprestimo.getStatus(), statusEmprestimo.MULTADO);
         assertEquals(emprestimo.getAtraso(), 1);
 
@@ -66,6 +67,7 @@ class SistemaTest {
         l = DAO.getLeitorDAO().findByPrimaryKey(l.getId());
         assertEquals(l.getStatus(), statusLeitor.LIVRE);
         assertEquals(l.getPrazoMulta(), 0);
+        emprestimo = DAO.getEmprestimoDAO().findByPrimaryKey(String.valueOf(emprestimo.getId()));
         assertEquals(emprestimo.getStatus(), statusEmprestimo.CONCLUIDO);
 
 
