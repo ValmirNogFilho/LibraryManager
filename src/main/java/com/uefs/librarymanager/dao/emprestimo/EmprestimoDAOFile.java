@@ -1,112 +1,208 @@
 package com.uefs.librarymanager.dao.emprestimo;
 
+import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.model.Sistema;
 import com.uefs.librarymanager.utils.FileBehaviour;
+import com.uefs.librarymanager.utils.statusEmprestimo;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class EmprestimoDAOFile implements EmprestimoDAO {
 
-    File arquivo;
+    File arquivo, arquivoId;
     private Integer proximoId;
+    private static final String NOMEARQUIVO = "emprestimos";
     private List<Emprestimo> emprestimos;
     public EmprestimoDAOFile(){
-        arquivo = FileBehaviour.gerarArquivo("emprestimos");
+        arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
+        arquivoId = FileBehaviour.gerarArquivo("id" + NOMEARQUIVO);
     }
 
     @Override
     public Emprestimo create(Emprestimo obj) {
-        
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        obj.setId(getProximoID());
+        emprestimos.add(obj);
+        return obj;
     }
 
     @Override
     public void delete(Emprestimo obj) {
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        emprestimos.remove(obj);
     }
 
     @Override
-    public void deleteMany() {
-
-    }
+    public void deleteMany() {FileBehaviour.apagarConteudoArquivo(arquivo);}
 
     @Override
-    public Emprestimo update(Emprestimo obj) { return null;
+    public Emprestimo update(Emprestimo obj) {
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        int i = emprestimos.indexOf(obj);
+        emprestimos.set(i, obj);
+        return obj;
         }
 
 
     @Override
     public List<Emprestimo> findMany() {
-        return null;
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        return emprestimos;
     }
 
     @Override
     public Emprestimo findByPrimaryKey(String Id) {
-
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        Integer id = Integer.parseInt(Id);
+        for(Emprestimo e: emprestimos)
+            if(e.getId() == id)
+                return e;
         return null;
     }
 
 
     @Override
     public int proximoID() {
-        return 0;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivoId))) {
+            proximoId = (int) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            proximoId = 0;
+        }
+
+        proximoId++;
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivoId))) {
+            out.writeObject(proximoId);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return proximoId;
     }
 
     @Override
-    public int getProximoID() {
-        return 0;
-    }
+    public int getProximoID() {return proximoId;}
 
     @Override
     public List<Emprestimo> findByLeitor(Leitor leitor) {
-
-        return null;
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimosLeitor = new ArrayList<Emprestimo>();
+        for(Emprestimo emp: emprestimos){
+            if(emp.getUsuarioId().equals(leitor.getId()))
+                emprestimosLeitor.add(emp);
+        }
+        return emprestimosLeitor;
     }
 
     @Override
     public int qtdEmprestimosEmAndamentoDe(Leitor leitor) {
-        return 0;
+        int count = 0;
+        for(Emprestimo e: findByLeitor(leitor))
+            if(e.getStatus().equals(statusEmprestimo.ANDAMENTO))
+                count++;
+        return count;
     }
 
     @Override
     public boolean podeFazerMaisEmprestimos(Leitor leitor) throws UsuarioException {
-        return false;
+        if(qtdEmprestimosEmAndamentoDe(leitor) < 3)
+            return true;
+        else throw new UsuarioException(UsuarioException.LIMITE_EMPRESTIMOS);
     }
 
     @Override
     public boolean usuarioNaoTemISBN(Leitor leitor, String ISBN) throws LivroException {
-        return false;
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        for(Emprestimo e: emprestimos)
+            if(e.getUsuarioId().equals(leitor.getId())
+                    && e.getLivroISBN().equals(ISBN))
+                throw new LivroException(LivroException.LEITOR_TEM_ESSE_ISBN);
+        return true;
     }
 
     @Override
     public Emprestimo registrarEmprestimo(Leitor objleitor, Livro objlivro) throws UsuarioException, LivroException {
-        return null;
+            Leitor leitor = DAO.getLeitorDAO().findById(objleitor.getId());
+            Livro livro = DAO.getLivroDAO().findByISBN(objlivro.getISBN());
+            if (leitor.temStatusLivre()
+                    && podeFazerMaisEmprestimos(leitor)
+                    && livro.existemDisponiveis()
+                    && DAO.getReservaDAO().filaVazia(livro.getISBN())
+                    && usuarioNaoTemISBN(leitor, livro.getISBN())
+            ){
+                LocalDate inicio = LocalDate.now();
+                LocalDate prazoFim = inicio.plusDays(7);
+
+                Emprestimo emprestimo = new Emprestimo(inicio, prazoFim, leitor.getId(), livro.getISBN());
+                livro.setDisponiveis(livro.getDisponiveis()-1);
+
+                DAO.getLivroDAO().update(livro);
+                create(emprestimo);
+                return emprestimo;
+            }
+            return null;
     }
 
     @Override
     public Emprestimo renovarEmprestimo(Leitor leitor, Livro livro) throws EmprestimoException, LivroException {
+        for(Emprestimo e: findByLeitor(leitor)){
+            if(e.getLivroISBN().equals(livro.getISBN())){
+                if(e.podeRenovar() && DAO.getReservaDAO().filaVazia(livro.getISBN())){
+                    e.setDataFim(e.getDataFim().plusDays(7));
+                    update(e);
+                    return e;
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public int maiorAtraso(Leitor leitor) {
-        return 0;
+        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimosDoLeitor = findByLeitor(leitor);
+        int atrasoMaior = emprestimosDoLeitor.get(0).getAtraso();
+
+        for(Emprestimo e: emprestimosDoLeitor){
+            if(e.getAtraso() > atrasoMaior)
+                atrasoMaior = e.getAtraso();
+        }
+        return atrasoMaior;
     }
 
     @Override
     public Livro devolverLivro(Emprestimo emprestimo) throws LivroException, UsuarioException {
-        return null;
+        Livro livro = DAO.getLivroDAO().findByISBN(emprestimo.getLivroISBN());
+        livro.setDisponiveis(livro.getDisponiveis()+1);
+
+        Leitor leitor = DAO.getLeitorDAO().findById(emprestimo.getUsuarioId());
+
+        Sistema.verificarPossivelMulta(emprestimo, leitor);
+        emprestimo.setStatus(statusEmprestimo.CONCLUIDO);
+
+        DAO.getEmprestimoDAO().update(emprestimo);
+        DAO.getLivroDAO().update(livro);
+        DAO.getLeitorDAO().update(leitor);
+
+        return livro;
     }
 
     @Override
     public boolean leitorSemAtrasos(Leitor leitor) throws UsuarioException {
-        return false;
+        for(Emprestimo emprestimo: findByLeitor(leitor)){
+            if(!emprestimo.getStatus().equals(statusEmprestimo.CONCLUIDO) && LocalDate.now().isAfter(emprestimo.getDataFim()))
+                return false;
+        }
+        return true;
     }
-
 
 }
 
