@@ -42,7 +42,10 @@ public class Sistema {
         for (Leitor leitor: DAO.getLeitorDAO().findMany()){
             int intervaloDias = Math.min(leitor.getPrazoMulta(), (int) ChronoUnit.DAYS.between(ultimoAcesso, LocalDate.now()));
             // contabiliza quantidade de dias passados desde a última execução do método
-            leitor.setPrazoMulta(leitor.getPrazoMulta()-intervaloDias);
+            if (leitor.getPrazoMulta() != 0)
+                leitor.setPrazoMulta(leitor.getPrazoMulta()-intervaloDias);
+            else if (leitor.getPrazoMulta() < 0)
+                leitor.setPrazoMulta(0);
 
             for (Emprestimo emprestimo: DAO.getEmprestimoDAO().findByLeitor(leitor)){
 
