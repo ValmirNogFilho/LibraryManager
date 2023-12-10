@@ -1,5 +1,7 @@
 package com.uefs.librarymanager.utils;
 
+import com.uefs.librarymanager.dao.DAO;
+
 import java.time.Year;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -21,20 +23,27 @@ import static java.util.Calendar.YEAR;
  * @see java.util.UUID
  */
 public class IDGenerator {
-    public static LinkedList<String> IDsRegistrados = new LinkedList<String>();
+
     public static String geraID() {
         String id;
-
-        Calendar calendar = Calendar.getInstance();
-        int anoCadastro = calendar.get(Calendar.YEAR) %  100;
-        Integer randint;
         do{
-            randint = 1000 + new Random().nextInt(9999);
-            id = anoCadastro + randint.toString();
+            id = numerosFinaisAnoCadastro() + sequenciaAleatoriaQuatroDigitos();
         }
-        while(IDsRegistrados.contains(id));
-        IDsRegistrados.add(id);
-
+        while(idJaUtilizado(id));
         return id;
+    }
+
+    private static Integer numerosFinaisAnoCadastro(){
+        Calendar calendar = Calendar.getInstance();
+         return calendar.get(Calendar.YEAR) %  100;
+    }
+
+    private static String sequenciaAleatoriaQuatroDigitos(){
+        return String.valueOf(1000 + new Random().nextInt(8999));
+    }
+
+    private static boolean idJaUtilizado(String id){
+        return (DAO.getLeitorDAO().findByPrimaryKey(id) != null
+                || DAO.getOperadorDAO().findByPrimaryKey(id) != null);
     }
 }

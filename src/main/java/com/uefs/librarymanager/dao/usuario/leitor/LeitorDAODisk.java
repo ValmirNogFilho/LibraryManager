@@ -20,7 +20,7 @@ public class LeitorDAODisk implements LeitorDAO{
 
     @Override
     public Leitor create(Leitor obj) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
         leitores.put(obj.getId(),obj);
         deleteMany();
 
@@ -32,7 +32,7 @@ public class LeitorDAODisk implements LeitorDAO{
 
     @Override
     public void delete(Leitor obj) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
         leitores.remove(obj.getId());
         deleteMany();
 
@@ -47,7 +47,7 @@ public class LeitorDAODisk implements LeitorDAO{
 
     @Override
     public Leitor update(Leitor obj) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
         leitores.remove(obj.getId());
         return create(obj);
 
@@ -55,13 +55,13 @@ public class LeitorDAODisk implements LeitorDAO{
 
     @Override
     public List<Leitor> findMany() {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
         return new ArrayList<Leitor>(leitores.values());
     }
 
     @Override
     public Leitor findByPrimaryKey(String PrimaryKey) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
         return leitores.get(PrimaryKey);
     }
 

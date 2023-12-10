@@ -20,7 +20,7 @@ public class OperadorDAODisk implements OperadorDAO{
     @Override
     public Usuario create(Usuario obj) {
 
-        Map<String, Usuario> operadores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Usuario> operadores = FileBehaviour.consultarArquivoMap(arquivo);
         operadores.put(obj.getId(), obj);
         deleteMany();
 
@@ -30,7 +30,7 @@ public class OperadorDAODisk implements OperadorDAO{
     }
     @Override
     public void delete(Usuario obj) {
-        Map<String, Usuario> operadores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Usuario> operadores = FileBehaviour.consultarArquivoMap(arquivo);
         operadores.remove(obj.getId());
         deleteMany();
 
@@ -44,20 +44,20 @@ public class OperadorDAODisk implements OperadorDAO{
 
     @Override
     public Usuario update(Usuario obj) {
-        Map<String, Usuario> operadores = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Usuario> operadores = FileBehaviour.consultarArquivoMap(arquivo);
         operadores.remove(obj.getId());
         return create(obj);
     }
 
     @Override
     public List<Usuario> findMany() {
-        Map<String, Usuario> map = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Usuario> map = FileBehaviour.consultarArquivoMap(arquivo);
         return new ArrayList<Usuario>(map.values());
     }
 
     @Override
     public Usuario findByPrimaryKey(String PrimaryKey) {
-        Map<String, Usuario> map = FileBehaviour.consultarArquivo(arquivo);
+        Map<String, Usuario> map = FileBehaviour.consultarArquivoMap(arquivo);
 
         return map.get(PrimaryKey);
     }

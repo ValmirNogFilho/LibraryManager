@@ -1,9 +1,8 @@
-module com.example.demo {
+module com.uefs.librarymanager {
     requires javafx.controls;
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
-
 
     opens com.uefs.librarymanager to javafx.fxml;
     exports com.uefs.librarymanager;
@@ -16,4 +15,6 @@ module com.example.demo {
     opens com.uefs.librarymanager.exceptions;
     opens com.uefs.librarymanager.model;
     opens com.uefs.librarymanager.utils;
+    exports com.uefs.librarymanager.controller;
+    opens com.uefs.librarymanager.controller to javafx.fxml;
 }

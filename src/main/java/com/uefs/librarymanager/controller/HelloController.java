@@ -1,4 +1,4 @@
-package com.uefs.librarymanager;
+package com.uefs.librarymanager.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

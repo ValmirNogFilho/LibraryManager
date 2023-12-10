@@ -6,6 +6,7 @@ import com.uefs.librarymanager.utils.FileBehaviour;
 
 import java.io.File;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class LivroDAODisk implements LivroDAO{
@@ -64,32 +65,29 @@ public class LivroDAODisk implements LivroDAO{
         return findManyMap().get(ISBN);
     }
 
-    private List<Livro> findBooksBy(String identificador){
-        return findMany()
-                .stream()
-                .filter(l -> l.getCategoria().equals(identificador))
-                .collect(Collectors.toList());
-    }
 
     @Override
     public List<Livro> findBooksByCategoria(String categoria) {
-        return findBooksBy(categoria);
+        return findBooksBy(l -> l.getCategoria().equals(categoria));
     }
 
     @Override
     public List<Livro> findBooksByAutor(String autor) {
-        return findBooksBy(autor);
+        return findBooksBy(l -> l.getAutor().equals(autor));
     }
 
     @Override
     public List<Livro> findBooksByTitulo(String titulo) {
+        return findBooksBy(l -> l.getTitulo().toLowerCase().contains(titulo.toLowerCase()));
+    }
+
+    private List<Livro> findBooksBy(Predicate<Livro> rule){
         return findMany()
                 .stream()
-                .filter(l -> l.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
+                .filter(rule)
                 .collect(Collectors.toList());
     }
 
-   
     @Override
     public Livro findByISBN(String ISBN) throws LivroException {
         Livro l = findByPrimaryKey(ISBN);
@@ -99,7 +97,7 @@ public class LivroDAODisk implements LivroDAO{
     }
 
     private Map<String, Livro> findManyMap(){
-        return FileBehaviour.consultarArquivo(arquivo);
+        return FileBehaviour.consultarArquivoMap(arquivo);
     }
     
 

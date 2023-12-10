@@ -1,12 +1,9 @@
 package com.uefs.librarymanager.utils;
 
-import com.uefs.librarymanager.model.Usuario;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class FileBehaviour {
@@ -29,7 +26,7 @@ public abstract class FileBehaviour {
         return arquivo;
     }
 
-    public static <V> Map<String, V> consultarArquivo(File file){
+    public static <V> Map<String, V> consultarArquivoMap(File file){
         Map<String, V> map;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
             map = (Map<String, V>) in.readObject();
@@ -39,6 +36,18 @@ public abstract class FileBehaviour {
         }
         return map;
     }
+
+    public static <V> List<V> consultarArquivoList(File file){
+        List<V> list;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            list = (List<V>) in.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            list = new ArrayList<>();
+        }
+        return list;
+    }
+
 
     public static boolean sobreescreverArquivo(File arquivo, Map map){
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
