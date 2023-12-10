@@ -61,10 +61,11 @@ class EmprestimoDAOTest {
     @Test
     void update() {
         //conferindo se alteração de isbn foi registrada no DAO
-        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey("" + esperado.getId()));
+        String id = esperado.getId().toString();
+        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey(id));
         esperado.setLivroISBN("7890");
         DAO.getEmprestimoDAO().update(esperado);
-        assertEquals("7890", DAO.getEmprestimoDAO().findByPrimaryKey("" +  esperado.getId()).getLivroISBN());
+        assertEquals("7890", DAO.getEmprestimoDAO().findByPrimaryKey(id).getLivroISBN());
     }
 
     @Test
@@ -76,7 +77,7 @@ class EmprestimoDAOTest {
     @Test
     void findByPrimaryKey() {
         //conferindo se o empréstimo esperado é encontrável pelo id
-        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey("" + esperado.getId()));
+        assertEquals(esperado, DAO.getEmprestimoDAO().findByPrimaryKey(esperado.getId().toString()));
     }
 
     @Test
