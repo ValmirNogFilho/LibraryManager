@@ -22,7 +22,7 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
 
     @Override
     public Emprestimo create(Emprestimo obj) {
-        return null;
+        
     }
 
     @Override
