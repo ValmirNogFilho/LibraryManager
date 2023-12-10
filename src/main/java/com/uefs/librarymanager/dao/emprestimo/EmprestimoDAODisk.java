@@ -15,13 +15,13 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
-public class EmprestimoDAOFile implements EmprestimoDAO {
+public class EmprestimoDAODisk implements EmprestimoDAO {
 
     File arquivo, arquivoId;
     private Integer proximoId;
     private static final String NOMEARQUIVO = "emprestimos";
     private List<Emprestimo> emprestimos;
-    public EmprestimoDAOFile(){
+    public EmprestimoDAODisk(){
         arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
         arquivoId = FileBehaviour.gerarArquivo("id" + NOMEARQUIVO);
     }
@@ -31,6 +31,8 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
         List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
         obj.setId(getProximoID());
         emprestimos.add(obj);
+
+        FileBehaviour.sobreescreverArquivo(arquivo, emprestimos);
         return obj;
     }
 
@@ -38,6 +40,7 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
     public void delete(Emprestimo obj) {
         List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
         emprestimos.remove(obj);
+        FileBehaviour.sobreescreverArquivo(arquivo, emprestimos);
     }
 
     @Override
@@ -48,6 +51,8 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
         List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
         int i = emprestimos.indexOf(obj);
         emprestimos.set(i, obj);
+
+        FileBehaviour.sobreescreverArquivo(arquivo, emprestimos);
         return obj;
         }
 
@@ -63,14 +68,15 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
         List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
         Integer id = Integer.parseInt(Id);
         for(Emprestimo e: emprestimos)
-            if(e.getId() == id)
+            if (e.getId().equals(id))
                 return e;
+
         return null;
     }
 
 
     @Override
-    public int proximoID() {
+    public int getProximoID() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivoId))) {
             proximoId = (int) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
@@ -87,9 +93,6 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
 
         return proximoId;
     }
-
-    @Override
-    public int getProximoID() {return proximoId;}
 
     @Override
     public List<Emprestimo> findByLeitor(Leitor leitor) {
@@ -145,8 +148,8 @@ public class EmprestimoDAOFile implements EmprestimoDAO {
                 livro.setDisponiveis(livro.getDisponiveis()-1);
 
                 DAO.getLivroDAO().update(livro);
-                create(emprestimo);
-                return emprestimo;
+
+                return create(emprestimo);
             }
             return null;
     }
