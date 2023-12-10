@@ -27,11 +27,6 @@ public class EmprestimoDAOMemory implements EmprestimoDAO {
     }
 
     @Override
-    public int proximoID() {
-        return proximoID++;
-    }
-
-    @Override
     public int getProximoID() {
         return proximoID++;
     }
