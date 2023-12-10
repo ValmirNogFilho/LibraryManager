@@ -4,6 +4,7 @@ import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.utils.IDGenerator;
 import com.uefs.librarymanager.utils.statusEmprestimo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ import java.util.Objects;
  * @see java.util.Objects
  *
  */
-public class Emprestimo {
+public class Emprestimo implements Serializable {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private String usuarioId;
@@ -139,7 +140,21 @@ public class Emprestimo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Emprestimo that = (Emprestimo) o;
-        return Objects.equals(usuarioId, that.usuarioId) && Objects.equals(livroISBN, that.livroISBN) && Objects.equals(id, that.id);
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Emprestimo{" +
+                "dataInicio=" + dataInicio +
+                ", dataFim=" + dataFim +
+                ", usuarioId='" + usuarioId + '\'' +
+                ", livroISBN='" + livroISBN + '\'' +
+                ", atraso=" + atraso +
+                ", status=" + status +
+                ", id=" + id +
+                ", numeroRenovacoes=" + numeroRenovacoes +
+                '}';
     }
 }
 
