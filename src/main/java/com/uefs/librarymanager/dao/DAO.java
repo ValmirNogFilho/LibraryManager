@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.dao;
 
 import com.uefs.librarymanager.dao.emprestimo.EmprestimoDAO;
+import com.uefs.librarymanager.dao.emprestimo.EmprestimoDAODisk;
 import com.uefs.librarymanager.dao.emprestimo.EmprestimoDAOMemory;
 import com.uefs.librarymanager.dao.livro.LivroDAO;
 import com.uefs.librarymanager.dao.livro.LivroDAODisk;
@@ -41,7 +42,7 @@ public class DAO {
 
     public static EmprestimoDAO getEmprestimoDAO() {
         if(emprestimoDAO == null)
-            emprestimoDAO = new EmprestimoDAOMemory();
+            emprestimoDAO = new EmprestimoDAODisk();
         return emprestimoDAO;
     }
 
