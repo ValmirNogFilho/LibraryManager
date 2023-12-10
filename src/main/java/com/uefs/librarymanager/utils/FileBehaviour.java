@@ -49,9 +49,9 @@ public abstract class FileBehaviour {
     }
 
 
-    public static boolean sobreescreverArquivo(File arquivo, Map map){
+    public static boolean sobreescreverArquivo(File arquivo, Object obj){
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            out.writeObject(map);
+            out.writeObject(obj);
             return true;
         } catch (IOException e) {
             return false;
