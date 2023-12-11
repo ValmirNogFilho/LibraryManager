@@ -99,13 +99,11 @@ public class ReservaDAOMemory implements ReservaDAO{
     @Override
     public boolean filaVazia(String ISBN) throws LivroException {
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
-        if(reservasDoLivro != null){
-            if(reservasDoLivro.isEmpty()){
-                return true;
-            }
-            else throw new LivroException(LivroException.FILA_NAO_VAZIA);
-        }
-        return true;
+
+        if(reservasDoLivro == null || reservasDoLivro.isEmpty())
+            return true;
+
+        else throw new LivroException(LivroException.FILA_NAO_VAZIA);
     }
 
     @Override
@@ -136,11 +134,12 @@ public class ReservaDAOMemory implements ReservaDAO{
     }
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN){
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
-        if(!reservasDoLivro.isEmpty()){
-            int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
-            return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));
-        }
-        return null;
+        if(reservasDoLivro.isEmpty())
+            return null;
+
+        int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
+        return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));
+
     }
 
     @Override
@@ -148,7 +147,7 @@ public class ReservaDAOMemory implements ReservaDAO{
         Leitor leitor = DAO.getLeitorDAO().findById(reserva.getIdUsuario());
         Livro livro = DAO.getLivroDAO().findByPrimaryKey(reserva.getISBN());
 
-        if (!emprestimoPossivel(leitor, livro))
+        if (!reservaPorEmprestimoPossivel(leitor, livro))
             return null;
 
         subtrairLivroDoEstoque(livro);
@@ -159,7 +158,7 @@ public class ReservaDAOMemory implements ReservaDAO{
         );
     }
 
-    private boolean emprestimoPossivel(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
+    private boolean reservaPorEmprestimoPossivel(Leitor leitor, Livro livro) throws UsuarioException, LivroException {
         return (leitor.temStatusLivre()
                 && DAO.getEmprestimoDAO().podeFazerMaisEmprestimos(leitor)
                 && DAO.getEmprestimoDAO().leitorSemAtrasos(leitor)

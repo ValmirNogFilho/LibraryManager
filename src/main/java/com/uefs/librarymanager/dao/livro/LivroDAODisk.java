@@ -2,7 +2,7 @@ package com.uefs.librarymanager.dao.livro;
 
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.model.Livro;
-import com.uefs.librarymanager.utils.FileBehaviour;
+import com.uefs.librarymanager.utils.FileUtils;
 
 import java.io.File;
 import java.util.*;
@@ -15,14 +15,14 @@ public class LivroDAODisk implements LivroDAO{
     private static final String NOMEARQUIVO= "livros";
   
     public LivroDAODisk(){
-        arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
+        arquivo = FileUtils.gerarArquivo(NOMEARQUIVO);
     }
 
     @Override
     public Livro create(Livro obj) {
         Map<String, Livro> livros = findManyMap();
         livros.put(obj.getISBN(), obj);
-        FileBehaviour.sobreescreverArquivo(arquivo, livros);
+        FileUtils.sobreescreverArquivo(arquivo, livros);
 
         return obj;
     }
@@ -32,14 +32,14 @@ public class LivroDAODisk implements LivroDAO{
         Map<String, Livro> livros = findManyMap();
         livros.remove(obj.getISBN());
 
-        FileBehaviour.sobreescreverArquivo(arquivo, livros);
+        FileUtils.sobreescreverArquivo(arquivo, livros);
 
     }
 
 
     @Override
     public void deleteMany() {
-        FileBehaviour.apagarConteudoArquivo(arquivo);
+        FileUtils.apagarConteudoArquivo(arquivo);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class LivroDAODisk implements LivroDAO{
         livros.remove(obj.getISBN());
         livros.put(obj.getISBN(), obj);
 
-        FileBehaviour.sobreescreverArquivo(arquivo, livros);
+        FileUtils.sobreescreverArquivo(arquivo, livros);
 
         return obj;
     }
@@ -97,7 +97,7 @@ public class LivroDAODisk implements LivroDAO{
     }
 
     private Map<String, Livro> findManyMap(){
-        return FileBehaviour.consultarArquivoMap(arquivo);
+        return FileUtils.consultarArquivoMap(arquivo);
     }
     
 

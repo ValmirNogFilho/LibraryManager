@@ -2,7 +2,7 @@ package com.uefs.librarymanager.dao.usuario.leitor;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.utils.FileBehaviour;
+import com.uefs.librarymanager.utils.FileUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,17 +14,17 @@ public class LeitorDAODisk implements LeitorDAO{
     File arquivo;
 
     public LeitorDAODisk(){
-        arquivo = FileBehaviour.gerarArquivo("leitores");
+        arquivo = FileUtils.gerarArquivo("leitores");
     }
 
 
     @Override
     public Leitor create(Leitor obj) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
+        Map<String, Leitor> leitores = FileUtils.consultarArquivoMap(arquivo);
         leitores.put(obj.getId(),obj);
         deleteMany();
 
-        FileBehaviour.sobreescreverArquivo(arquivo, leitores);
+        FileUtils.sobreescreverArquivo(arquivo, leitores);
         return obj;
 
     }
@@ -32,22 +32,22 @@ public class LeitorDAODisk implements LeitorDAO{
 
     @Override
     public void delete(Leitor obj) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
+        Map<String, Leitor> leitores = FileUtils.consultarArquivoMap(arquivo);
         leitores.remove(obj.getId());
         deleteMany();
 
-        FileBehaviour.sobreescreverArquivo(arquivo, leitores);
+        FileUtils.sobreescreverArquivo(arquivo, leitores);
 
     }
 
     @Override
     public void deleteMany() {
-        FileBehaviour.apagarConteudoArquivo(arquivo);
+        FileUtils.apagarConteudoArquivo(arquivo);
     }
 
     @Override
     public Leitor update(Leitor obj) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
+        Map<String, Leitor> leitores = FileUtils.consultarArquivoMap(arquivo);
         leitores.remove(obj.getId());
         return create(obj);
 
@@ -55,13 +55,13 @@ public class LeitorDAODisk implements LeitorDAO{
 
     @Override
     public List<Leitor> findMany() {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
+        Map<String, Leitor> leitores = FileUtils.consultarArquivoMap(arquivo);
         return new ArrayList<Leitor>(leitores.values());
     }
 
     @Override
     public Leitor findByPrimaryKey(String PrimaryKey) {
-        Map<String, Leitor> leitores = FileBehaviour.consultarArquivoMap(arquivo);
+        Map<String, Leitor> leitores = FileUtils.consultarArquivoMap(arquivo);
         return leitores.get(PrimaryKey);
     }
 

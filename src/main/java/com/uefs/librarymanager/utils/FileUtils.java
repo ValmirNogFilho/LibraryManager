@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class FileBehaviour {
+public abstract class FileUtils {
     public static final File DIRETORIO = new File("cache");
     public static final String EXTENSAO = ".kv";
 
@@ -48,6 +48,16 @@ public abstract class FileBehaviour {
         return list;
     }
 
+    public static int consultarArquivoIDs(File file){
+        int value;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            value = (int) in.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            value = 0;
+        }
+        return value;
+    }
 
     public static boolean sobreescreverArquivo(File arquivo, Object obj){
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {

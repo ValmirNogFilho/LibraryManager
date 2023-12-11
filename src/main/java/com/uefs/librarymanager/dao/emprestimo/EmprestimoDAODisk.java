@@ -8,7 +8,7 @@ import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Sistema;
-import com.uefs.librarymanager.utils.FileBehaviour;
+import com.uefs.librarymanager.utils.FileUtils;
 import com.uefs.librarymanager.utils.statusEmprestimo;
 
 import java.io.*;
@@ -22,50 +22,51 @@ public class EmprestimoDAODisk implements EmprestimoDAO {
     private static final String NOMEARQUIVO = "emprestimos";
     private List<Emprestimo> emprestimos;
     public EmprestimoDAODisk(){
-        arquivo = FileBehaviour.gerarArquivo(NOMEARQUIVO);
-        arquivoId = FileBehaviour.gerarArquivo("id" + NOMEARQUIVO);
+        arquivo = FileUtils.gerarArquivo(NOMEARQUIVO);
+        arquivoId = FileUtils.gerarArquivo("id" + NOMEARQUIVO);
     }
 
     @Override
     public Emprestimo create(Emprestimo obj) {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         obj.setId(getProximoID());
         emprestimos.add(obj);
 
-        FileBehaviour.sobreescreverArquivo(arquivo, emprestimos);
+        FileUtils.sobreescreverArquivo(arquivo, emprestimos);
         return obj;
     }
 
     @Override
     public void delete(Emprestimo obj) {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         emprestimos.remove(obj);
-        FileBehaviour.sobreescreverArquivo(arquivo, emprestimos);
+        FileUtils.sobreescreverArquivo(arquivo, emprestimos);
     }
 
     @Override
-    public void deleteMany() {FileBehaviour.apagarConteudoArquivo(arquivo);}
+    public void deleteMany() {
+        FileUtils.apagarConteudoArquivo(arquivo);}
 
     @Override
     public Emprestimo update(Emprestimo obj) {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         int i = emprestimos.indexOf(obj);
         emprestimos.set(i, obj);
 
-        FileBehaviour.sobreescreverArquivo(arquivo, emprestimos);
+        FileUtils.sobreescreverArquivo(arquivo, emprestimos);
         return obj;
         }
 
 
     @Override
     public List<Emprestimo> findMany() {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         return emprestimos;
     }
 
     @Override
     public Emprestimo findByPrimaryKey(String Id) {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         Integer id = Integer.parseInt(Id);
         for(Emprestimo e: emprestimos)
             if (e.getId().equals(id))
@@ -77,26 +78,15 @@ public class EmprestimoDAODisk implements EmprestimoDAO {
 
     @Override
     public int getProximoID() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivoId))) {
-            proximoId = (int) in.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            proximoId = 0;
-        }
-
+        proximoId = FileUtils.consultarArquivoIDs(arquivoId);
         proximoId++;
-
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivoId))) {
-            out.writeObject(proximoId);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        FileUtils.sobreescreverArquivo(arquivoId, proximoId);
         return proximoId;
     }
 
     @Override
     public List<Emprestimo> findByLeitor(Leitor leitor) {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         List<Emprestimo> emprestimosLeitor = new ArrayList<Emprestimo>();
         for(Emprestimo emp: emprestimos){
             if(emp.getUsuarioId().equals(leitor.getId()))
@@ -123,7 +113,7 @@ public class EmprestimoDAODisk implements EmprestimoDAO {
 
     @Override
     public boolean usuarioNaoTemISBN(Leitor leitor, String ISBN) throws LivroException {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         for(Emprestimo e: emprestimos)
             if(e.getUsuarioId().equals(leitor.getId())
                     && e.getLivroISBN().equals(ISBN))
@@ -170,7 +160,7 @@ public class EmprestimoDAODisk implements EmprestimoDAO {
 
     @Override
     public int maiorAtraso(Leitor leitor) {
-        List<Emprestimo> emprestimos = FileBehaviour.consultarArquivoList(arquivo);
+        List<Emprestimo> emprestimos = FileUtils.consultarArquivoList(arquivo);
         List<Emprestimo> emprestimosDoLeitor = findByLeitor(leitor);
         int atrasoMaior = emprestimosDoLeitor.get(0).getAtraso();
 
