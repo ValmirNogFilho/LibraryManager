@@ -1,16 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.uefs.librarymanager.controller.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.uefs.librarymanager.controller.HelloController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+
+
+   <children>
+
+
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <children>
+            <Label text="Login" textFill="#1898d4">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Label>
+            <Label text="*Preencha os dados para prosseguir" textFill="#8c8585">
+               <font>
+                  <Font size="7.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Label text="ID de acesso" textFill="#767171" />
+                  <TextField fx:id="IDacesso" prefHeight="13.0" prefWidth="253.0" />
+                  <Label text="Senha" textFill="#767171" />
+                  <TextField fx:id="Senha" />
+                  <Label text="Qual o tipo de acesso?" textFill="#767171" />
+                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                     <items>
+                        <RadioButton fx:id="btnAdm" mnemonicParsing="false" onAction="#btnAdmAction" text="Administrador" />
+                        <RadioButton fx:id="btnBibliotecario" mnemonicParsing="false" onAction="#btnBibliotecarioAction" text="Bibliotecário" />
+                        <RadioButton fx:id="btnLeitor" mnemonicParsing="false" onAction="#btnBibliotecarioAction" text="Leitor" />
+                     </items>
+                  </ToolBar>
+                  <Separator prefWidth="200.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Separator>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLoginAction" text="LOGIN" textFill="#767171">
+                           <HBox.margin>
+                              <Insets bottom="5.0" right="20.0" top="-90.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="btnConvidado" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#btnConvidadoAction" text="Sou convidado" textFill="#767171">
+                           <HBox.margin>
+                              <Insets top="100.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
+
+
+
