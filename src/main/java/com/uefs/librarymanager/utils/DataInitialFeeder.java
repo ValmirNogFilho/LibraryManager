@@ -56,7 +56,7 @@ public class DataInitialFeeder {
         
     }
 
-    private static void povoarDadosDeLeitores() {
+    private static void povoarDadosDeLeitores() throws UsuarioException {
         ArrayList<Leitor> listaLeitores = new ArrayList<>();
 
         listaLeitores.add(new Leitor("Valmir", "Amargosa", "(75) 91234-5678"));
@@ -72,12 +72,13 @@ public class DataInitialFeeder {
 
 
         for(Leitor leitor: listaLeitores){
+            leitor.setSenha("1234");
             DAO.getLeitorDAO().create(leitor);
         }
 
     }
 
-    private static void povoarDadosDeOperadores() {
+    private static void povoarDadosDeOperadores() throws UsuarioException {
         ArrayList<Administrador> listaAdministradores = new ArrayList<>();
 
         listaAdministradores.add(new Administrador("João", "Rua 123", "(111) 222-3333"));
@@ -85,6 +86,7 @@ public class DataInitialFeeder {
         listaAdministradores.add(new Administrador("Carlos", "Praça ABC", "(777) 888-9999"));
 
         for(Administrador admin: listaAdministradores){
+            admin.setSenha("1234");
             DAO.getOperadorDAO().create(admin);
         }
 
@@ -99,6 +101,7 @@ public class DataInitialFeeder {
         listaBibliotecarios.add(new Bibliotecario("Mariana", "Avenida JKL", "(123) 456-7890"));
 
         for(Bibliotecario bib: listaBibliotecarios){
+            bib.setSenha("1234");
             DAO.getOperadorDAO().create(bib);
         }
 

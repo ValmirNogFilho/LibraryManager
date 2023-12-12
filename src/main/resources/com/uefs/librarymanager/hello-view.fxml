@@ -56,7 +56,7 @@
                      <items>
                         <RadioButton fx:id="btnAdm" mnemonicParsing="false" onAction="#btnAdmAction" text="Administrador" />
                         <RadioButton fx:id="btnBibliotecario" mnemonicParsing="false" onAction="#btnBibliotecarioAction" text="Bibliotecário" />
-                        <RadioButton fx:id="btnLeitor" mnemonicParsing="false" onAction="#btnBibliotecarioAction" text="Leitor" />
+                        <RadioButton fx:id="btnLeitor" mnemonicParsing="false" onAction="#btnLeitorAction" text="Leitor" />
                      </items>
                   </ToolBar>
                   <Separator prefWidth="200.0">

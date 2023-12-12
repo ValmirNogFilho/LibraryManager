@@ -104,4 +104,14 @@ public class Usuario implements Serializable {
         return Objects.equals(id, usuario.id);
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", id='" + id + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
+    }
 }
