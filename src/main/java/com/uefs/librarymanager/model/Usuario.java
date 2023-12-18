@@ -2,6 +2,7 @@ package com.uefs.librarymanager.model;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.utils.IDGenerator;
+import com.uefs.librarymanager.utils.cargoUsuario;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -29,12 +30,14 @@ public class Usuario implements Serializable {
     private String telefone;
     private String id;
     private String senha;
+    private cargoUsuario cargo;
 
-    public Usuario(String nome, String endereco, String telefone, String senha) {
+    public Usuario(String nome, String endereco, String telefone, String senha, cargoUsuario cargo) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
         this.senha = senha;
+        this.cargo = cargo;
         id = IDGenerator.geraID();
     }
 
@@ -72,6 +75,14 @@ public class Usuario implements Serializable {
 
     public String getSenha() {
         return senha;
+    }
+
+    public cargoUsuario getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(cargoUsuario cargo) {
+        this.cargo = cargo;
     }
 
     /**
@@ -112,6 +123,7 @@ public class Usuario implements Serializable {
                 ", telefone='" + telefone + '\'' +
                 ", id='" + id + '\'' +
                 ", senha='" + senha + '\'' +
+                ", cargo=" + cargo +
                 '}';
     }
 }

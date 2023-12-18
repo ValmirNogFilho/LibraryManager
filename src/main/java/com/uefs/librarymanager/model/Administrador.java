@@ -5,6 +5,7 @@ import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.cargoUsuario;
 import com.uefs.librarymanager.utils.statusLeitor;
 
 /**
@@ -26,7 +27,7 @@ import com.uefs.librarymanager.utils.statusLeitor;
 public class Administrador extends Usuario {
 
     public Administrador(String nome, String endereco, String telefone) {
-        super(nome, endereco, telefone, null);
+        super(nome, endereco, telefone, null, cargoUsuario.ADMINISTRADOR);
     }
 
     /**

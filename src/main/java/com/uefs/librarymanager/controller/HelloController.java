@@ -4,6 +4,7 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.cargoUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class HelloController {
 
-    private String cargo;
+    private static cargoUsuario cargo = cargoUsuario.CONVIDADO;
     @FXML
     private TextField IDacesso;
 
@@ -36,23 +37,23 @@ public class HelloController {
 
     @FXML
     void btnAdmAction(ActionEvent event) {
-        cargo = "Administrador";
+        cargo = cargoUsuario.ADMINISTRADOR;
     }
 
     @FXML
     void btnBibliotecarioAction(ActionEvent event) {
-        cargo = "Bibliotecário";
+        cargo = cargoUsuario.BIBLIOTECARIO;
     }
 
     @FXML
     void btnLeitorAction(ActionEvent event) {
-        cargo = "Leitor";
+        cargo = cargoUsuario.LEITOR;
     }
 
 
     @FXML
     void btnConvidadoAction(ActionEvent event) {
-        cargo = "Convidado";
+        cargo = cargoUsuario.CONVIDADO;
     }
 
     @FXML
@@ -61,15 +62,25 @@ public class HelloController {
         String senha = Senha.getText();
         String id = IDacesso.getText();
 
-        if(cargo.equals("Administrador") || cargo.equals("Bibliotecario")){
-            obj = DAO.getOperadorDAO().findById(id);
-        } else if (cargo.equals("Leitor")) {
-            obj = (Leitor) DAO.getLeitorDAO().findById(id);
+        switch (cargo){
+            case LEITOR -> obj = DAO.getLeitorDAO().findById(id);
+            case BIBLIOTECARIO, ADMINISTRADOR -> obj = DAO.getOperadorDAO().findById(id);
+            default -> System.out.println("entrou como convidado");
         }
-        if(obj.getSenha().equals(senha)){
-            System.out.println(obj);
+
+        if(obj == null) return;
+
+        if(!cargo.equals(obj.getCargo())){
+            throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         }
-        else throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
+
+        if(!obj.getSenha().equals(senha)){
+            throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
+        }
+
+        System.out.println(obj);
+
     }
+
 
 }

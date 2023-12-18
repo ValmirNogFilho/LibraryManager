@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println(DAO.getLeitorDAO().findMany());
+        System.out.println(DAO.getOperadorDAO().findMany());
         launch(args);
     }
 }

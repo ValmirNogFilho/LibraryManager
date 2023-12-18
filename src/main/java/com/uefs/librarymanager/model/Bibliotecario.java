@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.model;
 
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.cargoUsuario;
 
 /**
  * Esta classe é uma extensão da classe "Usuario", ela é responsável por registrar um bibliotecário no sistema contando com
@@ -14,7 +15,7 @@ import com.uefs.librarymanager.model.Usuario;
  */
 public class Bibliotecario extends Usuario {
     public Bibliotecario(String nome, String endereco, String telefone) {
-        super(nome, endereco, telefone, null);
+        super(nome, endereco, telefone, null, cargoUsuario.BIBLIOTECARIO);
     }
 
 }

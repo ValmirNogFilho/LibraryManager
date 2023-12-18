@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.model;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.cargoUsuario;
 import com.uefs.librarymanager.utils.statusLeitor;
 
 import java.time.LocalDate;
@@ -41,7 +42,7 @@ public class Leitor extends Usuario{
      * @param telefone
      */
     public Leitor(String nome, String endereco, String telefone) {
-        super(nome, endereco, telefone, null);
+        super(nome, endereco, telefone, null, cargoUsuario.LEITOR);
         this.inicioMulta = null;
         this.prazoMulta = 0;
         this.status = statusLeitor.LIVRE;
