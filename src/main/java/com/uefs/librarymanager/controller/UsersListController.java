@@ -103,6 +103,5 @@ public class UsersListController implements Initializable {
         userOccupations.setCellValueFactory(new PropertyValueFactory<Usuario, String>("cargo"));
 
         usersTable.setItems(list);
-
     }
 }
