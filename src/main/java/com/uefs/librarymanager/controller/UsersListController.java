@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class UsersListController implements Initializable {
 
+    private ObservableList<Usuario> list;
     private MenuItem criteria;
 
     @FXML
@@ -82,6 +84,21 @@ public class UsersListController implements Initializable {
 
     @FXML
     void searchClick(ActionEvent event) {
+        String id = searchInput.getText();
+        if(criteria == menuItemID){
+            try{
+                list = FXCollections.observableArrayList(DAO.getLeitorDAO().findById(id));
+            }catch (UsuarioException e){
+                System.out.println("nao achou nao");
+            }
+            try{
+                list = FXCollections.observableArrayList(DAO.getOperadorDAO().findById(id));
+            }catch (UsuarioException e){
+                System.out.println("nao achou nao");
+            }
+        }
+        renderTable();
+
     }
 
     private ObservableList<Usuario> feedList() {
@@ -97,8 +114,11 @@ public class UsersListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<Usuario> list = feedList();
+        list = feedList();
+        renderTable();
+    }
 
+    private void renderTable(){
         userNames.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nome"));
         userOccupations.setCellValueFactory(new PropertyValueFactory<Usuario, String>("cargo"));
 
