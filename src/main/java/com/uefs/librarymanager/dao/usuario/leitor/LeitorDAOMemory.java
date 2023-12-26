@@ -4,6 +4,7 @@ import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LeitorDAOMemory implements LeitorDAO{
 
@@ -57,6 +58,12 @@ public class LeitorDAOMemory implements LeitorDAO{
             return l;
     }
 
-
+    @Override
+    public List<Leitor> findByName(String name){
+        return findMany()
+                .stream()
+                .filter(user -> user.getNome().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 
 }

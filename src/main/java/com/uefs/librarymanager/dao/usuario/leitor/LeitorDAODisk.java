@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LeitorDAODisk implements LeitorDAO{
 
@@ -72,5 +73,13 @@ public class LeitorDAODisk implements LeitorDAO{
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         else
             return o;
+    }
+
+    @Override
+    public List<Leitor> findByName(String name){
+        return findMany()
+                .stream()
+                .filter(user -> user.getNome().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

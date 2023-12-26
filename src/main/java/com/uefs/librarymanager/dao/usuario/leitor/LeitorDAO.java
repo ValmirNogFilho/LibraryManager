@@ -3,6 +3,9 @@ package com.uefs.librarymanager.dao.usuario.leitor;
 import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
+
+import java.util.List;
+
 /**
  * Esta interface é responsável por conter um método que diz respeito ao "LeitorDAO". Um Leitor é o tipo de usuário que
  * faz empréstimos de livros na biblioteca, pode entrar na fila de reserva e está sujeito à multa caso atrase a devolução
@@ -24,4 +27,6 @@ public interface LeitorDAO extends CRUD<Leitor> {
      */
     public Leitor findById(String id) throws UsuarioException;
 
+
+    public List<Leitor> findByName(String name);
 }

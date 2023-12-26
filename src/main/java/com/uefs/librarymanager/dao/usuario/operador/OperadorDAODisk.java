@@ -1,6 +1,7 @@
 package com.uefs.librarymanager.dao.usuario.operador;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.FileUtils;
 
@@ -8,6 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OperadorDAODisk implements OperadorDAO{
 
@@ -69,6 +71,14 @@ public class OperadorDAODisk implements OperadorDAO{
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         else
             return o;
+    }
+
+    @Override
+    public List<Usuario> findByName(String name){
+        return findMany()
+                .stream()
+                .filter(user -> user.getNome().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 }
