@@ -1,9 +1,11 @@
 package com.uefs.librarymanager.dao.usuario.operador;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OperadorDAOMemory implements OperadorDAO {
     private Map<String, Usuario> operadores;
@@ -53,6 +55,14 @@ public class OperadorDAOMemory implements OperadorDAO {
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         else
             return o;
+    }
+
+    @Override
+    public List<Usuario> findByName(String name){
+        return findMany()
+                .stream()
+                .filter(user -> user.getNome().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 }
