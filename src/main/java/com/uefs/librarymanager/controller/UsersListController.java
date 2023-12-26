@@ -1,5 +1,6 @@
 package com.uefs.librarymanager.controller;
 
+import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Usuario;
@@ -7,20 +8,33 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UsersListController implements Initializable {
 
-    private ObservableList<Usuario> list;
-    private MenuItem criteria;
+    @FXML
+    private MenuButton criteriaBtn;
+
+    @FXML
+    private Label logoutBtn;
+
+    @FXML
+    private MenuItem menuItemID;
+
+    @FXML
+    private MenuItem menuItemName;
 
     @FXML
     private Text registerUserBtn;
@@ -35,41 +49,22 @@ public class UsersListController implements Initializable {
     private TextField searchInput;
 
     @FXML
-    private TableView<Usuario> usersTable;
+    private VBox usersList;
 
-    @FXML
-    private TableColumn<Usuario, String> userNames;
-
-    @FXML
-    private TableColumn<Usuario, String> userOccupations;
-
-    private TableColumn<Usuario, Button> options;
-
-    @FXML
-    private MenuButton criteriaBtn;
-
-    @FXML
-    private MenuItem menuItemEmail;
-
-    @FXML
-    private MenuItem menuItemID;
-
-    @FXML
-    private MenuItem menuItemName;
-
-    @FXML
-    void byEmail(ActionEvent event) {
-        criteria = (MenuItem) event.getSource();
-    }
+    private ObservableList<Usuario> list;
+    private MenuItem criteria;
 
     @FXML
     void byID(ActionEvent event) {
+
         criteria = (MenuItem) event.getSource();
+        searchInput.setPromptText("Busque um id...");
     }
 
     @FXML
     void byName(ActionEvent event) {
         criteria = (MenuItem) event.getSource();
+        searchInput.setPromptText("Busque um nome...");
     }
 
     @FXML
@@ -84,22 +79,30 @@ public class UsersListController implements Initializable {
 
     @FXML
     void searchClick(ActionEvent event) {
-        String id = searchInput.getText();
-        if(criteria == menuItemID){
-            try{
+        String text = searchInput.getText();
+
+        if(criteria == menuItemID) {
+            String id = text;
+            try {
                 list = FXCollections.observableArrayList(DAO.getLeitorDAO().findById(id));
-            }catch (UsuarioException e){
-                System.out.println("nao achou nao");
-            }
-            try{
+            } catch (UsuarioException e) {}
+            try {
                 list = FXCollections.observableArrayList(DAO.getOperadorDAO().findById(id));
-            }catch (UsuarioException e){
-                System.out.println("nao achou nao");
-            }
+            } catch (UsuarioException e) {}
+
         }
-        renderTable();
+        else if(criteria == menuItemName){
+            String name = text;
+            list = FXCollections.observableArrayList(DAO.getLeitorDAO().findByName(name));
+            list.addAll(DAO.getOperadorDAO().findByName(name));
+
+        }
+
+        renderList();
 
     }
+
+
 
     private ObservableList<Usuario> feedList() {
 
@@ -114,14 +117,33 @@ public class UsersListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        criteria = menuItemName;
         list = feedList();
-        renderTable();
+        renderList();
     }
 
-    private void renderTable(){
-        userNames.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nome"));
-        userOccupations.setCellValueFactory(new PropertyValueFactory<Usuario, String>("cargo"));
+    private void renderList() {
+        int size = list.size();
+        usersList.getChildren().clear();
+        Node[] rows = new Node[size];
+        for(int i = 0; i < size; i++){
+            Usuario user = list.get(i);
+            renderRow(rows[i], user);
+        }
 
-        usersTable.setItems(list);
+    }
+
+    private void renderRow(Node node, Usuario user){
+        try{
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("user-row-view.fxml"));
+            node = loader.load();
+            UserRowController userCtrl = loader.getController();
+            userCtrl.setId(user.getId());
+            userCtrl.setName(user.getNome());
+            userCtrl.setOccupation(String.valueOf(user.getCargo()));
+            usersList.getChildren().add(node);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
