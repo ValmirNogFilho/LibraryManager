@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UserRowController">
+   <children>
+      <Label fx:id="name" prefHeight="57.0" prefWidth="121.0" text="Fulano" />
+      <Label fx:id="id" prefHeight="57.0" prefWidth="121.0" text="123456">
+         <padding>
+            <Insets left="35.0" />
+         </padding></Label>
+      <Label fx:id="occupation" prefHeight="55.0" prefWidth="169.0" text="Administrador">
+         <padding>
+            <Insets left="40.0" />
+         </padding></Label>
+      <Button fx:id="optionsBtn" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="68.0" text="Opções">
+         <contextMenu>
+            <ContextMenu fx:id="ctxtMenu">
+              <items>
+                  <MenuItem fx:id="profileItem" mnemonicParsing="false" text="Ver perfil" />
+                  <MenuItem fx:id="blockItem" mnemonicParsing="false" text="Bloquear" />
+                  <MenuItem fx:id="excludeItem" mnemonicParsing="false" text="Excluir" />
+              </items>
+            </ContextMenu>
+         </contextMenu></Button>
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</HBox>
