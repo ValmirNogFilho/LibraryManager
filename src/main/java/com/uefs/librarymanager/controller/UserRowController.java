@@ -7,6 +7,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class UserRowController {
 
@@ -22,6 +24,8 @@ public class UserRowController {
     @FXML
     private MenuItem profileItem;
 
+    @FXML
+    private HBox hBox;
 
     @FXML
     private Label id;
@@ -68,6 +72,15 @@ public class UserRowController {
         double yOnScreen = scene.getWindow().getY() + yInScene;
         Button btn = (Button) event.getSource();
         ctxtMenu.show(btn, 947, yOnScreen);
+    }
+    @FXML
+    void onHover(MouseEvent event) {
+       hBox.setStyle("-fx-background-color: #5356d6;");
+    }
+
+    @FXML
+    void outHover(MouseEvent event) {
+       hBox.setStyle("-fx-background-color: #f4f4f4;");
     }
 
 }
