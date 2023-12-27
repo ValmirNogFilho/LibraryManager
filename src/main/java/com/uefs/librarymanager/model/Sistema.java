@@ -2,6 +2,7 @@ package com.uefs.librarymanager.model;
 
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.utils.cargoUsuario;
 import com.uefs.librarymanager.utils.statusEmprestimo;
 import com.uefs.librarymanager.utils.statusLeitor;
 
@@ -133,28 +134,7 @@ public class Sistema {
         }
     }
 
-    /**
-     * Este método é responsável pela aba do login no sistema. Nele é feita uma verificação para identificar se o
-     * usuário é administrador, bibliotecário ou leitor. Ao usuário ser identificado a partir do seu ID, é feita uma
-     * verificação de senha, caso a senha esteja incorreta, a exceção  SENHA_INVALIDA é ativada informando ao usuário
-     * que a senha dele difere da senha feita no cadastro.
-     * @param id
-     * @param senha
-     * @param cargo
-     * @throws UsuarioException
-     * @return obj que pode ser um leitor, administrador ou bibliotecário.
-     */
-    public static Usuario login(String id, String senha, String cargo) throws UsuarioException {
-        Usuario obj = null;
-        if(cargo.equals("Administrador") || cargo.equals("Bibliotecario")){
-            obj = DAO.getOperadorDAO().findById(id);
-        } else if (cargo.equals("Leitor")) {
-            obj = (Leitor) DAO.getLeitorDAO().findById(id);
-        }
-        if(obj.getSenha().equals(senha)){
-            return obj;
-        }
-        else throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
-    }
+
+
 
 }
