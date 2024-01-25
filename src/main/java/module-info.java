@@ -4,7 +4,7 @@ module com.uefs.librarymanager {
 
     requires org.controlsfx.controls;
 
-    opens com.uefs.librarymanager to javafx.fxml;
+    opens com.uefs.librarymanager to javafx.fxml, javafx.graphics;
     exports com.uefs.librarymanager;
     exports com.uefs.librarymanager.dao;
     exports com.uefs.librarymanager.model;
