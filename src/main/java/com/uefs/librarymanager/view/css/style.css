@@ -1,0 +1,30 @@
+
+/*Login*/
+.tela-total{
+     -fx-background-image: url('file:C:/Users/kcord/Downloads/hogwats-pbl.jpg');
+     -fx-background-size: cover;
+     -fx-background-position: center;
+     -fx-background-repeat: no-repeat;
+}
+/*titulo*/
+.titular{
+    -fx-font-size: 40px;
+    -fx-font-style: italic;
+}
+
+/*loginName*/
+.login{
+    -fx-font-style: italic;
+    -fx-alignment: center;
+}
+/*botoes*/
+.botao{
+    -fx-border-style: hidden;
+    -fx-border-color: rgba(0, 0, 0, 0);
+    -fx-background-color:  rgba(128, 128, 128, 0.5);
+}
+.botao:hover{
+    -fx-border-style: hidden;
+    -fx-border-color: rgba(0, 0, 0, 0);
+    -fx-background-color: rgba(173, 216, 230, 0.5);
+}
