@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UserRowController">
+   <children>
+      <Label fx:id="name" prefHeight="55.0" prefWidth="392.0" text="Nome do Livro" />
+      <Button fx:id="optionsBtn" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="68.0" text="Opções">
+         <contextMenu>
+            <ContextMenu fx:id="ctxtMenu">
+              <items>
+                  <MenuItem fx:id="profileItem" mnemonicParsing="false" text="Ver perfil" />
+                  <MenuItem fx:id="blockItem" mnemonicParsing="false" text="Bloquear" />
+                  <MenuItem fx:id="excludeItem" mnemonicParsing="false" text="Excluir" />
+              </items>
+            </ContextMenu>
+         </contextMenu></Button>
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</HBox>
