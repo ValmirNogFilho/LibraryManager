@@ -6,6 +6,7 @@ import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Sistema;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Session;
 import com.uefs.librarymanager.utils.cargoUsuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
@@ -78,12 +79,13 @@ public class HelloController implements Initializable {
 
     @FXML
     void btnLoginAction(ActionEvent event) {
-        Usuario obj = null;
+        Usuario user = null;
         String senha = Senha.getText();
         String id = IDacesso.getText();
 
         try {
-            obj = login(id, senha);
+            user = login(id, senha);
+            Session.loginUser(user);
             redirectHomePage(event);
         } catch (UsuarioException e) {
             warningText.setText(e.getMessage());
