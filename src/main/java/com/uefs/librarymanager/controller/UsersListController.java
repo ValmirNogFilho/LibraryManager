@@ -12,12 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -69,7 +67,6 @@ public class UsersListController implements Initializable {
 
     @FXML
     void openReportPage(MouseEvent event) {
-
     }
 
     @FXML
@@ -103,7 +100,6 @@ public class UsersListController implements Initializable {
     }
 
 
-
     private ObservableList<Usuario> feedList() {
 
         ArrayList<Usuario> allUsers = new ArrayList<>();
@@ -128,15 +124,16 @@ public class UsersListController implements Initializable {
         Node[] rows = new Node[size];
         for(int i = 0; i < size; i++){
             Usuario user = list.get(i);
-            renderRow(rows[i], user);
+            renderRow(user);
         }
 
     }
 
-    private void renderRow(Node node, Usuario user){
+    private void renderRow(Usuario user){
+
         try{
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("user-row-view.fxml"));
-            node = loader.load();
+            Node node = loader.load();
             UserRowController userCtrl = loader.getController();
             userCtrl.setId(user.getId());
             userCtrl.setName(user.getNome());
@@ -146,4 +143,5 @@ public class UsersListController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }
