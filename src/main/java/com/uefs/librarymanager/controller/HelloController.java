@@ -124,7 +124,7 @@ public class HelloController implements Initializable {
     private Usuario filterByOccupation(String id) throws UsuarioException {
         switch (cargo){
             case LEITOR -> {
-                screenToBeRendered = "users-list-view.fxml";
+                screenToBeRendered = "front-page.fxml";
                 return DAO.getLeitorDAO().findById(id);
             }
             case BIBLIOTECARIO -> {
