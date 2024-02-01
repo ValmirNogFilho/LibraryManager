@@ -1,28 +1,27 @@
 package com.uefs.librarymanager.controller;
 
+import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Usuario;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class UserRowController {
 
-    @FXML
-    private ContextMenu ctxtMenu;
-
-    @FXML
-    private MenuItem blockItem;
-
-    @FXML
-    private MenuItem excludeItem;
-
-    @FXML
-    private MenuItem profileItem;
 
     @FXML
     private HBox hBox;
@@ -37,7 +36,7 @@ public class UserRowController {
     private Label occupation;
 
     @FXML
-    private Button optionsBtn;
+    private Button profileBtn;
 
     public Label getId() {
         return id;
@@ -65,14 +64,10 @@ public class UserRowController {
 
     @FXML
     void btnClicked(ActionEvent event) {
-        Button sourceButton = (Button) event.getSource();
-        // Obtém a cena associada ao botão
-        Scene scene = sourceButton.getScene();
-        double yInScene = sourceButton.localToScene(0, 0).getY();
-        double yOnScreen = scene.getWindow().getY() + yInScene;
-        Button btn = (Button) event.getSource();
-        ctxtMenu.show(btn, 947, yOnScreen);
+        Usuario user = findById(id.getText());
+        openProfile(user);
     }
+
     @FXML
     void onHover(MouseEvent event) {
        hBox.setStyle("-fx-background-color: #5356d6;");
@@ -83,4 +78,35 @@ public class UserRowController {
        hBox.setStyle("-fx-background-color: #f4f4f4;");
     }
 
+    private Usuario findById(String id){
+        try {
+            return DAO.getOperadorDAO().findById(id);
+        } catch (Exception ignored) {}
+
+        try {
+            return DAO.getLeitorDAO().findById(id);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    void openProfile(Usuario user){
+        try{
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("profile-adm.fxml"));
+            Parent profileView = loader.load();
+            ProfileAdmController profileAdmCtrl = loader.getController();
+
+            profileAdmCtrl.setUser(user);
+            Stage profileStage = new Stage();
+            Scene scene = new Scene(profileView);
+            profileStage.setResizable(false);
+            profileStage.setScene(scene);
+            profileStage.show();
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    
 }
