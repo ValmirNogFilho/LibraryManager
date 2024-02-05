@@ -121,7 +121,6 @@ public class UsersListController implements Initializable {
     private void renderList() {
         int size = list.size();
         usersList.getChildren().clear();
-        Node[] rows = new Node[size];
         for(int i = 0; i < size; i++){
             Usuario user = list.get(i);
             renderRow(user);

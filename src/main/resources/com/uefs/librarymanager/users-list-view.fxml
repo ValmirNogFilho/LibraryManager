@@ -1,50 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UsersListController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="419.0" prefWidth="220.0" style="-fx-background-color: #5356d6;">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UsersListController">
+   <children>
+      <Text layoutX="25.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários" />
+      <TextField fx:id="searchInput" layoutX="25.0" layoutY="56.0" prefHeight="34.0" prefWidth="498.0" promptText="busque por um usuário..." />
+      <Button fx:id="searchBtn" layoutX="534.0" layoutY="54.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="40.0" prefWidth="51.0" text="Buscar" />
+      <MenuButton fx:id="criteriaBtn" layoutX="424.0" layoutY="57.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="99.0" text="Buscar por:">
+         <items>
+            <MenuItem fx:id="menuItemName" mnemonicParsing="false" onAction="#byName" text="Nome" />
+            <MenuItem fx:id="menuItemID" mnemonicParsing="false" onAction="#byID" text="ID" />
+         </items>
+      </MenuButton>
+      <Pane layoutY="90.0" prefHeight="311.0" prefWidth="614.0">
          <children>
-            <Text layoutX="40.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial Bold;" text="Library Manager" wrappingWidth="83.15625" />
-            <Text fill="WHITE" layoutX="40.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Início" wrappingWidth="49.13671875" />
-            <Text fx:id="reportBtn" layoutX="40.0" layoutY="269.0" onMouseClicked="#openReportPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Relatório" wrappingWidth="70.13671875" />
-            <Text fx:id="registerUserBtn" layoutX="38.0" layoutY="193.0" onMouseClicked="#openUserRegisterPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastrar novo usuário" wrappingWidth="99.13671875" />
-            <Label fx:id="logoutBtn" layoutX="151.0" layoutY="452.0" text="SAIR" />
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <Text layoutX="25.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários" />
-            <TextField fx:id="searchInput" layoutX="25.0" layoutY="91.0" prefHeight="31.0" prefWidth="423.0" promptText="busque por um usuário..." />
-            <Button fx:id="searchBtn" layoutX="448.0" layoutY="92.0" mnemonicParsing="false" onAction="#searchClick" text="Buscar" />
-            <MenuButton fx:id="criteriaBtn" layoutX="344.0" layoutY="94.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="99.0" text="Buscar por:">
-              <items>
-                <MenuItem fx:id="menuItemName" mnemonicParsing="false" onAction="#byName" text="Nome" />
-                <MenuItem fx:id="menuItemID" mnemonicParsing="false" onAction="#byID" text="ID" />
-              </items>
-            </MenuButton>
-            <Pane layoutY="135.0" prefHeight="347.0" prefWidth="515.0">
-               <children>
-                  <Label layoutX="27.0" layoutY="25.0" text="Nome" />
-                  <Label layoutX="187.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="ID" />
-                  <Label layoutX="310.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="Cargo" />
-                  <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="56.0" prefHeight="269.0" prefWidth="490.0">
-                     <content>
-                        <VBox fx:id="usersList" prefHeight="271.0" prefWidth="478.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
-         </children></AnchorPane>
-  </items>
-</SplitPane>
+            <Label layoutX="23.0" layoutY="25.0" text="Nome" />
+            <Label layoutX="233.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="ID" />
+            <Label layoutX="354.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="Cargo" />
+            <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="56.0" prefHeight="249.0" prefWidth="592.0">
+               <content>
+                  <VBox fx:id="usersList" prefHeight="248.0" prefWidth="590.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
