@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BookRowController">
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BookRowController">
    <children>
-      <Label fx:id="title" prefHeight="55.0" prefWidth="242.0" text="Nome do Livro" />
+      <Label fx:id="title" prefHeight="55.0" prefWidth="515.0" text="Nome do Livro" />
       <Button fx:id="openBookPage" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="76.0" text="Ver mais" />
    </children>
    <padding>
