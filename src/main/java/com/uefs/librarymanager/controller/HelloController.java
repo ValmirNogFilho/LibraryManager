@@ -132,7 +132,7 @@ public class HelloController implements Initializable {
                 return DAO.getOperadorDAO().findById(id);
             }
             case ADMINISTRADOR -> {
-                screenToBeRendered = "users-list-view.fxml";
+                screenToBeRendered = "front-page-adm.fxml";
                 return DAO.getOperadorDAO().findById(id);
             }
             default -> {
