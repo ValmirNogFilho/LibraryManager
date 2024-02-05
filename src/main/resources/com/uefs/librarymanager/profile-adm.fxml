@@ -24,7 +24,7 @@
                   <Insets bottom="10.0" />
                </opaqueInsets>
             </Button>
-            <TextField fx:id="nomeHeader" prefHeight="34.0" prefWidth="402.0" text="Nome Fulano" />
+            <TextField fx:id="nomeHeader" editable="false" prefHeight="34.0" prefWidth="402.0" text="Nome Fulano" />
          </children>
       </HBox>
       <VBox fx:id="vBoxReal" prefHeight="398.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -34,7 +34,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="numeroEmprestimosF" onAction="#actionNumeroEmprestimosF" prefHeight="138.0" prefWidth="140.0">
+            <TextField fx:id="numeroEmprestimosF" editable="false" onAction="#actionNumeroEmprestimosF" prefHeight="138.0" prefWidth="140.0">
                <VBox.margin>
                   <Insets top="7.0" />
                </VBox.margin>
@@ -44,7 +44,7 @@
                   <Insets left="9.0" top="88.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="satusUser" layoutX="10.0" layoutY="53.0" onAction="#actionStatusUser" prefHeight="78.0" prefWidth="133.0">
+            <TextField fx:id="satusUser" editable="false" layoutX="10.0" layoutY="53.0" onAction="#actionStatusUser" prefHeight="78.0" prefWidth="133.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
