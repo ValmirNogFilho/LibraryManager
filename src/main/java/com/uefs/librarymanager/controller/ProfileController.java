@@ -1,13 +1,26 @@
 package com.uefs.librarymanager.controller;
 
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Session;
+import com.uefs.librarymanager.utils.statusLeitor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
-public class ProfileController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ProfileController implements Initializable {
+
+    @FXML
+    private TextField nomeHeader;
 
     @FXML
     private ImageView capaUsuario;
@@ -19,16 +32,10 @@ public class ProfileController {
     private Label labelCargo;
 
     @FXML
-    private Label labelEmail;
-
-    @FXML
     private Label labelEndereco;
 
     @FXML
     private Label labelId;
-
-    @FXML
-    private Label labelNome;
 
     @FXML
     private Label labelTel;
@@ -45,11 +52,7 @@ public class ProfileController {
     @FXML
     private TextField satusUser;
 
-    @FXML
-    private VBox vBoxFake;
-
-    @FXML
-    private VBox vBoxReal;
+    private Leitor user;
 
     @FXML
     void actionMinhasReservas(ActionEvent event) {
@@ -66,4 +69,25 @@ public class ProfileController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = (Leitor) Session.getUserInSession();
+        setUserInformation(user);
+    }
+
+    private void setUserInformation(Leitor user) {
+        nomeHeader.setText(user.getNome());
+        nomeLabel.setText("Nome: " + user.getNome());
+        labelId.setText("ID: " + user.getId());
+        labelCargo.setText("Cargo: " + user.getCargo().toString());
+        labelTel.setText("Telefone: " + user.getTelefone());
+        satusUser.setText(user.getStatus().toString());
+        labelEndereco.setText(user.getEndereco());
+        numeroEmprestimosMeus.setText(
+                String.valueOf(DAO.getEmprestimoDAO().qtdEmprestimosEmAndamentoDe(user))
+        );
+        caxaMinhasReservas.setText(
+                String.valueOf(user.getNumReservas())
+        );
+    }
 }
