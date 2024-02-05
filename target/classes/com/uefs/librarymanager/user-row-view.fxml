@@ -4,14 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UserRowController">
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UserRowController">
    <children>
-      <Label fx:id="name" prefHeight="57.0" prefWidth="121.0" text="Fulano" />
+      <Label fx:id="name" prefHeight="55.0" prefWidth="180.0" text="Fulano" />
       <Label fx:id="id" prefHeight="57.0" prefWidth="121.0" text="123456">
          <padding>
             <Insets left="35.0" />
          </padding></Label>
-      <Label fx:id="occupation" prefHeight="55.0" prefWidth="169.0" text="Administrador">
+      <Label fx:id="occupation" prefHeight="55.0" prefWidth="177.0" text="Administrador">
          <padding>
             <Insets left="40.0" />
          </padding></Label>
