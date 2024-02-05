@@ -3,6 +3,7 @@ package com.uefs.librarymanager.controller;
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,10 +26,11 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class FrontPageController {
+public class FrontPageController implements Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -50,14 +53,30 @@ public class FrontPageController {
     @FXML
     private BorderPane painelPrincipal;
 
+    private Leitor user;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = (Leitor) Session.getUserInSession();
+        assert btnInicio != null : "fx:id=\"btnInicio\" was not injected: check your FXML file 'Untitled'.";
+        assert btnMeusLivros != null : "fx:id=\"btnMeusLivros\" was not injected: check your FXML file 'Untitled'.";
+        assert btnPerfil != null : "fx:id=\"btnPerfil\" was not injected: check your FXML file 'Untitled'.";
+        assert btnSair != null : "fx:id=\"btnSair\" was not injected: check your FXML file 'Untitled'.";
+        assert painelPrincipal != null : "fx:id=\"painelPrincipal\" was not injected: check your FXML file 'Untitled'.";
+        openBooksListWithList("books-list-view.fxml", DAO.getLivroDAO().findMany());
+    }
+
     @FXML
     void inicioAction(ActionEvent event) {
-        openPage("books-list-view.fxml");
+        openBooksListWithList(
+                "books-list-view.fxml", DAO.getLivroDAO().findMany()
+        );
     }
 
     @FXML
     void meusLivrosAction(ActionEvent event) {
-        openPage("books.fxml");
+        openBooksListWithList(
+                "books-list-view.fxml", DAO.getLivroDAO().findByLeitor(user));
     }
 
     @FXML
@@ -105,15 +124,6 @@ public class FrontPageController {
     }
 
 
-    @FXML void initialize() {
-        assert btnInicio != null : "fx:id=\"btnInicio\" was not injected: check your FXML file 'Untitled'.";
-        assert btnMeusLivros != null : "fx:id=\"btnMeusLivros\" was not injected: check your FXML file 'Untitled'.";
-        assert btnPerfil != null : "fx:id=\"btnPerfil\" was not injected: check your FXML file 'Untitled'.";
-        assert btnSair != null : "fx:id=\"btnSair\" was not injected: check your FXML file 'Untitled'.";
-        assert painelPrincipal != null : "fx:id=\"painelPrincipal\" was not injected: check your FXML file 'Untitled'.";
-        openPage("books-list-view.fxml");
-    }
-
     private void openPage(String url) {
         Parent root = null;
         try {
@@ -123,6 +133,19 @@ public class FrontPageController {
         }
         this.painelPrincipal.setCenter(root);
     }
+
+    private void openBooksListWithList(String url, List<Livro> list) {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
+            Node root = loader.load();
+            BooksListController booksListCtrl = loader.getController();
+            booksListCtrl.setListAndInitialize(list);
+            this.painelPrincipal.setCenter(root);
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar a página: " + e.getMessage());
+        }
+    }
+
 }
 
 
