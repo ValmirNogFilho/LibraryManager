@@ -108,6 +108,8 @@ public class DataInitialFeeder {
     }
 
     private static void povoarDadosDeEmprestimos() throws LivroException, UsuarioException {
+        DAO.getReservaDAO().deleteMany();
+
         List<Leitor> leitores = DAO.getLeitorDAO().findMany();
         List<Livro> livros = DAO.getLivroDAO().findMany();
         int i = 0;
@@ -121,15 +123,22 @@ public class DataInitialFeeder {
     }
 
     private static void povoarDadosDeReservas() throws LivroException, UsuarioException {
+
         Livro livro1 = DAO.getLivroDAO().create( new Livro("Java: The Complete Reference", "Herbert Schildt", "McGraw-Hill",
                 "978-0071606301", 2014, "Seção A", "Programação", 10));
         Livro livro2 = DAO.getLivroDAO().create( new Livro("Clean Code: A Handbook of Agile Software Craftsmanship",
                 "Robert C. Martin", "Prentice Hall", "978-0132350884", 2008,
                 "Seção B", "Desenvolvimento de Software", 5));
 
-        Leitor leitor1 = DAO.getLeitorDAO().create(new Leitor("João", "Rua A", "123456789"));
-        Leitor leitor2 = DAO.getLeitorDAO().create(new Leitor("Maria", "Rua B", "987654321"));
 
+        Leitor leitor1 = new Leitor("João", "Rua A", "123456789");
+        Leitor leitor2 = new Leitor("Maria", "Rua B", "987654321");
+
+        leitor1.setSenha("1234");
+        leitor2.setSenha("1234");
+
+        DAO.getLeitorDAO().create(leitor1);
+        DAO.getLeitorDAO().create(leitor2);
 
 
         DAO.getReservaDAO().registrarReserva(leitor1, livro1);
