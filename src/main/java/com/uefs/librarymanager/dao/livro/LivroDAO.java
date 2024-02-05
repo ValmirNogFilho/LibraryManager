@@ -2,6 +2,7 @@ package com.uefs.librarymanager.dao.livro;
 
 import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 
 import java.util.List;
@@ -49,4 +50,6 @@ public interface LivroDAO extends CRUD<Livro> {
      * @throws LivroException
      */
     public Livro findByISBN(String ISBN) throws LivroException;
+
+    public List<Livro> findByLeitor(Leitor leitor);
 }

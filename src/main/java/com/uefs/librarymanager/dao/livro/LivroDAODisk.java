@@ -1,6 +1,9 @@
 package com.uefs.librarymanager.dao.livro;
 
+import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.LivroException;
+import com.uefs.librarymanager.model.Emprestimo;
+import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.utils.FileUtils;
 
@@ -99,6 +102,16 @@ public class LivroDAODisk implements LivroDAO{
     private Map<String, Livro> findManyMap(){
         return FileUtils.consultarArquivoMap(arquivo);
     }
-    
 
+    @Override
+    public List<Livro> findByLeitor(Leitor leitor){
+        return DAO.getEmprestimoDAO().findByLeitor(leitor)
+                .stream()
+                .map(
+                        (emprestimo) -> {
+                            return findByPrimaryKey(emprestimo.getLivroISBN());
+                        }
+                )
+                .collect(Collectors.toList());
+    }
 }
