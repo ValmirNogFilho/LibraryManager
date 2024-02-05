@@ -12,34 +12,22 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class BooksListController implements Initializable {
+public class BooksListController{
 
     private ObservableList<Livro> list;
 
     @FXML
     private VBox booksList;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        list = FXCollections.observableArrayList(
-                DAO.getLivroDAO().findMany()
-        );
-        renderList();
-    }
 
     private void renderList() {
-//        int size = list.size();
         booksList.getChildren().clear();
         list.forEach(
                 (book) -> renderRow(book)
         );
-//        for (int i = 0; i < size; i++) {
-//            book = list.get(i);
-//            renderRow(book);
-//        }
-
     }
 
     private void renderRow(Livro book) {
@@ -54,5 +42,11 @@ public class BooksListController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void setListAndInitialize(List<Livro> list) {
+        this.list = FXCollections.observableArrayList(list);
+        renderList();
+    }
+
 
 }
