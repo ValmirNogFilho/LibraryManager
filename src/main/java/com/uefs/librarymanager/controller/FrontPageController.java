@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
@@ -13,13 +14,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FrontPageController {
@@ -62,6 +67,26 @@ public class FrontPageController {
 
     @FXML
     void sairAction(ActionEvent event) {
+        if (!(wantsToLogout()))
+            return;
+
+        openLoginPage(event);
+    }
+
+
+    private boolean wantsToLogout() {
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Sair");
+        confirmationDialog.setHeaderText("Deseja sair?");
+        confirmationDialog.setContentText("Escolha 'OK' para sair");
+
+        confirmationDialog.showAndWait();
+
+        return confirmationDialog.getResult() == ButtonType.OK;
+    }
+
+
+    private void openLoginPage(ActionEvent event) {
         Session.logoutUser();
         Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentScreen.close();
@@ -78,6 +103,7 @@ public class FrontPageController {
             e.printStackTrace();
         }
     }
+
 
     @FXML void initialize() {
         assert btnInicio != null : "fx:id=\"btnInicio\" was not injected: check your FXML file 'Untitled'.";
