@@ -44,6 +44,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button fx:id="btnMinhasReservas" layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#minhasReservasAction" text="Minhas Reservas">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../Downloads/livro-pbl.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sairAction" text="Sair">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">

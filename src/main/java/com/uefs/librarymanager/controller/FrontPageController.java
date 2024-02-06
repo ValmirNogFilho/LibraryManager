@@ -2,13 +2,9 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
-import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
-import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,15 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FrontPageController implements Initializable {
@@ -53,6 +45,9 @@ public class FrontPageController implements Initializable {
     @FXML
     private BorderPane painelPrincipal;
 
+    @FXML
+    private Button btnMinhasReservas;
+
     private Leitor user;
 
     @Override
@@ -76,8 +71,15 @@ public class FrontPageController implements Initializable {
     @FXML
     void meusLivrosAction(ActionEvent event) {
         openBooksListWithList(
-                "books-list-view.fxml", DAO.getLivroDAO().findByLeitor(user));
+                "books-list-view.fxml", DAO.getLivroDAO().findLivrosEmprestadosByLeitor(user));
     }
+
+    @FXML
+    void minhasReservasAction(ActionEvent event) {
+        openBooksListWithList(
+                "books-list-view.fxml", DAO.getLivroDAO().findLivrosReservadosByLeitor(user));
+    }
+
 
     @FXML
     void perfilAction(ActionEvent event) {
