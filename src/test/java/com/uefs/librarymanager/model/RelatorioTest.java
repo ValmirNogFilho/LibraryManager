@@ -22,6 +22,7 @@ class RelatorioTest {
     Livro livro2;
     @BeforeEach
     void setUp() {
+        tearDown();
         leitor = DAO.getLeitorDAO().create(new Leitor("a", "a", "12345678"));
         livro = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1234", 2020,
                 "a", "a", 20));
