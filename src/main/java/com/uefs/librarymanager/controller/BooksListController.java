@@ -36,7 +36,7 @@ public class BooksListController{
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-row-view.fxml"));
             Node node = loader.load();
             BookRowController bookCtrl = loader.getController();
-            bookCtrl.setTitle(book.getTitulo());
+            bookCtrl.setBook(book);
             booksList.getChildren().add(node);
         } catch (Exception e) {
             e.printStackTrace();

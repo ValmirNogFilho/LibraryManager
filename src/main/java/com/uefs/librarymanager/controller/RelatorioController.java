@@ -135,7 +135,7 @@ public class RelatorioController implements Initializable {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-row-view.fxml"));
             Node node = loader.load();
             BookRowController bookRowCtrl = loader.getController();
-            bookRowCtrl.setTitle(book.getTitulo());
+            bookRowCtrl.setBook(book);
 
             booksList.getChildren().add(node);
         } catch(Exception e){
