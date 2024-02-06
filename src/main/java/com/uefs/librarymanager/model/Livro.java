@@ -3,7 +3,6 @@ package com.uefs.librarymanager.model;
 import com.uefs.librarymanager.exceptions.LivroException;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,8 +31,11 @@ public class Livro implements Serializable {
     private String localizacao;
     private String categoria;
     private int disponiveis;
+    private String sinopse;
+    private String imagemUrl;
 
-    public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao, String localizacao, String categoria, int disponiveis) {
+    public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao,
+                 String localizacao, String categoria, int disponiveis) {
         this.titulo = titulo;
         this.autor = autor;
         this.editora = editora;
@@ -42,6 +44,22 @@ public class Livro implements Serializable {
         this.localizacao = localizacao;
         this.categoria = categoria;
         this.disponiveis = disponiveis;
+        this.sinopse = "Sem sinopse";
+        this.imagemUrl = "/img/template.jpg";
+    }
+
+    public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao,
+                 String localizacao, String categoria, int disponiveis, String sinopse, String imagemUrl) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.editora = editora;
+        this.ISBN = ISBN;
+        this.anoDePublicacao = anoDePublicacao;
+        this.localizacao = localizacao;
+        this.categoria = categoria;
+        this.disponiveis = disponiveis;
+        this.sinopse = sinopse;
+        this.imagemUrl = imagemUrl;
     }
 
     public String getTitulo() {
@@ -112,6 +130,22 @@ public class Livro implements Serializable {
         if (getDisponiveis()> 0)
             return true;
         else throw new LivroException(LivroException.SEM_EXEMPLARES);
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 
     /**
