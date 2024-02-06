@@ -90,7 +90,7 @@ public class UserRowController {
         }
     }
 
-    void openProfile(Usuario user){
+    private void openProfile(Usuario user){
         try{
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("profile-adm.fxml"));
             Parent profileView = loader.load();
