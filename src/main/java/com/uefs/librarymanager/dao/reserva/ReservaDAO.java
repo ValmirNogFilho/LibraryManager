@@ -117,4 +117,6 @@ public interface ReservaDAO extends CRUD<Reserva>{
      * @param l
      */
     public void removerReservasDe(Leitor l);
+
+    public List<Reserva> findByLeitor(Leitor leitor);
 }

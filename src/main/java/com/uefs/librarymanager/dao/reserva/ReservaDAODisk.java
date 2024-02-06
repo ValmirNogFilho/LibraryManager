@@ -14,9 +14,10 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ReservaDAODisk implements ReservaDAO{
-    private File arquivo, arquivoId;
+    private final File arquivo, arquivoId;
     private static final String NOMEARQUIVO = "reservas";
     private int proximoId;
     public ReservaDAODisk() {
@@ -149,7 +150,6 @@ public class ReservaDAODisk implements ReservaDAO{
 
     @Override
     public void cancelarReserva(Leitor leitor, Livro livro) {
-
         Map<String, LinkedList<Reserva>> reservas = FileUtils.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(livro.getISBN());
@@ -158,7 +158,11 @@ public class ReservaDAODisk implements ReservaDAO{
                 reservasDoLivro.remove(r);
                 reservas.put(r.getISBN(),reservasDoLivro);
                 FileUtils.sobreescreverArquivo(arquivo, reservas);
+
+                leitor.setNumReservas(leitor.getNumReservas()-1);
+                DAO.getLeitorDAO().update(leitor);
             }
+
     }
 
     @Override
@@ -237,6 +241,16 @@ public class ReservaDAODisk implements ReservaDAO{
         }
 
         FileUtils.sobreescreverArquivo(arquivo, reservas);
+    }
+
+    @Override
+    public List<Reserva> findByLeitor(Leitor leitor) {
+         return findMany()
+                .stream()
+                .filter(
+                        (reserva) -> reserva.getIdUsuario().equals(leitor.getId())
+                )
+                .collect(Collectors.toList());
 
     }
 }

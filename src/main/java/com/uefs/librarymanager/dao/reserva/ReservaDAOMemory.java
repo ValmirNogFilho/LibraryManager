@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class ReservaDAOMemory implements ReservaDAO{
@@ -189,5 +190,18 @@ public class ReservaDAOMemory implements ReservaDAO{
                     delete(reserva);
 
     }
+
+
+    @Override
+    public List<Reserva> findByLeitor(Leitor leitor) {
+        return findMany()
+                .stream()
+                .filter(
+                        (reserva) -> reserva.getIdUsuario().equals(leitor.getId())
+                )
+                .collect(Collectors.toList());
+
+    }
+
 
 }

@@ -51,5 +51,7 @@ public interface LivroDAO extends CRUD<Livro> {
      */
     public Livro findByISBN(String ISBN) throws LivroException;
 
-    public List<Livro> findByLeitor(Leitor leitor);
+    public List<Livro> findLivrosEmprestadosByLeitor(Leitor leitor);
+
+    public List<Livro> findLivrosReservadosByLeitor(Leitor leitor);
 }

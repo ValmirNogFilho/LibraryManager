@@ -104,12 +104,24 @@ public class LivroDAODisk implements LivroDAO{
     }
 
     @Override
-    public List<Livro> findByLeitor(Leitor leitor){
+    public List<Livro> findLivrosEmprestadosByLeitor(Leitor leitor){
         return DAO.getEmprestimoDAO().findByLeitor(leitor)
                 .stream()
                 .map(
                         (emprestimo) -> {
                             return findByPrimaryKey(emprestimo.getLivroISBN());
+                        }
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Livro> findLivrosReservadosByLeitor(Leitor leitor){
+        return DAO.getReservaDAO().findByLeitor(leitor)
+                .stream()
+                .map(
+                        (reserva) -> {
+                            return findByPrimaryKey(reserva.getISBN());
                         }
                 )
                 .collect(Collectors.toList());
