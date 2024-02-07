@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -58,26 +59,26 @@ public class FrontPageController implements Initializable {
         assert btnPerfil != null : "fx:id=\"btnPerfil\" was not injected: check your FXML file 'Untitled'.";
         assert btnSair != null : "fx:id=\"btnSair\" was not injected: check your FXML file 'Untitled'.";
         assert painelPrincipal != null : "fx:id=\"painelPrincipal\" was not injected: check your FXML file 'Untitled'.";
-        openBooksListWithList("books-list-view.fxml", DAO.getLivroDAO().findMany());
+        openBooksListWithList("books-list-view.fxml", DAO.getLivroDAO().findMany(), "book-row-view.fxml");
     }
 
     @FXML
     void inicioAction(ActionEvent event) {
         openBooksListWithList(
-                "books-list-view.fxml", DAO.getLivroDAO().findMany()
+                "books-list-view.fxml", DAO.getLivroDAO().findMany(), "book-row-view.fxml"
         );
     }
 
     @FXML
     void meusLivrosAction(ActionEvent event) {
         openBooksListWithList(
-                "books-list-view.fxml", DAO.getLivroDAO().findLivrosEmprestadosByLeitor(user));
+                "books-list-view.fxml", DAO.getLivroDAO().findLivrosEmprestadosByLeitor(user), "book-row-view.fxml");
     }
 
     @FXML
     void minhasReservasAction(ActionEvent event) {
         openBooksListWithList(
-                "books-list-view.fxml", DAO.getLivroDAO().findLivrosReservadosByLeitor(user));
+                "books-list-view.fxml", DAO.getLivroDAO().findLivrosReservadosByLeitor(user), "reservation-row-view.fxml");
     }
 
 
@@ -136,11 +137,13 @@ public class FrontPageController implements Initializable {
         this.painelPrincipal.setCenter(root);
     }
 
-    private void openBooksListWithList(String url, List<Livro> list) {
+
+    private void openBooksListWithList(String url, List<Livro> list, String urlRow) {
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
             Node root = loader.load();
             BooksListController booksListCtrl = loader.getController();
+            booksListCtrl.setUrlRow(urlRow);
             booksListCtrl.setListAndInitialize(list);
             this.painelPrincipal.setCenter(root);
         } catch (Exception e) {

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -22,6 +23,7 @@ public class BooksListController{
     @FXML
     private VBox booksList;
 
+    private String urlRow;
 
     private void renderList() {
         booksList.getChildren().clear();
@@ -33,9 +35,9 @@ public class BooksListController{
     private void renderRow(Livro book) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-row-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(urlRow));
             Node node = loader.load();
-            BookRowController bookCtrl = loader.getController();
+            BookRow bookCtrl = loader.getController();
             bookCtrl.setBook(book);
             booksList.getChildren().add(node);
         } catch (Exception e) {
@@ -48,5 +50,9 @@ public class BooksListController{
         renderList();
     }
 
+
+    public void setUrlRow(String urlRow) {
+        this.urlRow = urlRow;
+    }
 
 }
