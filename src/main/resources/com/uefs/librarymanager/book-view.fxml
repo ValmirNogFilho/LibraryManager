@@ -46,6 +46,11 @@
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
+            <Label fx:id="categoriaLivro" layoutX="10.0" layoutY="68.0" text="Categoria:">
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </Label>
             <Label fx:id="qntdDisponivel" text="Exemplares Disponíveis:">
                <padding>
                   <Insets bottom="5.0" top="2.0" />

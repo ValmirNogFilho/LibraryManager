@@ -46,6 +46,9 @@ public class BookController {
     private Label qntdDisponivel;
 
     @FXML
+    private Label categoriaLivro;
+
+    @FXML
     private TextArea sinopseLivro;
 
     private Livro book;
@@ -128,6 +131,7 @@ public class BookController {
         editoraLivro.setText("Editora: " + book.getEditora());
         localizazaoLivro.setText("Localização: " + book.getLocalizacao());
         isbnLivro.setText("ISBN:" + book.getISBN());
+        categoriaLivro.setText("Categoria: " + book.getCategoria());
         qntdDisponivel.setText(
                 "Exemplares disponíveis: " + book.getDisponiveis()
         );
