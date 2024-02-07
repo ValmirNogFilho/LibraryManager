@@ -1,13 +1,10 @@
 package com.uefs.librarymanager.dao.reserva;
 
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.*;
 import com.uefs.librarymanager.utils.FileUtils;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
-import com.uefs.librarymanager.model.Emprestimo;
-import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.model.Livro;
-import com.uefs.librarymanager.model.Reserva;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -252,5 +249,18 @@ public class ReservaDAODisk implements ReservaDAO{
                 )
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public int getQueuePosition(Usuario user, Livro livro) {
+        List<Reserva> queue = findManyMap().get(livro.getISBN());
+        if(queue == null)
+            return -1;
+        for (int index = 0; index < queue.size(); index++) {
+            Reserva reserva = queue.get(index);
+            if(reserva.getIdUsuario().equals(user.getId()))
+                return index;
+        }
+        return -1;
     }
 }

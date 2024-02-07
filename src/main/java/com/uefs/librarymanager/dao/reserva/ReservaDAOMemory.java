@@ -3,10 +3,7 @@ package com.uefs.librarymanager.dao.reserva;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
-import com.uefs.librarymanager.model.Emprestimo;
-import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.model.Livro;
-import com.uefs.librarymanager.model.Reserva;
+import com.uefs.librarymanager.model.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -201,6 +198,17 @@ public class ReservaDAOMemory implements ReservaDAO{
                 )
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public int getQueuePosition(Usuario user, Livro livro) {
+        List<Reserva> queue = reservas.get(livro.getISBN());
+        for (int index = 0; index < queue.size(); index++) {
+            Reserva reserva = queue.get(index);
+            if(reserva.getIdUsuario().equals(user.getId()))
+                return index;
+        }
+        return -1;
     }
 
 

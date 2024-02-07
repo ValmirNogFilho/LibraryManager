@@ -3,10 +3,7 @@ package com.uefs.librarymanager.dao.reserva;
 import com.uefs.librarymanager.dao.CRUD;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
-import com.uefs.librarymanager.model.Emprestimo;
-import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.model.Livro;
-import com.uefs.librarymanager.model.Reserva;
+import com.uefs.librarymanager.model.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -119,4 +116,6 @@ public interface ReservaDAO extends CRUD<Reserva>{
     public void removerReservasDe(Leitor l);
 
     public List<Reserva> findByLeitor(Leitor leitor);
+
+    public int getQueuePosition(Usuario user, Livro livro);
 }
