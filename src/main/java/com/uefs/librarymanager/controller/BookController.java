@@ -9,12 +9,18 @@ import com.uefs.librarymanager.model.Reserva;
 import com.uefs.librarymanager.utils.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class BookController {
 
@@ -49,7 +55,7 @@ public class BookController {
     private boolean isReserved;
 
     @FXML
-    void reservaAction(ActionEvent event) {
+    void reservaAction(ActionEvent event) throws LivroException {
         if(!isReserved){
             reservarLivro();
             isReserved = true;
@@ -77,12 +83,7 @@ public class BookController {
         openDialog("Sucesso!", "Reserva do livro " + book.getTitulo() +" cancelada com sucesso");
     }
 
-    @FXML
-    void initialize() {
-
-    }
-
-    public void setBookAndRenderPage(Livro book) {
+    public void setBookAndRenderPage(Livro book) throws LivroException {
         this.book = book;
         user = (Leitor) Session.getUserInSession();
         setBookInformation(book);
@@ -90,8 +91,17 @@ public class BookController {
         updateBtnText();
         imagemLivro.setImage(new Image(getClass().getResource(book.getImagemUrl()).toExternalForm()));
         sinopseLivro.setText(book.getSinopse());
+        if (DAO.getReservaDAO().getQueuePosition(user, book) == 0){
+            openDialog("Atenção!", "Você é o primeiro na fila de reservas desse livro e já está apto para realizar empréstimo.");
+
+
+        }
     }
 
+
+    private void clickShow(ActionEvent event) {
+
+    }
 
     private boolean alreadyReservedByUser(Livro book) {
         Reserva reserva = DAO.getReservaDAO().findByPrimaryKey(book.getISBN());
@@ -101,12 +111,15 @@ public class BookController {
         return reserva.getIdUsuario().equals(user.getId());
     }
 
-    private void updateBtnText() {
+    private void updateBtnText() throws LivroException {
         if (isReserved) {
             btnReserva.setText("Cancelar reserva");
-        } else {
-            btnReserva.setText("Reservar");
+            return;
         }
+
+        btnReserva.setText("Reservar");
+        if (book.getDisponiveis() > 0 || DAO.getReservaDAO().filaVazia(book.getISBN()))
+            btnReserva.setDisable(true);
     }
 
 
@@ -118,7 +131,6 @@ public class BookController {
         qntdDisponivel.setText(
                 "Exemplares disponíveis: " + book.getDisponiveis()
         );
-
     }
 
     public void openDialog(String header, String message){
@@ -127,6 +139,6 @@ public class BookController {
         warningDialog.setHeaderText(header);
         warningDialog.setContentText(message);
 
-        warningDialog.show();
+        warningDialog.showAndWait();
     }
 }

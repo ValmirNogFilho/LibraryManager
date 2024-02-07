@@ -6,6 +6,7 @@ import com.uefs.librarymanager.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,10 +14,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
-public class BookRowController {
+public class BookRowController implements BookRow{
 
     @FXML
     private Label title;
@@ -31,38 +34,21 @@ public class BookRowController {
         this.title.setText(book.getTitulo());
     }
 
-
-
+    @Override
     @FXML
-    void btnClicked(ActionEvent event) {
-        openBook(book);
+    public void btnClicked(ActionEvent event) {
+        BookRow.openBook(book);
     }
 
+    @Override
     @FXML
-    void onHover(MouseEvent event) {
-
+    public void onHover(MouseEvent event) {
     }
 
+    @Override
     @FXML
-    void outHover(MouseEvent event) {
+    public void outHover(MouseEvent event) {
 
     }
 
-    private void openBook(Livro book){
-        try{
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-view.fxml"));
-            Parent profileView = loader.load();
-            BookController bookCtrl = loader.getController();
-
-            bookCtrl.setBookAndRenderPage(book);
-            Stage profileStage = new Stage();
-            Scene scene = new Scene(profileView);
-            profileStage.setResizable(false);
-            profileStage.setScene(scene);
-            profileStage.show();
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-    }
 }
