@@ -49,6 +49,8 @@ public class HelloController implements Initializable {
     @FXML
     private Button btnLogin;
 
+    public static Stage mainPage;
+
     ToggleGroup toggleGroup;
 
     @FXML
@@ -148,11 +150,11 @@ public class HelloController implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(screenToBeRendered));
             Parent root = loader.load();
-            Stage loginStage = new Stage();
+            mainPage = new Stage();
             Scene scene = new Scene(root);
-            loginStage.setResizable(false);
-            loginStage.setScene(scene);
-            loginStage.show();
+            mainPage.setResizable(false);
+            mainPage.setScene(scene);
+            mainPage.show();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,7 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -29,20 +31,18 @@ public interface BookRow {
 
     static void openBook(Livro book){
 
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-view.fxml"));
-            Parent profileView = loader.load();
+            Node root = loader.load();
             BookController bookCtrl = loader.getController();
-
             bookCtrl.setBookAndRenderPage(book);
-            Stage profileStage = new Stage();
-            Scene scene = new Scene(profileView);
-            profileStage.setResizable(false);
-            profileStage.setScene(scene);
-            profileStage.show();
 
-        } catch(Exception e){
-            e.printStackTrace();
+            Node main = HelloController.mainPage.getScene().getRoot();
+            GridPane gridPane = (GridPane) main;
+            BorderPane mainPane = (BorderPane) gridPane.getChildren().get(0);
+            mainPane.setCenter(root);
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar a página: " + e.getMessage());
         }
     }
 
