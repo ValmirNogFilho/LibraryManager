@@ -21,34 +21,34 @@ public class DataInitialFeeder {
         ArrayList<Livro> listaLivros = new ArrayList<>();
 
         listaLivros.add(new Livro("Dom Casmurro", "Machado de Assis", "Livraria Garnier",
-                "9788574803999", 1899, "", "Romance", 10));
+                "9788574803999", 1899, "", "Romance", 10, "", "domcasmurro.jpg"));
 
         listaLivros.add(new Livro("Memórias Póstumas de Brás Cubas", "Machado de Assis",
-                "Livraria Garnier", "9788574803982", 1881, "", "Romance", 15));
+                "Livraria Garnier", "9788574803982", 1881, "", "Romance", 15, "", "memorias.jpg"));
 
         listaLivros.add(new Livro("O Guarani", "José de Alencar", "Editora Magalhães",
-                "9788574803975", 1857, "", "Romance", 8));
+                "9788574803975", 1857, "", "Romance", 8, "", "guarani.jpg"));
 
         listaLivros.add(new Livro("Quincas Borba", "Machado de Assis", "Livraria Garnier",
-                "9788574803968", 1891, "", "Romance", 12));
+                "9788574803968", 1891, "", "Romance", 12, "", "quincasborba.jpg"));
 
         listaLivros.add(new Livro("Iracema", "José de Alencar", "Editora Magalhães",
-                "9788574803951", 1865, "", "Romance", 20));
+                "9788574803951", 1865, "", "Romance", 20, "", "iracema.jpg"));
 
         listaLivros.add(new Livro("Senhora", "José de Alencar", "Editora Magalhães",
-                "9788574803944", 1875, "", "Romance", 18));
+                "9788574803944", 1875, "", "Romance", 18, "", "senhora.jpg"));
 
         listaLivros.add(new Livro("O Alienista", "Machado de Assis", "Livraria Garnier",
-                "9788574803937", 1882, "", "Conto", 7));
+                "9788574803937", 1882, "", "Conto", 7, "", "alienista.jpg"));
 
         listaLivros.add(new Livro("O Cortiço", "Aluísio Azevedo", "Editora Magalhães",
-                "9788574803920", 1890, "", "Romance Naturalista", 14));
+                "9788574803920", 1890, "", "Romance Naturalista", 14, "", "cortico.jpg"));
 
-        listaLivros.add(new Livro("Memórias de um Sargento de Milícias", "Manuel Antônio de Almeida",
-                "Livraria Garnier", "9788574803913", 1854, "", "Romance", 11));
+            listaLivros.add(new Livro("Memórias de um Sargento de Milícias", "Manuel Antônio de Almeida",
+                "Livraria Garnier", "9788574803913", 1854, "", "Romance", 11, "", "milicias.jpg"));
 
         listaLivros.add(new Livro("A Moreninha", "Joaquim Manuel de Macedo", "Editora Magalhães",
-                "9788574803906", 1844, "", "Romance", 25));
+                "9788574803906", 1844, "", "Romance", 25, "", "moreninha.jpg"));
 
         for(Livro livro: listaLivros){
             DAO.getLivroDAO().create(livro);
