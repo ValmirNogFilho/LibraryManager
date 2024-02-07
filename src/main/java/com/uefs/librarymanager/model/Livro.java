@@ -45,7 +45,7 @@ public class Livro implements Serializable {
         this.categoria = categoria;
         this.disponiveis = disponiveis;
         this.sinopse = "Sem sinopse";
-        this.imagemUrl = "/img/template.jpg";
+        this.imagemUrl = "/img/" + "template.jpg";
     }
 
     public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao,
@@ -59,7 +59,7 @@ public class Livro implements Serializable {
         this.categoria = categoria;
         this.disponiveis = disponiveis;
         this.sinopse = sinopse;
-        this.imagemUrl = imagemUrl;
+        this.imagemUrl = "/img/" + imagemUrl;
     }
 
     public String getTitulo() {
