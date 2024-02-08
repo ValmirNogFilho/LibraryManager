@@ -31,7 +31,7 @@ public class ReservationRowController implements BookRow{
         title.setText(book.getTitulo());
         int queuePosition = DAO.getReservaDAO().getQueuePosition(user, book) + 1;
         queue.setText(
-                queuePosition > 0 ? String.valueOf(queuePosition) : "Não está na fila"
+                queuePosition > 0 ? "Sua posição na fila: " + queuePosition + "°" : "Não está na fila"
         );
     }
 
