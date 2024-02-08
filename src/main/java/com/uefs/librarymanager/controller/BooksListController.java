@@ -5,6 +5,7 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,30 @@ public class BooksListController{
     private VBox booksList;
 
     private String urlRow;
+    @FXML
+    void byAuthor(ActionEvent event) {
+
+    }
+
+    @FXML
+    void byCategory(ActionEvent event) {
+
+    }
+
+    @FXML
+    void byISBN(ActionEvent event) {
+
+    }
+
+    @FXML
+    void byName(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchClick(ActionEvent event) {
+
+    }
 
     private void renderList() {
         booksList.getChildren().clear();
