@@ -90,7 +90,7 @@ public class LivroDAOMemory implements LivroDAO{
     public List<Livro> findBooksByCategoria(String categoria) {
         return findMany()
                 .stream()
-                .filter(l -> l.getCategoria().equals(categoria))
+                .filter(l -> l.getCategoria().toLowerCase().contains(categoria.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -99,7 +99,7 @@ public class LivroDAOMemory implements LivroDAO{
     public List<Livro> findBooksByAutor(String autor) {
         return findMany()
                 .stream()
-                .filter(l -> l.getAutor().equals(autor))
+                .filter(l -> l.getAutor().toLowerCase().contains(autor.toLowerCase()))
                 .collect(Collectors.toList());
     }
 

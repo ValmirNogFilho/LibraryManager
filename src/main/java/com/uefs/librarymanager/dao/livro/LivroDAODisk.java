@@ -71,12 +71,12 @@ public class LivroDAODisk implements LivroDAO{
 
     @Override
     public List<Livro> findBooksByCategoria(String categoria) {
-        return findBooksBy(l -> l.getCategoria().equals(categoria));
+        return findBooksBy(l -> l.getCategoria().toLowerCase().contains(categoria.toLowerCase()));
     }
 
     @Override
     public List<Livro> findBooksByAutor(String autor) {
-        return findBooksBy(l -> l.getAutor().equals(autor));
+        return findBooksBy(l -> l.getAutor().toLowerCase().contains(autor.toLowerCase()));
     }
 
     @Override
