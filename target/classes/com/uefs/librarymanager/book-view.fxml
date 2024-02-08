@@ -22,31 +22,46 @@
                </VBox.margin>
             </ImageView>
             <Button fx:id="btnReserva" mnemonicParsing="false" onAction="#reservaAction" text="Reservar" />
+            <Label fx:id="tempText" text="Texto copiado!" visible="false">
+               <padding>
+                  <Insets bottom="5.0" top="2.0" />
+               </padding>
+            </Label>
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <Label fx:id="isbnLivro" text="ISBN:">
+            <Label fx:id="isbnLivro" text="ISBN:" wrapText="true">
                <padding>
                   <Insets top="20.0" />
                </padding>
             </Label>
-            <Label fx:id="autorLivro" text="Autor:">
+            <Label fx:id="autorLivro" text="Autor:" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="editoraLivro" text="Editora:">
+            <Label fx:id="editoraLivro" text="Editora:" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="localizazaoLivro" text="Localização:">
+            <Label fx:id="localizazaoLivro" text="Localização:" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="qntdDisponivel" text="Exemplares Disponíveis:">
+            <Label fx:id="categoriaLivro" layoutX="10.0" layoutY="68.0" text="Categoria:" wrapText="true">
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </Label>
+            <Label fx:id="qntdDisponivel" text="Exemplares Disponíveis:" wrapText="true">
+               <padding>
+                  <Insets bottom="5.0" top="2.0" />
+               </padding>
+            </Label>
+            <Label fx:id="categoriaLivro" layoutX="10.0" layoutY="131.0">
                <padding>
                   <Insets bottom="5.0" top="2.0" />
                </padding>

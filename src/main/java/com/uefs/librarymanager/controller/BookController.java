@@ -7,20 +7,23 @@ import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Reserva;
 import com.uefs.librarymanager.utils.Session;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.util.Duration;
+
+
+import java.util.EventListener;
+import java.util.Timer;
 
 public class BookController {
 
@@ -50,6 +53,9 @@ public class BookController {
 
     @FXML
     private TextArea sinopseLivro;
+
+    @FXML
+    private Label tempText;
 
     private Livro book;
 
@@ -94,6 +100,7 @@ public class BookController {
         updateBtnText();
         imagemLivro.setImage(new Image(getClass().getResource(book.getImagemUrl()).toExternalForm()));
         sinopseLivro.setText(book.getSinopse());
+        turnLabelsSelectable();
         if (DAO.getReservaDAO().getQueuePosition(user, book) == 0){
             openDialog("Atenção!", "Você é o primeiro na fila de reservas desse livro e já está apto para realizar empréstimo.");
 
@@ -101,9 +108,42 @@ public class BookController {
         }
     }
 
+    private void turnLabelsSelectable() {
 
-    private void clickShow(ActionEvent event) {
+        turnLabelSelectable(isbnLivro);
+        turnLabelSelectable(autorLivro);
+        turnLabelSelectable(localizazaoLivro);
+        turnLabelSelectable(categoriaLivro);
+        turnLabelSelectable(editoraLivro);
 
+    }
+
+    private void turnLabelSelectable(Label label) {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> tempText.setVisible(true)),
+                new KeyFrame(Duration.seconds(2), e -> tempText.setVisible(false))
+        );
+        String original = label.getText();
+        String substring = original.substring(original.indexOf(":")+1);
+        label.setOnMouseClicked(
+                (mouseEvent )-> {
+                    copyText(substring);
+                    timeline.play();
+                }
+        );
+    }
+
+    private void timingText(String text)
+    {
+
+
+    }
+
+    private void copyText(String text) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(text);
+        clipboard.setContent(content);
     }
 
     private boolean alreadyReservedByUser(Livro book) {
