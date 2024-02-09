@@ -52,6 +52,8 @@ Os testes unitários e de integração encontram-se no pacote `test`. IDEs como 
 
 ## Ferramentas
 
-IntelliJ IDEA Community - IDE utilizado para codificação
+IntelliJ IDEA Community - IDE utilizado para desenvolvimento do sistema
+
 Scene Builder - Confecção das UIs
+
 Gaphor - Para desenvolvimento da diagramação
