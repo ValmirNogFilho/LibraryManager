@@ -90,6 +90,14 @@ public class DataInitialFeeder {
             DAO.getOperadorDAO().create(admin);
         }
 
+        Administrador initialForTesting = new Administrador("Initial", "[endereço]", "[telefone]");
+        initialForTesting.setSenha("1234");
+        initialForTesting.setId("000000");
+
+        DAO.getOperadorDAO().create(
+          initialForTesting
+        );
+
         ArrayList<Bibliotecario> listaBibliotecarios = new ArrayList<>();
 
         listaBibliotecarios.add(new Bibliotecario("Luciana", "Rua 456", "(333) 444-5555"));
@@ -131,8 +139,8 @@ public class DataInitialFeeder {
                 "Seção B", "Desenvolvimento de Software", 5));
 
 
-        Leitor leitor1 = new Leitor("João", "Rua A", "123456789");
-        Leitor leitor2 = new Leitor("Maria", "Rua B", "987654321");
+        Leitor leitor1 = new Leitor("Maria", "Rua A", "123456789");
+        Leitor leitor2 = new Leitor("Robert", "Rua B", "987654321", "robertmartin.jpeg");
 
         leitor1.setSenha("1234");
         leitor2.setSenha("1234");
