@@ -71,20 +71,29 @@ public class FrontPageController implements Initializable {
 
     @FXML
     void meusLivrosAction(ActionEvent event) {
-        openBooksListWithList(
+        if (user == null)
+            unhautorized();
+        else
+            openBooksListWithList(
                 "books-list-view.fxml", DAO.getLivroDAO().findLivrosEmprestadosByLeitor(user), "book-row-view.fxml");
     }
 
     @FXML
     void minhasReservasAction(ActionEvent event) {
-        openBooksListWithList(
+        if (user == null)
+            unhautorized();
+        else openBooksListWithList(
                 "books-list-view.fxml", DAO.getLivroDAO().findLivrosReservadosByLeitor(user), "reservation-row-view.fxml");
     }
 
 
     @FXML
     void perfilAction(ActionEvent event) {
-        openPage("profile.fxml");
+        if (user == null) {
+            unhautorized();
+        }
+        else
+            openPage("profile.fxml");
     }
 
     @FXML
@@ -93,6 +102,15 @@ public class FrontPageController implements Initializable {
             return;
 
         openLoginPage(event);
+    }
+
+    private void unhautorized() {
+        Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
+        confirmationDialog.setTitle("Atenção!");
+        confirmationDialog.setHeaderText("Acesso não permitido");
+        confirmationDialog.setContentText("Para executar essa tarefa, você deve possuir fazer login no sistema.");
+
+        confirmationDialog.show();
     }
 
 

@@ -65,6 +65,15 @@ public class BookController {
 
     @FXML
     void reservaAction(ActionEvent event) throws LivroException {
+        if (Session.getUserInSession() == null) {
+            Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
+            confirmationDialog.setTitle("Atenção!");
+            confirmationDialog.setHeaderText("Acesso não permitido");
+            confirmationDialog.setContentText("Para executar uma reserva, você deve possuir fazer login no sistema.");
+
+            confirmationDialog.show();
+            return;
+        }
         if(!isReserved){
             reservarLivro();
             isReserved = true;
@@ -95,17 +104,20 @@ public class BookController {
     public void setBookAndRenderPage(Livro book) throws LivroException {
         this.book = book;
         user = (Leitor) Session.getUserInSession();
+        if (user != null) {
+            isReserved = alreadyReservedByUser(book);
+            updateBtnText();
+            if (DAO.getReservaDAO().getQueuePosition(user, book) == 0)
+                openDialog("Atenção!",
+                        "Você é o primeiro na fila de reservas desse livro e já está apto para realizar empréstimo.");
+
+        }
+
         setBookInformation(book);
-        isReserved = alreadyReservedByUser(book);
-        updateBtnText();
         imagemLivro.setImage(new Image(getClass().getResource(book.getImagemUrl()).toExternalForm()));
         sinopseLivro.setText(book.getSinopse());
         turnLabelsSelectable();
-        if (DAO.getReservaDAO().getQueuePosition(user, book) == 0){
-            openDialog("Atenção!", "Você é o primeiro na fila de reservas desse livro e já está apto para realizar empréstimo.");
 
-
-        }
     }
 
     private void turnLabelsSelectable() {
@@ -131,12 +143,6 @@ public class BookController {
                     timeline.play();
                 }
         );
-    }
-
-    private void timingText(String text)
-    {
-
-
     }
 
     private void copyText(String text) {

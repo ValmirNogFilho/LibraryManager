@@ -84,14 +84,18 @@ public class HelloController implements Initializable {
         Usuario user = null;
         String senha = Senha.getText();
         String id = IDacesso.getText();
+        screenToBeRendered = filterScreenByOccupation();
+        if (!cargo.equals(cargoUsuario.CONVIDADO))
+            try {
+                user = login(id, senha);
+            }
+            catch (UsuarioException e) {
+                warningText.setText(e.getMessage());
+            }
 
-        try {
-            user = login(id, senha);
-            Session.loginUser(user);
-            redirectHomePage(event);
-        } catch (UsuarioException e) {
-            warningText.setText(e.getMessage());
-        }
+        Session.loginUser(user);
+        redirectHomePage(event);
+
     }
 
     /**
@@ -110,7 +114,7 @@ public class HelloController implements Initializable {
         if(id.length() == 0 || senha.length() == 0)
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
 
-        obj = filterByOccupation(id);
+        obj = filterUserByOccupation(id);
 
         if(obj == null) return null;
 
@@ -123,18 +127,15 @@ public class HelloController implements Initializable {
         return obj;
     }
 
-    private Usuario filterByOccupation(String id) throws UsuarioException {
+    private Usuario filterUserByOccupation(String id) throws UsuarioException {
         switch (cargo){
             case LEITOR -> {
-                screenToBeRendered = "front-page.fxml";
                 return DAO.getLeitorDAO().findById(id);
             }
             case BIBLIOTECARIO -> {
-                screenToBeRendered = "users-list-view.fxml";
                 return DAO.getOperadorDAO().findById(id);
             }
             case ADMINISTRADOR -> {
-                screenToBeRendered = "front-page-adm.fxml";
                 return DAO.getOperadorDAO().findById(id);
             }
             default -> {
@@ -143,11 +144,28 @@ public class HelloController implements Initializable {
         }
     }
 
+    private String filterScreenByOccupation() {
+        switch (cargo){
+            case LEITOR -> {
+                return "front-page.fxml";
+            }
+            case BIBLIOTECARIO -> {
+                return "users-list-view.fxml";
+            }
+            case ADMINISTRADOR -> {
+                return "front-page-adm.fxml";
+            }
+            default -> {
+                return screenToBeRendered = "front-page.fxml";
+            }
+        }
+    }
+
+
     private void redirectHomePage(ActionEvent event) {
         try {
             Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentScreen.close();
-
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(screenToBeRendered));
             Parent root = loader.load();
             mainPage = new Stage();
