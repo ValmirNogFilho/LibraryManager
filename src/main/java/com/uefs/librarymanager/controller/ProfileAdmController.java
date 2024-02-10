@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -94,6 +95,9 @@ public class ProfileAdmController{
         labelCargo.setText("Cargo: " + user.getCargo().toString());
         labelNome.setText("Empréstimos de " + user.getNome());
         labelTel.setText("Telefone: " + user.getTelefone());
+        perfilUsário.setImage(new Image(
+                getClass().getResource(user.getUrlProfileImage()).toExternalForm())
+        );
         if (user instanceof Leitor){
             isBlocked = ((Leitor) user).getStatus().equals(statusLeitor.BLOQUEADO);
 

@@ -30,6 +30,10 @@ public class Administrador extends Usuario {
         super(nome, endereco, telefone, null, cargoUsuario.ADMINISTRADOR);
     }
 
+    public Administrador(String nome, String endereco, String telefone, String urlProfileImage) {
+        super(nome, endereco, telefone, null, cargoUsuario.ADMINISTRADOR, urlProfileImage);
+    }
+
     /**
      * Este método cadastra um novo leitor no sistema da biblioteca
      * @param nome

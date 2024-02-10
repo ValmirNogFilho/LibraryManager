@@ -30,7 +30,6 @@ public class Leitor extends Usuario{
     private int prazoMulta;
     private statusLeitor status;
     private int numReservas;
-    private String urlProfileImage;
 
     /**
      * Este método inicializa com leitor em seu "estágio inicial" contendo:
@@ -48,16 +47,15 @@ public class Leitor extends Usuario{
         this.prazoMulta = 0;
         this.status = statusLeitor.LIVRE;
         this.numReservas = 0;
-        this.urlProfileImage = "/img/" + "profile-template.png";
     }
 
-    public Leitor(String nome, String endereco, String telefone, String imageUrl) {
-        super(nome, endereco, telefone, null, cargoUsuario.LEITOR);
+    public Leitor(String nome, String endereco, String telefone, String urlProfileImage) {
+        super(nome, endereco, telefone, null, cargoUsuario.LEITOR, urlProfileImage);
         this.inicioMulta = null;
         this.prazoMulta = 0;
         this.status = statusLeitor.LIVRE;
         this.numReservas = 0;
-        this.urlProfileImage = "/img/" + imageUrl;
+
     }
 
     public LocalDate getInicioMulta() {
@@ -117,11 +115,4 @@ public class Leitor extends Usuario{
         this.status = status;
     }
 
-    public String getUrlProfileImage() {
-        return urlProfileImage;
-    }
-
-    public void setUrlProfileImage(String urlProfileImage) {
-        this.urlProfileImage = urlProfileImage;
-    }
 }

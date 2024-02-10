@@ -31,6 +31,9 @@ public class Usuario implements Serializable {
     private String id;
     private String senha;
     private cargoUsuario cargo;
+    private static final String PROFILE_PHOTOS_DIRECTORY = "/img/profile-photos/";
+    private static final String DEFAULT_PROFILE_PHOTO = "profile-template.png";
+    private String urlProfileImage;
 
     public Usuario(String nome, String endereco, String telefone, String senha, cargoUsuario cargo) {
         this.nome = nome;
@@ -38,6 +41,17 @@ public class Usuario implements Serializable {
         this.telefone = telefone;
         this.senha = senha;
         this.cargo = cargo;
+        this.urlProfileImage = PROFILE_PHOTOS_DIRECTORY + DEFAULT_PROFILE_PHOTO;
+        id = IDGenerator.geraID();
+    }
+
+    public Usuario(String nome, String endereco, String telefone, String senha, cargoUsuario cargo, String urlProfileImage) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.senha = senha;
+        this.cargo = cargo;
+        this.urlProfileImage = PROFILE_PHOTOS_DIRECTORY + urlProfileImage;
         id = IDGenerator.geraID();
     }
 
@@ -83,6 +97,14 @@ public class Usuario implements Serializable {
 
     public void setCargo(cargoUsuario cargo) {
         this.cargo = cargo;
+    }
+
+    public String getUrlProfileImage() {
+        return urlProfileImage;
+    }
+
+    public void setUrlProfileImage(String urlProfileImage) {
+        this.urlProfileImage = urlProfileImage;
     }
 
     /**

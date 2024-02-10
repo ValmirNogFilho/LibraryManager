@@ -1,6 +1,5 @@
 package com.uefs.librarymanager.model;
 
-import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.cargoUsuario;
 
 /**
@@ -16,6 +15,10 @@ import com.uefs.librarymanager.utils.cargoUsuario;
 public class Bibliotecario extends Usuario {
     public Bibliotecario(String nome, String endereco, String telefone) {
         super(nome, endereco, telefone, null, cargoUsuario.BIBLIOTECARIO);
+    }
+
+    public Bibliotecario(String nome, String endereco, String telefone, String urlProfileImage) {
+        super(nome, endereco, telefone, null, cargoUsuario.BIBLIOTECARIO, urlProfileImage);
     }
 
 }
