@@ -34,6 +34,9 @@ public class Livro implements Serializable {
     private String sinopse;
     private String imagemUrl;
 
+    private static final String BOOK_COVERS_DIRECTORY = "/img/book-covers/";
+    private static final String TEMPLATE_COVER = "template.jpg";
+
     public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao,
                  String localizacao, String categoria, int disponiveis) {
         this.titulo = titulo;
@@ -45,7 +48,7 @@ public class Livro implements Serializable {
         this.categoria = categoria;
         this.disponiveis = disponiveis;
         this.sinopse = "Sem sinopse";
-        this.imagemUrl = "/img/" + "template.jpg";
+        this.imagemUrl = BOOK_COVERS_DIRECTORY + TEMPLATE_COVER;
     }
 
     public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao,
@@ -59,7 +62,7 @@ public class Livro implements Serializable {
         this.categoria = categoria;
         this.disponiveis = disponiveis;
         this.sinopse = sinopse;
-        this.imagemUrl = "/img/" + imagemUrl;
+        this.imagemUrl = BOOK_COVERS_DIRECTORY + imagemUrl;
     }
 
     public String getTitulo() {
