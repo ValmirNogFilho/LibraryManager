@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -54,6 +56,8 @@ public class CadastroLivroController implements Initializable {
     @FXML
     private Button registerBtn;
 
+    private TextField[] allTextFields;
+
     private String defaultCoverUrl = getClass().getResource("/img/book-covers/template.jpg").toExternalForm();
     @FXML
     void openFile(ActionEvent event){
@@ -72,7 +76,7 @@ public class CadastroLivroController implements Initializable {
         TextField missingDataTextField = assertMissingTextFields();
 
         if(missingDataTextField != null){
-            missingDataAlert(missingDataTextField.getId());
+            missingDataAlert(missingDataTextField.getPromptText());
             return;
         }
 
@@ -91,25 +95,27 @@ public class CadastroLivroController implements Initializable {
 
         DAO.getLivroDAO().create(book);
         alert("Operação concluída!", "Operação concluída!", "Livro" + book.getTitulo() + "cadastrado com sucesso!");
-
+        blankAllFields();
     }
 
     private TextField assertMissingTextFields() {
-        if(cxNomeLivro.getText().isEmpty()) return cxNomeLivro;
-        if(cxNomeAutor.getText().isEmpty()) return cxNomeAutor;
-        if(cxISBN.getText().isEmpty()) return cxISBN;
-        if(cxNomeEditora.getText().isEmpty()) return cxNomeEditora;
-        if(cxNomeCategoria.getText().isEmpty()) return cxNomeCategoria;
-        if(cxLocalizacao.getText().isEmpty()) return cxLocalizacao;
-        if(cxQuantidade.getText().isEmpty()) return cxQuantidade;
-        if(cxAnoPublicacao.getText().isEmpty()) return cxAnoPublicacao;
+        for (TextField textField: allTextFields) {
+            if (textField.getText().isEmpty()) return textField;
+        }
         return null;
+    }
 
+    private void blankAllFields() {
+        for (TextField textField: allTextFields) {
+            textField.setText("");
+        }
+        sinopseLivro.setText("");
+        capaLivro.setImage(new Image(defaultCoverUrl));
     }
 
     private void missingDataAlert(String componentName) {
         alert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
-                componentName + "está vazio. Por favor, preencha esse dado");
+                componentName + "está faltando. Por favor, preencha esse dado");
     }
 
     private void alert(String title, String header, String content) {
@@ -126,6 +132,22 @@ public class CadastroLivroController implements Initializable {
         capaLivro.setImage(new Image(
                 defaultCoverUrl
         ));
+
+        allTextFields = new TextField[]{cxNomeLivro, cxNomeAutor, cxISBN, cxNomeEditora,
+                cxNomeCategoria, cxLocalizacao, cxAnoPublicacao, cxQuantidade};
+        setPromptTexts();
+    }
+
+    private void setPromptTexts() {
+        cxNomeLivro.setPromptText("Nome do livro");
+        cxNomeAutor.setPromptText("Nome do autor");
+        cxISBN.setPromptText("ISBN");
+        cxNomeEditora.setPromptText("Nome da editora");
+        cxNomeCategoria.setPromptText("Nome da categoria");
+        cxLocalizacao.setPromptText("Localização");
+        cxAnoPublicacao.setPromptText("Ano de publicação");
+        cxQuantidade.setPromptText("Quantidade de exemplares");
+
     }
 
     private File copy(File file) throws IOException {
