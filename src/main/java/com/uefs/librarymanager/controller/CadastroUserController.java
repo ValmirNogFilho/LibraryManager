@@ -34,6 +34,9 @@ public class CadastroUserController {
     private TextField cxTelefone;
 
     @FXML
+    private TextField cxPassword;
+
+    @FXML
     void acionBtnTipoUsuario(ActionEvent event) {
 
     }
@@ -63,4 +66,8 @@ public class CadastroUserController {
 
     }
 
+    @FXML
+    void actionRegister(ActionEvent event) {
+
+    }
 }
