@@ -34,7 +34,7 @@
             <TextArea fx:id="sinopseLivro" layoutX="251.0" layoutY="186.0" prefHeight="175.0" prefWidth="331.0" />
             <Label layoutX="395.0" layoutY="164.0" text="Sinopse (opcional)" />
             <Button fx:id="registerBtn" layoutX="516.0" layoutY="361.0" mnemonicParsing="false" onAction="#registerAction" text="Cadastrar" />
-            <Button layoutX="264.0" layoutY="71.0" mnemonicParsing="false" onAction="#openFile" text="Abrir capa de livro" />
+            <Button layoutX="229.0" layoutY="71.0" mnemonicParsing="false" onAction="#openFile" prefHeight="25.0" prefWidth="199.0" text="Escolha uma imagem para a capa" />
             <TextField fx:id="cxAnoPublicacao" layoutX="10.0" layoutY="361.0" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="11.0" layoutY="343.0" text="Ano de publicação" />
          </children>
