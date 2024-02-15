@@ -88,14 +88,12 @@ public class HelloController implements Initializable {
         if (!cargo.equals(cargoUsuario.CONVIDADO))
             try {
                 user = login(id, senha);
+                Session.loginUser(user);
+                redirectHomePage(event);
             }
             catch (UsuarioException e) {
                 warningText.setText(e.getMessage());
             }
-
-        Session.loginUser(user);
-        redirectHomePage(event);
-
     }
 
     /**
@@ -111,7 +109,7 @@ public class HelloController implements Initializable {
     private Usuario login(String id, String senha) throws UsuarioException {
         Usuario obj = null;
 
-        if(id.length() == 0 || senha.length() == 0)
+        if(id.isEmpty() || senha.isEmpty())
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
 
         obj = filterUserByOccupation(id);
@@ -132,10 +130,7 @@ public class HelloController implements Initializable {
             case LEITOR -> {
                 return DAO.getLeitorDAO().findById(id);
             }
-            case BIBLIOTECARIO -> {
-                return DAO.getOperadorDAO().findById(id);
-            }
-            case ADMINISTRADOR -> {
+            case BIBLIOTECARIO, ADMINISTRADOR -> {
                 return DAO.getOperadorDAO().findById(id);
             }
             default -> {
@@ -150,7 +145,7 @@ public class HelloController implements Initializable {
                 return "front-page.fxml";
             }
             case BIBLIOTECARIO -> {
-                return "users-list-view.fxml";
+                return "bibliotecario-front-page.fxml";
             }
             case ADMINISTRADOR -> {
                 return "front-page-adm.fxml";
