@@ -2,23 +2,23 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
-import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.FileUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CadastroLivroController implements Initializable {
@@ -58,17 +58,17 @@ public class CadastroLivroController implements Initializable {
 
     private TextField[] allTextFields;
 
+    private String selectedImageUrl;
+
+    private File selected;
+
     private String defaultCoverUrl = getClass().getResource("/img/book-covers/template.jpg").toExternalForm();
     @FXML
-    void openFile(ActionEvent event){
+    void openFile(ActionEvent event) throws MalformedURLException {
         FileChooser fileChooser = new FileChooser();
-        File selected = fileChooser.showOpenDialog(HelloController.mainPage);
-        try {
-            File copy = copy(selected);
-            capaLivro.setImage(new Image(copy.getAbsolutePath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        selected = fileChooser.showOpenDialog(HelloController.mainPage);
+        selectedImageUrl = selected.toURI().toURL().toString();
+        capaLivro.setImage(new Image(selectedImageUrl));
     }
 
     @FXML
@@ -82,16 +82,21 @@ public class CadastroLivroController implements Initializable {
 
         Livro book;
 
-        if(sinopseLivro.getText().isEmpty() || capaLivro.getImage().getUrl().equals(
+        if(sinopseLivro.getText().isEmpty() || selectedImageUrl == null || selectedImageUrl.equals(
                 getClass().getResource("/img/book-covers/template.jpg").toExternalForm()
-        ) || capaLivro.getImage().getUrl().equals(defaultCoverUrl))
+        ))
             book = new Livro(cxNomeLivro.getText(), cxNomeAutor.getText(), cxNomeEditora.getText(), cxISBN.getText(),
                         Integer.parseInt(cxAnoPublicacao.getText()), cxLocalizacao.getText(), cxNomeCategoria.getText(),
                     Integer.parseInt(cxQuantidade.getText()));
-        else
+        else{
+
+//            FileUtils.copiarImagemParaBookCovers(selectedImageUrl); TODO!
+
             book = new Livro(cxNomeLivro.getText(), cxNomeAutor.getText(), cxNomeEditora.getText(), cxISBN.getText(),
                     Integer.parseInt(cxAnoPublicacao.getText()), cxLocalizacao.getText(), cxNomeCategoria.getText(),
                     Integer.parseInt(cxQuantidade.getText()), sinopseLivro.getText(), capaLivro.getImage().getUrl());
+
+        }
 
         DAO.getLivroDAO().create(book);
         alert("Operação concluída!", "Operação concluída!", "Livro" + book.getTitulo() + "cadastrado com sucesso!");
@@ -150,11 +155,5 @@ public class CadastroLivroController implements Initializable {
 
     }
 
-    private File copy(File file) throws IOException {
-        File src = new File(file.getPath());
-        File dest = new File(getClass().getResource("/img/book-covers/") + file.getName());
 
-        Files.copy(src.toPath(), dest.toPath());
-        return dest;
-    }
 }
