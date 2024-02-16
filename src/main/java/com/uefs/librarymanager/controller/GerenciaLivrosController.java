@@ -72,6 +72,9 @@ public class GerenciaLivrosController implements Initializable {
             );
         }
 
+        if(list.get(0) == null)
+            list = FXCollections.observableArrayList();
+
         renderList();
     }
 
