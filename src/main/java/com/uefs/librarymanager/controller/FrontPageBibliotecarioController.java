@@ -49,7 +49,7 @@ public class FrontPageBibliotecarioController implements Initializable {
 
     @FXML
     void inicioAction(ActionEvent event) {
-
+        openPage("gerencia-livros.fxml");
     }
 
     @FXML
@@ -97,7 +97,7 @@ public class FrontPageBibliotecarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userName.setText("Bem vindo, " + Session.getUserInSession().getNome());
-
+        openPage("gerencia-livros.fxml");
     }
 
     private void openPage(String url) {
