@@ -8,6 +8,7 @@ import com.uefs.librarymanager.exceptions.UsuarioException;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -176,8 +177,8 @@ public class ReservaDAODisk implements ReservaDAO{
         Map<String, LinkedList<Reserva>> reservas = FileUtils.consultarArquivoMap(arquivo);
 
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
-        if(reservasDoLivro.isEmpty())
-            return null;
+        if(reservasDoLivro == null)
+            return new ArrayList<>();
 
         int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
         return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));

@@ -6,10 +6,7 @@ import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -132,8 +129,8 @@ public class ReservaDAOMemory implements ReservaDAO{
     }
     public List<Reserva> usuariosAptosParaEmprestimo(String ISBN){
         LinkedList<Reserva> reservasDoLivro = reservas.get(ISBN);
-        if(reservasDoLivro.isEmpty())
-            return null;
+        if(reservasDoLivro == null)
+            return new ArrayList<>();
 
         int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
         return reservasDoLivro.subList(0, Math.min(reservasDoLivro.size(), disponiveis));
