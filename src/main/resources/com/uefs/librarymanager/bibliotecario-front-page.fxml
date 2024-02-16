@@ -26,15 +26,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnLivros" mnemonicParsing="false" onAction="#livroAction" text="Livros">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/livro-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="btnCadastrarLivros" mnemonicParsing="false" onAction="#actionCadastrarLivros" text="Cadastrar Livros">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">

@@ -1,14 +1,22 @@
 package com.uefs.librarymanager.controller;
 
+import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BibBookRowController {
 
@@ -45,12 +53,23 @@ public class BibBookRowController {
 
     @FXML
     void actionOpcaoAlterar(ActionEvent event) {
-
+        openNewBookUpdatePage();
     }
 
     @FXML
     void actionOpcaoExibirReservas(ActionEvent event) {
+        List<Usuario> users = new ArrayList<>();
 
+        DAO.getReservaDAO()
+                .usuariosAptosParaEmprestimo(book.getISBN())
+                .forEach(reserva -> {
+                    Usuario usuario = DAO.getLeitorDAO().findByPrimaryKey(reserva.getIdUsuario());
+                    if (usuario != null) {
+                        users.add(usuario);
+                    }
+                });
+
+        openNewPage("users-list-view.fxml", users);
     }
 
     @FXML
@@ -93,6 +112,42 @@ public class BibBookRowController {
     @FXML
     void outHover(MouseEvent event) {
         hBox.setStyle("-fx-background-color: #f4f4f4;");
+    }
+
+
+    private void openNewPage(String url, List<Usuario> list) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
+            Parent root = loader.load();
+            UsersListController usersListCtrl = loader.getController();
+            usersListCtrl.setUserRowUrl("user-reservation-row-view.fxml");
+            usersListCtrl.setListAndRender(list);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void openNewBookUpdatePage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("atualizacao-livros-view.fxml"));
+            Parent root = loader.load();
+            AtualizacaoLivrosController atualizacaoLivrosCtrl = loader.getController();
+            atualizacaoLivrosCtrl.setBookAndRender(book);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
