@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,9 +33,14 @@ public class UserRowController implements UserRow{
     private Button profileBtn;
 
     private Usuario user;
+    
+    private Livro book;
 
 
-
+    public void setBook(Livro book) {
+        this.book = book;
+    }
+    
     public Label getId() {
         return id;
     }
