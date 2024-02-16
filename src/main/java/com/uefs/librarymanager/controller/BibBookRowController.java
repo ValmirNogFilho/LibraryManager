@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
 import javafx.event.ActionEvent;
@@ -69,12 +70,15 @@ public class BibBookRowController {
                     }
                 });
 
-        openNewPage("users-list-view.fxml", users);
+        openNewPage("users-list-view.fxml", users, "user-reservation-row-view.fxml");
     }
 
     @FXML
-    void actionOpcaoRegistarEmprestimo(ActionEvent event) {
+    void actionOpcaoRegistrarEmprestimo(ActionEvent event) {
+        List<Leitor> readers =  DAO.getLeitorDAO().findMany();
+        List<Usuario> users = new ArrayList<>(readers);
 
+        openNewPage("users-list-view.fxml", users, "user-borrowing-row-view.fxml");
     }
 
     @FXML
@@ -115,13 +119,14 @@ public class BibBookRowController {
     }
 
 
-    private void openNewPage(String url, List<Usuario> list) {
+    private void openNewPage(String url, List<Usuario> list, String urlRow) {
 
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
             Parent root = loader.load();
             UsersListController usersListCtrl = loader.getController();
-            usersListCtrl.setUserRowUrl("user-reservation-row-view.fxml");
+            usersListCtrl.setBook(book);
+            usersListCtrl.setUserRowUrl(urlRow);
             usersListCtrl.setListAndRender(list);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
