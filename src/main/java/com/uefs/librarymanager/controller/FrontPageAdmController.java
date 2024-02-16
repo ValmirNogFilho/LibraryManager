@@ -38,7 +38,7 @@ public class FrontPageAdmController implements Initializable {
 
     @FXML
     void actionNovoUser(ActionEvent event) {
-
+        openPage("cadastro-user.fxml");
     }
 
 

@@ -151,7 +151,7 @@ public class HelloController implements Initializable {
                 return "front-page-adm.fxml";
             }
             default -> {
-                return screenToBeRendered = "front-page.fxml";
+                return "front-page.fxml";
             }
         }
     }
