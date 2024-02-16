@@ -2,15 +2,9 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
-import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Usuario;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,9 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-public class UserRowController {
+public class UserRowController implements UserRow{
 
 
     @FXML
@@ -38,11 +31,15 @@ public class UserRowController {
     @FXML
     private Button profileBtn;
 
+    private Usuario user;
+
+
+
     public Label getId() {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id.setText(id);
     }
 
@@ -50,7 +47,7 @@ public class UserRowController {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name.setText(name);
     }
 
@@ -58,7 +55,7 @@ public class UserRowController {
         return occupation;
     }
 
-    public void setOccupation(String occupation) {
+    private void setOccupation(String occupation) {
         this.occupation.setText(occupation);
     }
 
@@ -90,6 +87,14 @@ public class UserRowController {
         }
     }
 
+    @Override
+    public void setUser(Usuario user) {
+        this.user = user;
+        setId(user.getId());
+        setName(user.getNome());
+        setOccupation(String.valueOf(user.getCargo()));
+    }
+
     private void openProfile(Usuario user){
         try{
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("profile-adm.fxml"));
@@ -107,6 +112,5 @@ public class UserRowController {
             e.printStackTrace();
         }
     }
-    
-    
+
 }

@@ -9,18 +9,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.List;
 
-public class UsersListController implements Initializable {
+public class UsersListController{
 
     @FXML
     private MenuButton criteriaBtn;
@@ -48,6 +46,8 @@ public class UsersListController implements Initializable {
 
     @FXML
     private VBox usersList;
+
+    private String userRowUrl;
 
     private ObservableList<Usuario> list;
     private MenuItem criteria;
@@ -99,24 +99,13 @@ public class UsersListController implements Initializable {
 
     }
 
-
-    private ObservableList<Usuario> feedList() {
-
-        ArrayList<Usuario> allUsers = new ArrayList<>();
-        allUsers.addAll(DAO.getLeitorDAO().findMany());
-        allUsers.addAll(DAO.getOperadorDAO().findMany());
-
-        return FXCollections.observableArrayList(
-            allUsers
-        );
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setListAndRender(List<Usuario> list) {
         criteria = menuItemName;
-        list = feedList();
+        this.list = FXCollections.observableArrayList(list);
         renderList();
     }
+
+
 
     private void renderList() {
         int size = list.size();
@@ -131,16 +120,18 @@ public class UsersListController implements Initializable {
     private void renderRow(Usuario user){
 
         try{
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("user-row-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(userRowUrl));
             Node node = loader.load();
-            UserRowController userCtrl = loader.getController();
-            userCtrl.setId(user.getId());
-            userCtrl.setName(user.getNome());
-            userCtrl.setOccupation(String.valueOf(user.getCargo()));
+            UserRow userCtrl = loader.getController();
+            userCtrl.setUser(user);
             usersList.getChildren().add(node);
+
         } catch(Exception e){
             e.printStackTrace();
         }
     }
 
+    public void setUserRowUrl(String userRowUrl) {
+        this.userRowUrl = userRowUrl;
+    }
 }
