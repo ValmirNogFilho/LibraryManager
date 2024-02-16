@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.utils.Session;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,8 +80,10 @@ public class FrontPageBibliotecarioController implements Initializable {
 
     private void openLoginPage(ActionEvent event) {
         Session.logoutUser();
-        Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentScreen.close();
+
+        ObservableList<Window> windows = Stage.getWindows();
+        while (!windows.isEmpty())
+            ((Stage) windows.get(0)).close();
 
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
