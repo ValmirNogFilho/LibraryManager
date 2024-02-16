@@ -1,8 +1,11 @@
 package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Administrador;
+import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class FrontPageAdmController implements Initializable {
@@ -30,9 +35,11 @@ public class FrontPageAdmController implements Initializable {
 
     private Administrador adm;
 
+    ArrayList<Usuario> allUsers;
+
     @FXML
     void actionInicioAdm(ActionEvent event) {
-        openPage("users-list-view.fxml");
+        openPage("users-list-view.fxml", allUsers);
     }
 
 
@@ -70,8 +77,12 @@ public class FrontPageAdmController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        allUsers = new ArrayList<>();
+        allUsers.addAll(DAO.getLeitorDAO().findMany());
+        allUsers.addAll(DAO.getOperadorDAO().findMany());
+
         adm = (Administrador) Session.getUserInSession();
-        openPage("users-list-view.fxml");
+        openPage("users-list-view.fxml", allUsers);
         admName.setText("Bem vinda(o)," + adm.getNome());
     }
 
@@ -98,6 +109,20 @@ public class FrontPageAdmController implements Initializable {
         Parent root = null;
         try {
             root = FXMLLoader.load(HelloApplication.class.getResource(url));
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar a página: " + e.getMessage());
+        }
+        this.borderPaneAdm.setCenter(root);
+    }
+
+    private void openPage(String url, List<Usuario> list) {
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
+            root = loader.load();
+            UsersListController usersListCtrl = loader.getController();
+            usersListCtrl.setUserRowUrl("user-row-view.fxml");
+            usersListCtrl.setListAndRender(list);
         } catch (Exception e) {
             System.err.println("Erro ao carregar a página: " + e.getMessage());
         }
