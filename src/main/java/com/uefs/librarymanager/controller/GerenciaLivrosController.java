@@ -1,13 +1,25 @@
 package com.uefs.librarymanager.controller;
 
+import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.model.Livro;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
-public class GerenciaLivrosController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GerenciaLivrosController implements Initializable {
 
     @FXML
     private Button btnBusca;
@@ -19,20 +31,48 @@ public class GerenciaLivrosController {
     private TextField caixaNomeLivro;
 
     @FXML
-    private MenuItem opcaoAlterar;
+    private MenuItem menuItemName;
 
     @FXML
-    private MenuItem opcaoExibirReservas;
+    private MenuItem menuItemISBN;
 
     @FXML
-    private MenuItem opcaoRegistroEmprestimo;
+    private MenuItem menuItemCategory;
 
     @FXML
-    private MenuItem opcaoRemover;
+    private MenuItem menuItemAuthor;
+
+
+
+    @FXML
+    private VBox booksList;
+
+    private ObservableList<Livro> list;
 
     @FXML
     void actionBtnBusca(ActionEvent event) {
+        if (criteria == menuItemAuthor){
+            list = FXCollections.observableArrayList(
+                    DAO.getLivroDAO().findBooksByAutor(caixaNomeLivro.getText())
+            );
+        }
+        else if(criteria == menuItemCategory) {
+            list = FXCollections.observableArrayList(
+                    DAO.getLivroDAO().findBooksByCategoria(caixaNomeLivro.getText())
+            );
+        }
+        else if (criteria == menuItemISBN) {
+            list = FXCollections.observableArrayList(
+                    DAO.getLivroDAO().findByPrimaryKey(caixaNomeLivro.getText())
+            );
+        }
+        else {
+            list = FXCollections.observableArrayList(
+                    DAO.getLivroDAO().findBooksByTitulo(caixaNomeLivro.getText())
+            );
+        }
 
+        renderList();
     }
 
     @FXML
@@ -40,29 +80,56 @@ public class GerenciaLivrosController {
 
     }
 
-    @FXML
-    void actionOpcaoAlterar(ActionEvent event) {
+    private MenuItem criteria;
 
+    @FXML
+    void byAuthor(ActionEvent event) {
+        criteria = (MenuItem) event.getSource();
+        caixaNomeLivro.setPromptText("Insira o nome do autor");
     }
 
     @FXML
-    void actionOpcaoExibirReservas(ActionEvent event) {
-
+    void byCategory(ActionEvent event) {
+        criteria = (MenuItem) event.getSource();
+        caixaNomeLivro.setPromptText("Insira a categoria");
     }
 
     @FXML
-    void actionOpcaoRegistarEmprestimo(ActionEvent event) {
-
+    void byISBN(ActionEvent event) {
+        criteria = (MenuItem) event.getSource();
+        caixaNomeLivro.setPromptText("Insira o nome do autor");
     }
 
     @FXML
-    void actionOpcaoRemover(ActionEvent event) {
-
+    void byName(ActionEvent event) {
+        criteria = (MenuItem) event.getSource();
+        caixaNomeLivro.setPromptText("Insira o nome do livro");
     }
 
-    @FXML
-    void actionOpcoes(ActionEvent event) {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        list = FXCollections.observableArrayList(DAO.getLivroDAO().findMany());
+        renderList();
+    }
 
+    public void renderList() {
+        booksList.getChildren().clear();
+        list.forEach(
+                (book) -> renderRow(book)
+        );
+    }
+
+    private void renderRow(Livro book) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("bib-book-row-view.fxml"));
+            Node node = loader.load();
+            BibBookRowController bookCtrl = loader.getController();
+            bookCtrl.setBookAndInitialize(book);
+            booksList.getChildren().add(node);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

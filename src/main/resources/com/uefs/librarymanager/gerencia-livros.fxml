@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.uefs.librarymanager.controller.GerenciaLivrosController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.GerenciaLivrosController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -31,27 +32,24 @@
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <MenuButton fx:id="btnOpcoes" mnemonicParsing="false" onAction="#actionOpcoes" text="Como Gostaria de Gerenciar os Livros?">
-                    <items>
-                      <MenuItem fx:id="opcaoAlterar" mnemonicParsing="false" onAction="#actionOpcaoAlterar" text="Alterar Informações" />
-                      <MenuItem fx:id="opcaoRemover" mnemonicParsing="false" onAction="#actionOpcaoRemover" text="Remover Livro" />
-                        <MenuItem fx:id="opcaoRegistroEmprestimo" mnemonicParsing="false" onAction="#actionOpcaoRegistarEmprestimo" text="Registrar Empréstimo" />
-                        <MenuItem fx:id="opcaoExibirReservas" mnemonicParsing="false" onAction="#actionOpcaoExibirReservas" text="Exibir Lista de Reservistas" />
-                    </items>
-                     <HBox.margin>
-                        <Insets left="280.0" right="20.0" top="10.0" />
-                     </HBox.margin>
-                  </MenuButton>
                </children>
             </HBox>
             <HBox prefHeight="57.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="caixaNomeLivro" onAction="#actionCaixaNomeLivro" prefHeight="26.0" prefWidth="450.0">
+                  <TextField fx:id="caixaNomeLivro" onAction="#actionCaixaNomeLivro" prefHeight="34.0" prefWidth="413.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="btnBusca" mnemonicParsing="false" onAction="#actionBtnBusca" text="Buscar">
+                  <MenuButton fx:id="criteriaBtn" mnemonicParsing="false" prefHeight="34.0" prefWidth="121.0" text="Buscar por:">
+                     <items>
+                        <MenuItem fx:id="menuItemName" mnemonicParsing="false" onAction="#byName" text="Nome" />
+                        <MenuItem fx:id="menuItemISBN" mnemonicParsing="false" onAction="#byISBN" text="ISBN" />
+                        <MenuItem fx:id="menuItemCategory" mnemonicParsing="false" onAction="#byCategory" text="Categoria" />
+                        <MenuItem fx:id="menuItemAuthor" mnemonicParsing="false" onAction="#byAuthor" text="Autor" />
+                     </items>
+                  </MenuButton>
+                  <Button fx:id="btnBusca" graphicTextGap="0.0" mnemonicParsing="false" onAction="#actionBtnBusca" prefHeight="35.0" prefWidth="77.0" text="Buscar">
                      <HBox.margin>
                         <Insets left="45.0" />
                      </HBox.margin>
@@ -59,7 +57,14 @@
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
-            <Pane prefHeight="241.0" prefWidth="600.0" />
+            <Pane prefHeight="241.0" prefWidth="600.0">
+               <children>
+                  <ScrollPane prefHeight="241.0" prefWidth="600.0">
+                     <content>
+                        <VBox fx:id="booksList" prefHeight="236.0" prefWidth="597.0" />
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
          </children>
       </VBox>
    </children>

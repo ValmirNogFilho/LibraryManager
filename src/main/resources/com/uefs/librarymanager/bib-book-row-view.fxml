@@ -4,10 +4,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BookRowController">
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BibBookRowController">
    <children>
       <Label fx:id="title" prefHeight="55.0" prefWidth="505.0" text="Nome do Livro" />
-      <Button fx:id="openBookPage" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="76.0" text="Ver mais" />
+      <Button fx:id="openBookPage" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="76.0" text="Opções">
+         <contextMenu>
+            <ContextMenu fx:id="contextMenu">
+              <items>
+                <MenuItem fx:id="opcaoAlterar" mnemonicParsing="false" onAction="#actionOpcaoAlterar" text="Alterar informações" />
+                  <MenuItem fx:id="opcaoRemover" mnemonicParsing="false" onAction="#actionOpcaoRemover" text="Remover Livro" />
+                  <MenuItem fx:id="opcaoRegistroEmprestimo" mnemonicParsing="false" onAction="#actionOpcaoRegistarEmprestimo" text="Registrar Empréstimo" />
+                  <MenuItem fx:id="opcaoExibirReservas" mnemonicParsing="false" onAction="#actionOpcaoExibirReservas" text="Exibir Lista de Reservistas" />
+              </items>
+            </ContextMenu>
+         </contextMenu></Button>
    </children>
    <padding>
       <Insets left="10.0" />
