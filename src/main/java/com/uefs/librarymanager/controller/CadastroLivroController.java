@@ -67,8 +67,10 @@ public class CadastroLivroController implements Initializable {
     void openFile(ActionEvent event) throws MalformedURLException {
         FileChooser fileChooser = new FileChooser();
         selected = fileChooser.showOpenDialog(HelloController.mainPage);
-        selectedImageUrl = selected.toURI().toURL().toString();
-        capaLivro.setImage(new Image(selectedImageUrl));
+        if(selected != null) {
+            String selectedImageUrl = selected.toURI().toURL().toString();
+            capaLivro.setImage(new Image(selectedImageUrl));
+        }
     }
 
     @FXML
@@ -82,21 +84,18 @@ public class CadastroLivroController implements Initializable {
 
         Livro book;
 
-        if(sinopseLivro.getText().isEmpty() || selectedImageUrl == null || selectedImageUrl.equals(
-                getClass().getResource("/img/book-covers/template.jpg").toExternalForm()
-        ))
+        if(sinopseLivro.getText().isEmpty() || selectedImageUrl == null ||
+                selectedImageUrl.equals(defaultCoverUrl))
             book = new Livro(cxNomeLivro.getText(), cxNomeAutor.getText(), cxNomeEditora.getText(), cxISBN.getText(),
                         Integer.parseInt(cxAnoPublicacao.getText()), cxLocalizacao.getText(), cxNomeCategoria.getText(),
                     Integer.parseInt(cxQuantidade.getText()));
         else{
-
-//            FileUtils.copiarImagemParaBookCovers(selectedImageUrl); TODO!
-
             book = new Livro(cxNomeLivro.getText(), cxNomeAutor.getText(), cxNomeEditora.getText(), cxISBN.getText(),
                     Integer.parseInt(cxAnoPublicacao.getText()), cxLocalizacao.getText(), cxNomeCategoria.getText(),
                     Integer.parseInt(cxQuantidade.getText()), sinopseLivro.getText(), capaLivro.getImage().getUrl());
 
         }
+        FileUtils.copiarImagemParaBookCovers(selected);
 
         DAO.getLivroDAO().create(book);
         alert("Operação concluída!", "Operação concluída!", "Livro" + book.getTitulo() + "cadastrado com sucesso!");
