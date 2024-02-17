@@ -34,6 +34,10 @@ public class BookRowController implements BookRow{
         this.title.setText(book.getTitulo());
     }
 
+    public void displayButton(boolean value) {
+        openBookPage.setVisible(value);
+    }
+
     @Override
     @FXML
     public void btnClicked(ActionEvent event) {

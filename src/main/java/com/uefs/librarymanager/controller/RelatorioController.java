@@ -136,7 +136,7 @@ public class RelatorioController implements Initializable {
             Node node = loader.load();
             BookRowController bookRowCtrl = loader.getController();
             bookRowCtrl.setBook(book);
-
+            bookRowCtrl.displayButton(false);
             booksList.getChildren().add(node);
         } catch(Exception e){
             e.printStackTrace();
