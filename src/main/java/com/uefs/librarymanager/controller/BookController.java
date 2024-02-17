@@ -1,8 +1,10 @@
 package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.exceptions.EmprestimoException;
 import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Reserva;
@@ -22,6 +24,9 @@ import javafx.scene.input.ClipboardContent;
 import javafx.util.Duration;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.EventListener;
 import java.util.Timer;
 
@@ -32,6 +37,9 @@ public class BookController {
 
     @FXML
     private Button btnReserva;
+
+    @FXML
+    private Button btnRenovacao;
 
     @FXML
     private Label editoraLivro;
@@ -99,6 +107,18 @@ public class BookController {
     private void cancelarReserva() {
         DAO.getReservaDAO().cancelarReserva(user, book);
         openDialog("Sucesso!", "Reserva do livro " + book.getTitulo() +" cancelada com sucesso");
+    }
+
+    @FXML
+    void renovacaoAction(ActionEvent event) {
+        try {
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            Emprestimo renovado = DAO.getEmprestimoDAO().renovarEmprestimo(user, book);
+            openDialog("Sucesso!", "Empréstimo renovado com sucesso! Devolva o livro até o dia "
+            + renovado.getDataFim().format(pattern));
+        } catch (EmprestimoException | LivroException e) {
+            openDialog("Operação cancelada!", e.getMessage());
+        }
     }
 
     public void setBookAndRenderPage(Livro book) throws LivroException {
@@ -169,6 +189,14 @@ public class BookController {
         btnReserva.setText("Reservar");
         if (book.getDisponiveis() > 0 || DAO.getReservaDAO().filaVazia(book.getISBN()))
             btnReserva.setDisable(true);
+        if (!bookContainedInUserBorrows())
+            btnRenovacao.setDisable(true);
+    }
+
+    private boolean bookContainedInUserBorrows() {
+        for(Emprestimo emp: DAO.getEmprestimoDAO().findByLeitor(user))
+            if (emp.getLivroISBN().equals(book.getISBN())) return true;
+        return false;
     }
 
 
