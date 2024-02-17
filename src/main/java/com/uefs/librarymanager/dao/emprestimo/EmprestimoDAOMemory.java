@@ -15,6 +15,7 @@ import com.uefs.librarymanager.utils.statusEmprestimo;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EmprestimoDAOMemory implements EmprestimoDAO {
 
@@ -181,5 +182,28 @@ public class EmprestimoDAOMemory implements EmprestimoDAO {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Leitor> emprestadoresDoLivro(Livro livro) {
+        List<Emprestimo> emprestimosDoLivro = findMany()
+                .stream()
+                .filter(emprestimo -> emprestimo.getLivroISBN().equals(livro.getISBN()) && !emprestimo.getStatus().equals(statusEmprestimo.CONCLUIDO))
+                .collect(Collectors.toList());
+
+
+        return emprestimosDoLivro.stream().map(
+                        emprestimo -> DAO.getLeitorDAO().findByPrimaryKey(emprestimo.getUsuarioId())
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Emprestimo findEmprestimo(Leitor leitor, Livro livro) {
+        for (Emprestimo emprestimo: findByLeitor(leitor)) {
+            if(emprestimo.getUsuarioId().equals(leitor.getId()))
+                return emprestimo;
+        }
+        return null;
     }
 }

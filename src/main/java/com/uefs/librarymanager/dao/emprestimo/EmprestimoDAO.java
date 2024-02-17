@@ -121,5 +121,7 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
      */
     public boolean leitorSemAtrasos(Leitor leitor) throws UsuarioException;
 
+    public List<Leitor> emprestadoresDoLivro(Livro livro);
 
+    public Emprestimo findEmprestimo(Leitor leitor, Livro livro);
 }
