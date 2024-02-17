@@ -133,10 +133,10 @@ public class DataInitialFeeder {
     private static void povoarDadosDeReservas() throws LivroException, UsuarioException {
 
         Livro livro1 = DAO.getLivroDAO().create( new Livro("Java: The Complete Reference", "Herbert Schildt", "McGraw-Hill",
-                "978-0071606301", 2014, "Seção A", "Programação", 10));
+                "978-0071606301", 2014, "Seção A", "Programação", 10, ""));
         Livro livro2 = DAO.getLivroDAO().create( new Livro("Clean Code: A Handbook of Agile Software Craftsmanship",
                 "Robert C. Martin", "Prentice Hall", "978-0132350884", 2008,
-                "Seção B", "Desenvolvimento de Software", 5));
+                "Seção B", "Desenvolvimento de Software", 5, ""));
 
 
         Leitor leitor1 = new Leitor("Maria", "Rua A", "123456789");

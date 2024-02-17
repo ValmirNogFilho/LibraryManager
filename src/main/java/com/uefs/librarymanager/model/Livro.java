@@ -38,7 +38,7 @@ public class Livro implements Serializable {
     private static final String TEMPLATE_COVER = "template.jpg";
 
     public Livro(String titulo, String autor, String editora, String ISBN, int anoDePublicacao,
-                 String localizacao, String categoria, int disponiveis) {
+                 String localizacao, String categoria, int disponiveis, String sinopse) {
         this.titulo = titulo;
         this.autor = autor;
         this.editora = editora;
