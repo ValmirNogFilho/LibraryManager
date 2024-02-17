@@ -148,6 +148,7 @@ public class EmprestimoDAOMemory implements EmprestimoDAO {
             if(e.getLivroISBN().equals(livro.getISBN())){
                 if(e.podeRenovar() && DAO.getReservaDAO().filaVazia(livro.getISBN())){
                     e.setDataFim(e.getDataFim().plusDays(7));
+                    e.setNumeroRenovacoes(e.getNumeroRenovacoes()+1);
                     update(e);
                     return e;
                 }
