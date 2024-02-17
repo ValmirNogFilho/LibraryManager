@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BorrowRowController">
+   <children>
+      <Label fx:id="title" prefHeight="55.0" prefWidth="306.0" text="Livro">
+         <padding>
+            <Insets left="35.0" />
+         </padding></Label>
+      <Label fx:id="status" prefHeight="55.0" prefWidth="169.0" text="Status">
+         <padding>
+            <Insets left="40.0" />
+         </padding></Label>
+      <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="105.0" text="Ver detalhes" />
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</HBox>

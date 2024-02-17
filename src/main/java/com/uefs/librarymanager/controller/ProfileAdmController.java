@@ -4,30 +4,29 @@ import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Administrador;
+import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.model.Sistema;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
 import com.uefs.librarymanager.utils.cargoUsuario;
 import com.uefs.librarymanager.utils.statusLeitor;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.net.URL;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class ProfileAdmController{
 
@@ -248,4 +247,40 @@ public class ProfileAdmController{
     }
 
 
+    public void actionBtnEmprestimos(ActionEvent event) throws IOException {
+
+        VBox vbox = new VBox();
+        ScrollPane scrollPane = new ScrollPane(vbox);
+        Pane pane = new Pane(scrollPane);
+
+        renderList(vbox, DAO.getEmprestimoDAO().findByLeitor((Leitor) user));
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane, 577, 400);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle("Empréstimos de " + user.getNome());
+        stage.show();
+    }
+
+    private void renderList(VBox borrowingList, List<Emprestimo> list) {
+        borrowingList.getChildren().clear();
+        list.forEach(
+                (emprestimo) -> renderRow(emprestimo, borrowingList)
+        );
+
+    }
+
+    private void renderRow(Emprestimo emprestimo, VBox vBox){
+        try{
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("borrow-row-view.fxml"));
+            Node node = loader.load();
+            BorrowRowController borrowRowCtrl = loader.getController();
+            borrowRowCtrl.setEmprestimo(emprestimo);
+
+            vBox.getChildren().add(node);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

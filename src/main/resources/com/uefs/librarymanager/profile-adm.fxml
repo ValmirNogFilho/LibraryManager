@@ -34,11 +34,12 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="numeroEmprestimosF" editable="false" onAction="#actionNumeroEmprestimosF" prefHeight="138.0" prefWidth="140.0">
+            <TextField fx:id="numeroEmprestimosF" editable="false" onAction="#actionNumeroEmprestimosF" prefHeight="183.0" prefWidth="133.0">
                <VBox.margin>
                   <Insets top="7.0" />
                </VBox.margin>
             </TextField>
+            <Button fx:id="btnEmprestimos" mnemonicParsing="false" onAction="#actionBtnEmprestimos" prefHeight="58.0" prefWidth="133.0" text="Empréstimos" />
             <Label text="Status do Usuário:">
                <VBox.margin>
                   <Insets left="9.0" top="88.0" />
