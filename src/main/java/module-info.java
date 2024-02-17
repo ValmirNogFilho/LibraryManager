@@ -3,6 +3,7 @@ module com.uefs.librarymanager {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires java.desktop;
 
     opens com.uefs.librarymanager to javafx.fxml, javafx.graphics;
     exports com.uefs.librarymanager;
