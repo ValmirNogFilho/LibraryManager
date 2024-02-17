@@ -11,10 +11,11 @@
          <contextMenu>
             <ContextMenu fx:id="contextMenu">
               <items>
-                <MenuItem fx:id="opcaoAlterar" mnemonicParsing="false" onAction="#actionOpcaoAlterar" text="Alterar informações" />
+                  <MenuItem fx:id="opcaoAlterar" mnemonicParsing="false" onAction="#actionOpcaoAlterar" text="Alterar informações" />
                   <MenuItem fx:id="opcaoRemover" mnemonicParsing="false" onAction="#actionOpcaoRemover" text="Remover Livro" />
                   <MenuItem fx:id="opcaoRegistroEmprestimo" mnemonicParsing="false" onAction="#actionOpcaoRegistrarEmprestimo" text="Registrar Empréstimo" />
                   <MenuItem fx:id="opcaoExibirReservas" mnemonicParsing="false" onAction="#actionOpcaoExibirReservas" text="Exibir Lista de Reservistas" />
+                  <MenuItem fx:id="opcaoDevolucao" mnemonicParsing="false" onAction="#actionOpcaoDevolucao" text="Devolver exemplar" />
               </items>
             </ContextMenu>
          </contextMenu></Button>

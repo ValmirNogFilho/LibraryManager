@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UserGivingBackRowController">
+   <children>
+      <Label fx:id="name" prefHeight="55.0" prefWidth="458.0" text="Fulano" />
+      <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="183.0" text="Registrar devolução" />
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</HBox>

@@ -100,6 +100,14 @@ public class BibBookRowController {
         return confirmationDialog.getResult() == ButtonType.OK;
     }
 
+    @FXML
+    public void actionOpcaoDevolucao(ActionEvent event) {
+        List<Leitor> readers =  DAO.getEmprestimoDAO().emprestadoresDoLivro(book);
+        List<Usuario> users = new ArrayList<>(readers);
+
+        openNewPage("users-list-view.fxml", users, "user-giving-back-row-view.fxml");
+    }
+
 
     @FXML
     void btnClicked(ActionEvent event) {

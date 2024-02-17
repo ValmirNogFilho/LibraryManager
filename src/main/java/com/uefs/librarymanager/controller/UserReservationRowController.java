@@ -21,7 +21,7 @@ import java.util.List;
 public class UserReservationRowController implements UserRow{
 
     @FXML
-    private HBox hBox;
+    protected HBox hBox;
 
     @FXML
     private Label name;
@@ -78,7 +78,7 @@ public class UserReservationRowController implements UserRow{
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Sair");
         confirmationDialog.setHeaderText("Deseja registrar o empréstimo por reserva do livro " + book.getTitulo() + " para " + user.getNome() +"?" );
-        confirmationDialog.setContentText("Escolha 'OK' para sair");
+        confirmationDialog.setContentText("Escolha 'OK' para confirmar");
 
         confirmationDialog.showAndWait();
 
