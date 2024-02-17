@@ -2,7 +2,6 @@ package com.uefs.librarymanager.dao.livro;
 
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.LivroException;
-import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.utils.FileUtils;
@@ -18,7 +17,7 @@ public class LivroDAODisk implements LivroDAO{
     private static final String NOMEARQUIVO= "livros";
   
     public LivroDAODisk(){
-        arquivo = FileUtils.gerarArquivo(NOMEARQUIVO);
+        arquivo = FileUtils.obterInstanciaArquivo(NOMEARQUIVO);
     }
 
     @Override

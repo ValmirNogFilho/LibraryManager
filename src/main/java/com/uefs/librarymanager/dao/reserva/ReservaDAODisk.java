@@ -19,8 +19,8 @@ public class ReservaDAODisk implements ReservaDAO{
     private static final String NOMEARQUIVO = "reservas";
     private int proximoId;
     public ReservaDAODisk() {
-        arquivo = FileUtils.gerarArquivo(NOMEARQUIVO);
-        arquivoId = FileUtils.gerarArquivo("id" + NOMEARQUIVO);
+        arquivo = FileUtils.obterInstanciaArquivo(NOMEARQUIVO);
+        arquivoId = FileUtils.obterInstanciaArquivo("id" + NOMEARQUIVO);
     }
 
     @Override

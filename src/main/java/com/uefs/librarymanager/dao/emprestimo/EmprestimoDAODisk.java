@@ -23,8 +23,8 @@ public class EmprestimoDAODisk implements EmprestimoDAO {
     private static final String NOMEARQUIVO = "emprestimos";
     private List<Emprestimo> emprestimos;
     public EmprestimoDAODisk(){
-        arquivo = FileUtils.gerarArquivo(NOMEARQUIVO);
-        arquivoId = FileUtils.gerarArquivo("id" + NOMEARQUIVO);
+        arquivo = FileUtils.obterInstanciaArquivo(NOMEARQUIVO);
+        arquivoId = FileUtils.obterInstanciaArquivo("id" + NOMEARQUIVO);
     }
 
     @Override

@@ -1,16 +1,22 @@
 package com.uefs.librarymanager.utils;
 
+import com.uefs.librarymanager.HelloApplication;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public abstract class FileUtils {
     public static final File DIRETORIO = new File("cache");
     public static final String EXTENSAO = ".kv";
 
-    public static File gerarArquivo(String nomearquivo) {
+    public static File obterInstanciaArquivo(String nomearquivo) {
 
         if (!DIRETORIO.exists())
             DIRETORIO.mkdir();
@@ -76,4 +82,23 @@ public abstract class FileUtils {
         }
     }
 
+    public static LocalDate consultarArquivoLocalDate(File file){
+        LocalDate localDate;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            localDate = (LocalDate) in.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            localDate = LocalDate.now();
+        }
+        return localDate;
+    }
+
+    public static void copiarImagemPara(Image img, String path, ImageView capa) throws IOException { //TODO
+//        InputStream realPath = HelloApplication.class.getResourceAsStream(path.substring(1));
+//        File file = new File(realPath);
+//        String fileName = file.getName();
+//        String extension = fileName.substring(fileName.indexOf("."));
+//        BufferedImage buffer = new BufferedImage( (int) img.getWidth(), (int) img.getHeight(), BufferedImage.TYPE_INT_RGB);
+//        ImageIO.write(buffer, "png", new File(""));
+    }
 }

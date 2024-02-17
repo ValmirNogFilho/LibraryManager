@@ -1,7 +1,6 @@
 package com.uefs.librarymanager.dao.usuario.operador;
 
 import com.uefs.librarymanager.exceptions.UsuarioException;
-import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.FileUtils;
 
@@ -16,7 +15,7 @@ public class OperadorDAODisk implements OperadorDAO{
     File arquivo;
     private static String NOMEARQUIVO = "operadores";
     public OperadorDAODisk(){
-        arquivo = FileUtils.gerarArquivo(NOMEARQUIVO);
+        arquivo = FileUtils.obterInstanciaArquivo(NOMEARQUIVO);
     }
 
     @Override

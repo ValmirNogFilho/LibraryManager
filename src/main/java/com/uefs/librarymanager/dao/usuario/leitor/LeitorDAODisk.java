@@ -15,7 +15,7 @@ public class LeitorDAODisk implements LeitorDAO{
     File arquivo;
 
     public LeitorDAODisk(){
-        arquivo = FileUtils.gerarArquivo("leitores");
+        arquivo = FileUtils.obterInstanciaArquivo("leitores");
     }
 
 
