@@ -59,7 +59,7 @@ public class CadastroLivroController implements Initializable {
 
     private File selected;
 
-    private InputStream defaultCoverUrl = getClass().getResourceAsStream("/img/book-covers/template.jpg");
+    private String defaultCoverUrl = "file:"+Livro.BOOK_COVERS_DIRECTORY + Livro.TEMPLATE_COVER;
     @FXML
     void openFile(ActionEvent event) throws MalformedURLException {
 
@@ -90,24 +90,24 @@ public class CadastroLivroController implements Initializable {
 
         if(selectedImageUrl == null ||
                 selectedImageUrl.equals(defaultCoverUrl)) {
-            System.out.println("'entrou" +
-                    "");
+
             book = new Livro(cxNomeLivro.getText(), cxNomeAutor.getText(), cxNomeEditora.getText(), cxISBN.getText(),
                         Integer.parseInt(cxAnoPublicacao.getText()), cxLocalizacao.getText(), cxNomeCategoria.getText(),
                     Integer.parseInt(cxQuantidade.getText()), "");
         }
         else{
+
             book = new Livro(cxNomeLivro.getText(), cxNomeAutor.getText(), cxNomeEditora.getText(), cxISBN.getText(),
                     Integer.parseInt(cxAnoPublicacao.getText()), cxLocalizacao.getText(), cxNomeCategoria.getText(),
                     Integer.parseInt(cxQuantidade.getText()), sinopseLivro.getText(), selected.getName());
-//            try {
-//                FileUtils.copiarImagemPara(capaLivro.getImage(), book.getImagemUrl(), capaLivro);
-//            } catch (IOException e) {
-//                System.out.println(e.getMessage());
-//                alert("Erro!", "Cadastro não realizado",
-//                        "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
-//                return;
-//            } TODO
+            try {
+                FileUtils.copiarImagemPara(selected, Livro.BOOK_COVERS_DIRECTORY);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                alert("Erro!", "Cadastro não realizado",
+                        "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
+                return;
+            }
         }
 
         DAO.getLivroDAO().create(book);

@@ -134,7 +134,7 @@ public class BookController {
         }
 
         setBookInformation(book);
-        imagemLivro.setImage(new Image(getClass().getResource(book.getImagemUrl()).toExternalForm()));
+        imagemLivro.setImage(new Image("file:"+book.getImagemUrl()));
         sinopseLivro.setText(book.getSinopse());
         turnLabelsSelectable();
 

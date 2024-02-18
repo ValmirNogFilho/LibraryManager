@@ -31,8 +31,8 @@ public class Usuario implements Serializable {
     private String id;
     private String senha;
     private cargoUsuario cargo;
-    private static final String PROFILE_PHOTOS_DIRECTORY = "/img/profile-photos/";
-    private static final String DEFAULT_PROFILE_PHOTO = "profile-template.png";
+    public static final String PROFILE_PHOTOS_DIRECTORY = "img/profile-photos/";
+    public static final String DEFAULT_PROFILE_PHOTO = "profile-template.png";
     private String urlProfileImage;
 
     public Usuario(String nome, String endereco, String telefone, String senha, cargoUsuario cargo) {

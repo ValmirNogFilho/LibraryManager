@@ -90,6 +90,6 @@ public class ProfileController implements Initializable {
         caxaMinhasReservas.setText(
                 String.valueOf(user.getNumReservas())
         );
-        perfilUsário.setImage(new Image(getClass().getResource(user.getUrlProfileImage()).toExternalForm()));
+        perfilUsário.setImage(new Image("file:" + user.getUrlProfileImage()));
     }
 }

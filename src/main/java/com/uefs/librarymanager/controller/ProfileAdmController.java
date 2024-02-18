@@ -94,9 +94,7 @@ public class ProfileAdmController{
         labelCargo.setText("Cargo: " + user.getCargo().toString());
         labelNome.setText("Empréstimos de " + user.getNome());
         labelTel.setText("Telefone: " + user.getTelefone());
-        perfilUsário.setImage(new Image(
-                getClass().getResource(user.getUrlProfileImage()).toExternalForm())
-        );
+        perfilUsário.setImage(new Image("file:" + user.getUrlProfileImage()));
         if (user instanceof Leitor){
             isBlocked = ((Leitor) user).getStatus().equals(statusLeitor.BLOQUEADO);
 

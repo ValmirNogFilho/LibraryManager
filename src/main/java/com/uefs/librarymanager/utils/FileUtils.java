@@ -93,12 +93,15 @@ public abstract class FileUtils {
         return localDate;
     }
 
-    public static void copiarImagemPara(Image img, String path, ImageView capa) throws IOException { //TODO
-//        InputStream realPath = HelloApplication.class.getResourceAsStream(path.substring(1));
-//        File file = new File(realPath);
-//        String fileName = file.getName();
-//        String extension = fileName.substring(fileName.indexOf("."));
-//        BufferedImage buffer = new BufferedImage( (int) img.getWidth(), (int) img.getHeight(), BufferedImage.TYPE_INT_RGB);
-//        ImageIO.write(buffer, "png", new File(""));
+    public static void copiarImagemPara(File imgOriginal, String directoryPath) throws IOException {
+        File diretorio = new File(directoryPath);
+        if(!diretorio.exists())
+            diretorio.mkdirs();
+
+        File arquivoImg = new File(diretorio + "/" + imgOriginal.getName());
+        arquivoImg.createNewFile();
+
+        BufferedImage in = ImageIO.read(imgOriginal);
+        ImageIO.write(in, "png", arquivoImg);
     }
 }

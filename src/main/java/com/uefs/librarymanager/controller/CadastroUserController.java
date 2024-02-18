@@ -5,6 +5,7 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.FileUtils;
 import com.uefs.librarymanager.utils.cargoUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,7 +50,8 @@ public class CadastroUserController implements Initializable {
     @FXML
     private MenuItem leitorItem;
 
-    private final String defaultProfileUrl = HelloApplication.class.getResource("/img/profile-photos/profile-template.png").toExternalForm();
+    private final String defaultProfileUrl = "file:" + Usuario.PROFILE_PHOTOS_DIRECTORY +
+            Usuario.DEFAULT_PROFILE_PHOTO;
 
     private TextField[] allTextFields;
 
@@ -102,10 +105,6 @@ public class CadastroUserController implements Initializable {
             else {
                 registerOperador(user, cargo);
             }
-
-            alert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
-            blankAllTextFields();
-
         } catch (RuntimeException missingCargo) {
             missingDataAlert("cargo");
         } catch (UsuarioException invalidPassword) {
@@ -118,12 +117,21 @@ public class CadastroUserController implements Initializable {
     private void registerLeitor(Leitor user) throws UsuarioException {
         if(selected == null)
             user = new Leitor(cxNomeUsuario.getText(), cxEndereco.getText(), cxTelefone.getText());
-        else
+        else {
             user = new Leitor(cxNomeUsuario.getText(), cxEndereco.getText(), cxTelefone.getText(),
                     selected.getName());
-
+            try {
+                FileUtils.copiarImagemPara(selected, Usuario.PROFILE_PHOTOS_DIRECTORY);
+            } catch (IOException e) {
+                alert("Erro!", "Cadastro não realizado",
+                        "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
+                return;
+            }
+        }
         user.setSenha(cxSenha.getText());
         DAO.getLeitorDAO().create(user);
+        alert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
+        blankAllTextFields();
     }
 
     private void registerOperador(Usuario user, cargoUsuario cargo) throws UsuarioException {
@@ -136,6 +144,8 @@ public class CadastroUserController implements Initializable {
 
         user.setSenha(cxSenha.getText());
         DAO.getOperadorDAO().create(user);
+        alert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
+        blankAllTextFields();
     }
 
     private void blankAllTextFields() {
