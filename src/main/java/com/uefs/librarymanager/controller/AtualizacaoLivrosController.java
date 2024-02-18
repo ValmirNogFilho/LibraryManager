@@ -3,6 +3,7 @@ package com.uefs.librarymanager.controller;
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.utils.FileUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,7 +66,10 @@ public class AtualizacaoLivrosController implements Initializable {
 
     private TextField[] allTextFields;
 
-    private String defaultCoverUrl = getClass().getResource("/img/book-covers/template.jpg").toExternalForm();
+    private String defaultCoverUrl = "file:"+ Livro.BOOK_COVERS_DIRECTORY + Livro.TEMPLATE_COVER;
+
+    private File defaultImage = new File(Livro.BOOK_COVERS_DIRECTORY+Livro.TEMPLATE_COVER);
+
 
     @FXML
     void openFile(ActionEvent event) throws MalformedURLException {
@@ -84,9 +89,26 @@ public class AtualizacaoLivrosController implements Initializable {
             missingDataAlert(missingDataTextField.getPromptText());
             return;
         }
-        getBookData();
 
-        DAO.getLivroDAO().update(book);
+        if(!cxAnoPublicacao.getText().matches("\\d+")){
+            alert("Erro!", "Dados incompatíveis", "O ano de publicação deve conter apenas números");
+            return;
+        }
+
+        if(!cxQuantidade.getText().matches("\\d+")){
+            alert("Erro!", "Dados incompatíveis",
+                    "O número de exemplares disponíveis deve conter apenas números");
+            return;
+        }
+
+
+        try {
+            getBookData();
+        } catch (IOException e) {
+            alert("Erro!", "Cadastro não realizado",
+                "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
+            return;
+        }
         alert("Operação concluída!", "Operação concluída!", "Livro " + book.getTitulo() + " atualizado com sucesso!");
         Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentScreen.close();
@@ -109,7 +131,7 @@ public class AtualizacaoLivrosController implements Initializable {
 
     private void missingDataAlert(String componentName) {
         alert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
-                componentName + "está faltando. Por favor, preencha esse dado");
+                componentName + " está faltando. Por favor, preencha esse dado");
     }
 
     private void alert(String title, String header, String content) {
@@ -158,24 +180,29 @@ public class AtualizacaoLivrosController implements Initializable {
         cxLocalizacao.setText(book.getLocalizacao());
         cxQuantidade.setText(String.valueOf(book.getDisponiveis()));
         sinopseLivro.setText(book.getSinopse());
-        capaLivro.setImage(new Image(
-                        HelloApplication.class.getResource(book.getImagemUrl()).toExternalForm()
-                )
-        ); //TODO
+        capaLivro.setImage(new Image("file:"+book.getImagemUrl()));
         cxISBN.setText(String.valueOf(book.getDisponiveis()));
+        cxAnoPublicacao.setText(String.valueOf(book.getAnoDePublicacao()));
     }
 
-    private void getBookData() {
+    private void getBookData() throws IOException {
         book.setTitulo(cxNomeLivro.getText());
         book.setAutor(cxNomeAutor.getText());
         book.setCategoria(cxNomeCategoria.getText());
         book.setEditora(cxNomeEditora.getText());
         book.setDisponiveis(Integer.parseInt(cxQuantidade.getText()));
-        book.setAnoDePublicacao(cxAnoPublicacao.getText().isEmpty()? 0 :  Integer.parseInt(cxAnoPublicacao.getText()));
-        book.setImagemUrl(capaLivro.getImage().getUrl()); // TODO
+        book.setAnoDePublicacao(Integer.parseInt(cxAnoPublicacao.getText()));
+
+        selected = selected == null ? defaultImage : selected;
+
+        FileUtils.copiarImagemPara(selected, Livro.BOOK_COVERS_DIRECTORY);
+
+        book.setImagemUrl(Livro.BOOK_COVERS_DIRECTORY + selected.getName());
         book.setISBN(cxISBN.getText());
         book.setLocalizacao(cxLocalizacao.getText());
         book.setSinopse(sinopseLivro.getText());
+
+        DAO.getLivroDAO().update(book);
     }
 
 }

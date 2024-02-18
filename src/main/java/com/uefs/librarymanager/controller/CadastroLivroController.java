@@ -88,6 +88,17 @@ public class CadastroLivroController implements Initializable {
 
         Livro book;
 
+        if(!cxAnoPublicacao.getText().matches("\\d+")){
+            alert("Erro!", "Dados incompatíveis", "O ano de publicação deve conter apenas números");
+            return;
+        }
+
+        if(!cxQuantidade.getText().matches("\\d+")){
+            alert("Erro!", "Dados incompatíveis",
+                    "O número de exemplares disponíveis deve conter apenas números");
+            return;
+        }
+
         if(selectedImageUrl == null ||
                 selectedImageUrl.equals(defaultCoverUrl)) {
 
@@ -103,7 +114,6 @@ public class CadastroLivroController implements Initializable {
             try {
                 FileUtils.copiarImagemPara(selected, Livro.BOOK_COVERS_DIRECTORY);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
                 alert("Erro!", "Cadastro não realizado",
                         "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
                 return;
@@ -132,7 +142,7 @@ public class CadastroLivroController implements Initializable {
 
     private void missingDataAlert(String componentName) {
         alert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
-                componentName + "está faltando. Por favor, preencha esse dado");
+                componentName + " está faltando. Por favor, preencha esse dado");
     }
 
     private void alert(String title, String header, String content) {
