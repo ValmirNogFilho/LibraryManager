@@ -14,9 +14,9 @@ class LivroDAOTest {
     @BeforeEach
     void setUp() {
         DAO.getLivroDAO().deleteMany();
-        l = new Livro("test", "joao", "editora", "1234", 2000, "abc", "Exemplo",10);
-        m = new Livro("test", "joao", "editora", "1", 2000, "abc", "Exemplo",10);
-        n = new Livro("test", "maria", "editora", "12", 2000, "abc", "Exemplo",10);
+        l = new Livro("test", "joao", "editora", "1234", 2000, "abc", "Exemplo",10, "");
+        m = new Livro("test", "joao", "editora", "1", 2000, "abc", "Exemplo",10, "");
+        n = new Livro("test", "maria", "editora", "12", 2000, "abc", "Exemplo",10, "");
         DAO.getLivroDAO().create(l);
         DAO.getLivroDAO().create(m);
         DAO.getLivroDAO().create(n);
@@ -31,7 +31,7 @@ class LivroDAOTest {
     @Test
     void create() {
 
-        DAO.getLivroDAO().create(new Livro("a", "a", "a", "12345", 2000, "o", "a", 10));
+        DAO.getLivroDAO().create(new Livro("a", "a", "a", "12345", 2000, "o", "a", 10, ""));
         assertEquals(l, DAO.getLivroDAO().findByPrimaryKey(l.getISBN()));
         assertEquals(4, DAO.getLivroDAO().findMany().size());
     }
@@ -84,7 +84,7 @@ class LivroDAOTest {
         assertTrue(DAO.getLivroDAO().findBooksByTitulo("abc").isEmpty());
 
         Livro o = DAO.getLivroDAO().create(new Livro("Dom Casmurro", "maria", "editora", "125",
-                2000, "abc", "Exemplo",10));
+                2000, "abc", "Exemplo",10, ""));
         //conferindo a busca sucessiva por livro a partir de substrings e de buscas com ou sem capitalização
         assertEquals(DAO.getLivroDAO().findBooksByTitulo("Dom").get(0), o);
         assertEquals(DAO.getLivroDAO().findBooksByTitulo("dom").get(0), o);

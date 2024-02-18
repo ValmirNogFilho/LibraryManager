@@ -22,7 +22,7 @@ class SistemaTest {
         l = DAO.getLeitorDAO().create(new Leitor("Fulano", "", ""));
         emprestimo = DAO.getEmprestimoDAO().create(new Emprestimo(LocalDate.now(), LocalDate.now().plusDays(7), l.getId(), "1234"));
         li = DAO.getLivroDAO().create(new Livro("a", "a",
-                "a", "12354", 1999, "a", "a", 10));
+                "a", "12354", 1999, "a", "a", 10, ""));
         reserva = DAO.getReservaDAO().create(new Reserva(l.getId(), li.getISBN()));
     }
 

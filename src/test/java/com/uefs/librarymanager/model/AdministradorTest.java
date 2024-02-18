@@ -79,7 +79,7 @@ class AdministradorTest {
     void desbloquearLeitor() throws LivroException, UsuarioException {
         Leitor l = DAO.getLeitorDAO().create(new Leitor("fulano", "abc", "12345678"));
         Livro li = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1234",
-                2000, "abc", "a", 15));
+                2000, "abc", "a", 15, ""));
 
         //criando objeto de Empréstimo com todos dados necessários e inserindo em EmprestimoDAOList,
         //a partir de registrarEmpréstimo()

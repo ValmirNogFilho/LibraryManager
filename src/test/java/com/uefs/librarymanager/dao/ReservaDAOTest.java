@@ -21,7 +21,7 @@ class ReservaDAOTest {
     Reserva r;
     @BeforeEach
     void setUp() {
-        li = new Livro("a", "a", "a", "1234", 2000, "a", "a", 10);
+        li = new Livro("a", "a", "a", "1234", 2000, "a", "a", 10, "");
         l = new Leitor("a", "a", "7890");
         r = new Reserva(l.getId(), li.getISBN());
         DAO.getReservaDAO().create(r);
@@ -94,8 +94,8 @@ class ReservaDAOTest {
         }
         l.setNumReservas(0);
         try{
-            Livro li2 = new Livro("a", "a", "a", "123", 2000, "a", "a", 10);
-            Livro li3 = new Livro("b", "b", "b", "123", 2001, "c", "d", 11);
+            Livro li2 = new Livro("a", "a", "a", "123", 2000, "a", "a", 10 ,"");
+            Livro li3 = new Livro("b", "b", "b", "123", 2001, "c", "d", 11, "");
             DAO.getLeitorDAO().create(l);
             DAO.getLivroDAO().create(li2);
             DAO.getLivroDAO().create(li3);
@@ -131,7 +131,7 @@ class ReservaDAOTest {
 
     @Test
     void registrarReserva() throws LivroException, UsuarioException {
-        Livro li2 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "123", 2000, "a", "a", 10));
+        Livro li2 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "123", 2000, "a", "a", 10, ""));
         int tamanho_inicial = DAO.getReservaDAO().findMany().size();
 
         //como tudo está correto, a reserva deve ser criada com os dados recebidos, e a quantidade total de reservas

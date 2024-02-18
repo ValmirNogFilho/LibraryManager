@@ -25,7 +25,7 @@ class EmprestimoDAOTest {
         l = DAO.getLeitorDAO().create(new Leitor("Fulano", "", ""));
         esperado = DAO.getEmprestimoDAO().create(new Emprestimo(LocalDate.now(), LocalDate.now().plusDays(7), l.getId(), "1234"));
         li = DAO.getLivroDAO().create(new Livro("a", "a",
-                "a", "12354", 1999, "a", "a", 10));
+                "a", "12354", 1999, "a", "a", 10, ""));
     }
 
     @AfterEach
@@ -133,7 +133,7 @@ class EmprestimoDAOTest {
         try{
             //como o livro não foi criado em LivroDAO, uma exceção deve ser levantada
             DAO.getEmprestimoDAO().registrarEmprestimo(l, new Livro("a", "a",
-                    "a", "12345", 1999, "a", "a", 10));
+                    "a", "12345", 1999, "a", "a", 10, ""));
             fail("Exceção não detectada.");
         }catch(Exception e){assertEquals(LivroException.NAO_EXISTENTE, e.getMessage());}
 
@@ -157,9 +157,9 @@ class EmprestimoDAOTest {
 
         try{
             //como o leitor já fez 3 empréstimos, uma exceção deve ser levantada
-            Livro j = new Livro("a", "a", "a", "1", 2000, "a", "a", 10);
-            Livro k = new Livro("a", "a", "a", "2", 2000, "a", "a", 10);
-            Livro m = new Livro("a", "a", "a", "3", 2000, "a", "a", 10);
+            Livro j = new Livro("a", "a", "a", "1", 2000, "a", "a", 10, "");
+            Livro k = new Livro("a", "a", "a", "2", 2000, "a", "a", 10, "");
+            Livro m = new Livro("a", "a", "a", "3", 2000, "a", "a", 10, "");
             DAO.getLivroDAO().create(j);
             DAO.getLivroDAO().create(k);
             DAO.getLivroDAO().create(m);
@@ -204,7 +204,7 @@ class EmprestimoDAOTest {
     void devolverLivro() throws LivroException, UsuarioException {
         Livro livro = DAO.getLivroDAO().create(new Livro
                 ("c", "c",
-                "c", "0310", 1999, "a", "a", 10)
+                "c", "0310", 1999, "a", "a", 10, "")
         );
 
         Emprestimo e = DAO.getEmprestimoDAO().registrarEmprestimo(l, livro);

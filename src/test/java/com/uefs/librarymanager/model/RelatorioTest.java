@@ -25,9 +25,9 @@ class RelatorioTest {
         tearDown();
         leitor = DAO.getLeitorDAO().create(new Leitor("a", "a", "12345678"));
         livro = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1234", 2020,
-                "a", "a", 20));
+                "a", "a", 20, ""));
         livro2 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1235", 2020,
-                "a", "a", 20));
+                "a", "a", 20, ""));
     }
 
     @AfterEach
@@ -71,7 +71,7 @@ class RelatorioTest {
     @Test
     void historicoEmprestimo() throws LivroException, UsuarioException {
         Livro livro3 = DAO.getLivroDAO().create(new Livro("a", "a", "a", "1236", 2020,
-                "a", "a", 20));
+                "a", "a", 20, ""));
 
         //criando três objetos de Empréstimo com todos dados necessários e inserindo em EmprestimoDAO,
         //a partir de registrarEmpréstimo()
