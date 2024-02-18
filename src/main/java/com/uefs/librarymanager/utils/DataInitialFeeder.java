@@ -9,6 +9,7 @@ import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +77,11 @@ public class DataInitialFeeder {
             DAO.getLeitorDAO().create(leitor);
         }
 
+        Leitor initialLeitorForTesting = new Leitor("InitialLeitor", "[endereço]", "[telefone]");
+        initialLeitorForTesting.setId("000002");
+        initialLeitorForTesting.setSenha("1234");
+        DAO.getLeitorDAO().create(initialLeitorForTesting);
+
     }
 
     private static void povoarDadosDeOperadores() throws UsuarioException {
@@ -94,9 +100,7 @@ public class DataInitialFeeder {
         initialForTesting.setSenha("1234");
         initialForTesting.setId("000000");
 
-        DAO.getOperadorDAO().create(
-          initialForTesting
-        );
+        DAO.getOperadorDAO().create(initialForTesting);
 
         ArrayList<Bibliotecario> listaBibliotecarios = new ArrayList<>();
 
@@ -112,6 +116,12 @@ public class DataInitialFeeder {
             bib.setSenha("1234");
             DAO.getOperadorDAO().create(bib);
         }
+
+        Bibliotecario initialBibForTesting = new Bibliotecario("InitialBib", "[endereço]", "[telefone]");
+        initialBibForTesting.setSenha("1234");
+        initialBibForTesting.setId("000001");
+
+        DAO.getOperadorDAO().create(initialBibForTesting);
 
     }
 
