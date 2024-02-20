@@ -50,6 +50,21 @@ Execute o seguinte comando no terminal do seu dispositivo:
 
 Os testes unitários e de integração encontram-se no pacote `test`. IDEs como o IntelliJ IDEA podem executar todos testes de uma vez a partir do comando Run All Tests, selecionável após o clique com o botão direito no pacote de testes.
 
+## Getting Started
+
+Para abrir o sistema pela primeira vez, foram inseridas contas de teste para leitores, bibliotecários e administradores. Seguem os IDs de cada conta (caso necessário, essas contas podem ser excluídas por um administrador posteriormente):
+
+#### Initial (conta de teste para Administrador):
+ID: 000000
+
+#### InitialBib (conta de teste para Bibliotecário):
+ID: 000001
+
+#### InitialLeitor (conta de teste para Leitor):
+ID: 000002
+
+Todas contas contém a senha "1234", que pode ser alterada posteriormente.
+
 ## Ferramentas
 
 IntelliJ IDEA Community - IDE utilizado para desenvolvimento do sistema
