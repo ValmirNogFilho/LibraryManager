@@ -88,12 +88,16 @@ public class HelloController implements Initializable {
         if (!cargo.equals(cargoUsuario.CONVIDADO))
             try {
                 user = login(id, senha);
+                Session.loginUser(user);
+                redirectHomePage(event);
             }
             catch (UsuarioException e) {
                 warningText.setText(e.getMessage());
             }
-        Session.loginUser(user);
-        redirectHomePage(event);
+        else {
+            Session.loginUser(user);
+            redirectHomePage(event);
+        }
     }
 
     /**
@@ -109,17 +113,18 @@ public class HelloController implements Initializable {
     private Usuario login(String id, String senha) throws UsuarioException {
         Usuario obj;
 
-        obj = filterUserByOccupation(id);
-
-        if(obj == null) return null;
-
         if(id.isEmpty() || senha.isEmpty()) {
+            if(cargo == cargoUsuario.CONVIDADO)
+                return null;
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
         }
 
+        obj = filterUserByOccupation(id);
 
         if(!cargo.equals(obj.getCargo()))
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
+
+        if(obj == null) return null;
 
         if(!obj.getSenha().equals(senha))
             throw new UsuarioException(UsuarioException.SENHA_INVALIDA);
