@@ -23,6 +23,7 @@
             </ImageView>
             <Button fx:id="btnReserva" mnemonicParsing="false" onAction="#reservaAction" text="Reservar" />
             <Button fx:id="btnRenovacao" layoutX="10.0" layoutY="271.0" mnemonicParsing="false" onAction="#renovacaoAction" text="Renovar empréstimo" />
+            <Button fx:id="detalhesEmprestimoBtn" mnemonicParsing="false" onAction="#detalhesEmprestimoAction" text="Detalhes do empréstimo" />
             <Label fx:id="tempText" text="Texto copiado!" visible="false">
                <padding>
                   <Insets bottom="5.0" top="2.0" />

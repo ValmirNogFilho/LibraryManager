@@ -65,6 +65,9 @@ public class BookController {
     @FXML
     private Label tempText;
 
+    @FXML
+    private Button detalhesEmprestimoBtn;
+
     private Livro book;
 
     private Leitor user;
@@ -74,12 +77,8 @@ public class BookController {
     @FXML
     void reservaAction(ActionEvent event) throws LivroException {
         if (Session.getUserInSession() == null) {
-            Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
-            confirmationDialog.setTitle("Atenção!");
-            confirmationDialog.setHeaderText("Acesso não permitido");
-            confirmationDialog.setContentText("Para executar uma reserva, você deve possuir fazer login no sistema.");
-
-            confirmationDialog.show();
+            openDialog("Acesso não permitido",
+                    "Para executar uma reserva, você deve possuir fazer login no sistema.");
             return;
         }
         if(!isReserved){
@@ -112,12 +111,8 @@ public class BookController {
     @FXML
     void renovacaoAction(ActionEvent event) {
         if (Session.getUserInSession() == null) {
-            Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
-            confirmationDialog.setTitle("Atenção!");
-            confirmationDialog.setHeaderText("Acesso não permitido");
-            confirmationDialog.setContentText("Para executar uma renovação, você deve possuir fazer login no sistema.");
-
-            confirmationDialog.show();
+            openDialog("Acesso não permitido",
+                    "Para executar uma renovação, você deve possuir fazer login no sistema.");
             return;
         }
         try {
@@ -128,6 +123,16 @@ public class BookController {
         } catch (EmprestimoException | LivroException e) {
             openDialog("Operação cancelada!", e.getMessage());
         }
+    }
+
+    @FXML
+    void detalhesEmprestimoAction(ActionEvent event) {
+        if (Session.getUserInSession() == null) {
+            openDialog("Acesso não permitido",
+                    "Para ver detalhes de um empréstimo, você deve possuir fazer login no sistema.");
+            return;
+        }
+        openDetails(DAO.getEmprestimoDAO().findEmprestimo(user, book));
     }
 
     public void setBookAndRenderPage(Livro book) throws LivroException {
@@ -196,15 +201,18 @@ public class BookController {
         }
 
         btnReserva.setText("Reservar");
-        if (book.getDisponiveis() > 0 || DAO.getReservaDAO().filaVazia(book.getISBN()))
-            btnReserva.setDisable(true);
-        if (!bookContainedInUserBorrows())
-            btnRenovacao.setDisable(true);
+        boolean notValidForReservation = book.getDisponiveis() > 0 || DAO.getReservaDAO().filaVazia(book.getISBN());
+        btnReserva.setDisable(notValidForReservation);
+        boolean bookNotBorrowed = !bookContainedInUserBorrows();
+        btnRenovacao.setDisable(bookNotBorrowed);
+        detalhesEmprestimoBtn.setDisable(bookNotBorrowed);
+
     }
 
     private boolean bookContainedInUserBorrows() {
         for(Emprestimo emp: DAO.getEmprestimoDAO().findByLeitor(user))
             if (emp.getLivroISBN().equals(book.getISBN())) return true;
+
         return false;
     }
 
@@ -218,6 +226,23 @@ public class BookController {
         qntdDisponivel.setText(
                 "Exemplares disponíveis: " + book.getDisponiveis()
         );
+    }
+
+    private void openDetails(Emprestimo emprestimo){
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        Alert warningDialog = new Alert(Alert.AlertType.WARNING);
+        warningDialog.setTitle("Empréstimo");
+        warningDialog.setHeaderText("Empréstimo do livro " + book.getTitulo() + " para " + user.getNome());
+        warningDialog.setContentText(
+                "STATUS: " + emprestimo.getStatus() + ";\n" +
+                        "INÍCIO EM :" + emprestimo.getDataInicio().format(pattern) + ";\n" +
+                        "FINAL EM: " + emprestimo.getDataFim().format(pattern) + ";\n" +
+                        emprestimo.getNumeroRenovacoes() + " RENOVAÇÕES; \n" +
+                        emprestimo.getAtraso() + " DIAS DE ATRASO;"
+        );
+
+        warningDialog.showAndWait();
     }
 
     public void openDialog(String header, String message){
