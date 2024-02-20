@@ -111,6 +111,15 @@ public class BookController {
 
     @FXML
     void renovacaoAction(ActionEvent event) {
+        if (Session.getUserInSession() == null) {
+            Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
+            confirmationDialog.setTitle("Atenção!");
+            confirmationDialog.setHeaderText("Acesso não permitido");
+            confirmationDialog.setContentText("Para executar uma renovação, você deve possuir fazer login no sistema.");
+
+            confirmationDialog.show();
+            return;
+        }
         try {
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             Emprestimo renovado = DAO.getEmprestimoDAO().renovarEmprestimo(user, book);

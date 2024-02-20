@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
 
-    private static cargoUsuario cargo = cargoUsuario.CONVIDADO;
+    private static cargoUsuario cargo;
     @FXML
     private TextField IDacesso;
 
@@ -88,12 +88,12 @@ public class HelloController implements Initializable {
         if (!cargo.equals(cargoUsuario.CONVIDADO))
             try {
                 user = login(id, senha);
-                Session.loginUser(user);
-                redirectHomePage(event);
             }
             catch (UsuarioException e) {
                 warningText.setText(e.getMessage());
             }
+        Session.loginUser(user);
+        redirectHomePage(event);
     }
 
     /**
@@ -107,14 +107,16 @@ public class HelloController implements Initializable {
      * @throws UsuarioException
      */
     private Usuario login(String id, String senha) throws UsuarioException {
-        Usuario obj = null;
-
-        if(id.isEmpty() || senha.isEmpty())
-            throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
+        Usuario obj;
 
         obj = filterUserByOccupation(id);
 
         if(obj == null) return null;
+
+        if(id.isEmpty() || senha.isEmpty()) {
+            throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
+        }
+
 
         if(!cargo.equals(obj.getCargo()))
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
@@ -150,8 +152,11 @@ public class HelloController implements Initializable {
             case ADMINISTRADOR -> {
                 return "front-page-adm.fxml";
             }
-            default -> {
+            case CONVIDADO -> {
                 return "front-page.fxml";
+            }
+            default -> {
+                return null;
             }
         }
     }
@@ -182,5 +187,8 @@ public class HelloController implements Initializable {
                 btnConvidado, btnLeitor);
         toggleGroup.getToggles().addAll(toggles);
         toggleGroup.selectToggle(btnConvidado);
+
+        cargo = cargoUsuario.CONVIDADO;
+
     }
 }
