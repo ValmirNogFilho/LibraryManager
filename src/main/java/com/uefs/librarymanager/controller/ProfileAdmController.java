@@ -8,6 +8,7 @@ import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
+import com.uefs.librarymanager.utils.WindowManager;
 import com.uefs.librarymanager.utils.cargoUsuario;
 import com.uefs.librarymanager.utils.statusLeitor;
 import javafx.event.ActionEvent;
@@ -233,14 +234,11 @@ public class ProfileAdmController{
     }
 
     private void closeProfileWindow(ActionEvent event){
-        Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentScreen.close();
+        WindowManager.closeThisWindow(event);
     }
 
-
     private void closeUserListWindow() {
-        Window usersListWindow = Stage.getWindows().get(0);
-        ((Stage) usersListWindow).close();
+        WindowManager.closeNthWindow(0);
     }
     private void deleteUser(){
         switch (user.getCargo()){

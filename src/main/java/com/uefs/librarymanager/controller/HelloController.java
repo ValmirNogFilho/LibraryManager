@@ -1,27 +1,21 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
-import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.model.Sistema;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Page;
 import com.uefs.librarymanager.utils.Session;
+import com.uefs.librarymanager.utils.WindowManager;
 import com.uefs.librarymanager.utils.cargoUsuario;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -89,14 +83,14 @@ public class HelloController implements Initializable {
             try {
                 user = login(id, senha);
                 Session.loginUser(user);
-                redirectHomePage(event);
+                redirectHomePage();
             }
             catch (UsuarioException e) {
                 warningText.setText(e.getMessage());
             }
         else {
             Session.loginUser(user);
-            redirectHomePage(event);
+            redirectHomePage();
         }
     }
 
@@ -167,20 +161,13 @@ public class HelloController implements Initializable {
     }
 
 
-    private void redirectHomePage(ActionEvent event) {
+    private void redirectHomePage() {
+        WindowManager.closeAllWindows();
         try {
-            Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentScreen.close();
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(screenToBeRendered));
-            Parent root = loader.load();
-            mainPage = new Stage();
-            Scene scene = new Scene(root);
-            mainPage.setResizable(false);
-            mainPage.setScene(scene);
-            mainPage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            Page page = WindowManager.getNewCreatedPageController(screenToBeRendered);
+            WindowManager.showPageInNewWindow(page);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -4,6 +4,8 @@ import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Page;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -93,17 +95,10 @@ public class UserRowController implements UserRow{
 
     private void openProfile(Usuario user){
         try{
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("profile-adm.fxml"));
-            Parent profileView = loader.load();
-            ProfileAdmController profileAdmCtrl = loader.getController();
-
+            Page page = WindowManager.getNewCreatedPageController("profile-adm.fxml");
+            ProfileAdmController profileAdmCtrl = (ProfileAdmController) page.controller();
             profileAdmCtrl.setUser(user);
-            Stage profileStage = new Stage();
-            Scene scene = new Scene(profileView);
-            profileStage.setResizable(false);
-            profileStage.setScene(scene);
-            profileStage.show();
-
+            WindowManager.showPageInNewWindow(page);
         } catch(Exception e){
             e.printStackTrace();
         }

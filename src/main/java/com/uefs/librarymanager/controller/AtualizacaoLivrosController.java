@@ -4,6 +4,7 @@ import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.utils.FileUtils;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -110,8 +111,7 @@ public class AtualizacaoLivrosController implements Initializable {
             return;
         }
         alert("Operação concluída!", "Operação concluída!", "Livro " + book.getTitulo() + " atualizado com sucesso!");
-        Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentScreen.close();
+        WindowManager.closeThisWindow(event);
     }
 
     private TextField assertMissingTextFields() {

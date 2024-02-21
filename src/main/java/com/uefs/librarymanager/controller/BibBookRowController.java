@@ -5,6 +5,8 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Page;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,7 +72,7 @@ public class BibBookRowController {
                     }
                 });
 
-        openNewPage("users-list-view.fxml", users, "user-reservation-row-view.fxml");
+        openNewUsersListPage(users, "user-reservation-row-view.fxml");
     }
 
     @FXML
@@ -78,7 +80,7 @@ public class BibBookRowController {
         List<Leitor> readers =  DAO.getLeitorDAO().findMany();
         List<Usuario> users = new ArrayList<>(readers);
 
-        openNewPage("users-list-view.fxml", users, "user-borrowing-row-view.fxml");
+        openNewUsersListPage(users, "user-borrowing-row-view.fxml");
     }
 
     @FXML
@@ -105,7 +107,7 @@ public class BibBookRowController {
         List<Leitor> readers =  DAO.getEmprestimoDAO().emprestadoresDoLivro(book);
         List<Usuario> users = new ArrayList<>(readers);
 
-        openNewPage("users-list-view.fxml", users, "user-giving-back-row-view.fxml");
+        openNewUsersListPage(users, "user-giving-back-row-view.fxml");
     }
 
 
@@ -113,7 +115,6 @@ public class BibBookRowController {
     void btnClicked(ActionEvent event) {
         Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
         contextMenu.show(currentScreen);
-
     }
 
     @FXML
@@ -127,20 +128,15 @@ public class BibBookRowController {
     }
 
 
-    private void openNewPage(String url, List<Usuario> list, String urlRow) {
+    private void openNewUsersListPage(List<Usuario> list, String urlRow) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
-            Parent root = loader.load();
-            UsersListController usersListCtrl = loader.getController();
+            Page page = WindowManager.getNewCreatedPageController("users-list-view.fxml");
+            UsersListController usersListCtrl = (UsersListController) page.controller();
             usersListCtrl.setBook(book);
             usersListCtrl.setUserRowUrl(urlRow);
             usersListCtrl.setListAndRender(list);
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
+            WindowManager.showPageInNewWindow(page);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -148,16 +144,11 @@ public class BibBookRowController {
 
     private void openNewBookUpdatePage() {
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("atualizacao-livros-view.fxml"));
-            Parent root = loader.load();
-            AtualizacaoLivrosController atualizacaoLivrosCtrl = loader.getController();
-            atualizacaoLivrosCtrl.setBookAndRender(book);
+            Page page = WindowManager.getNewCreatedPageController("atualizacao-livros-view.fxml");
 
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
+            AtualizacaoLivrosController atualizacaoLivrosCtrl = (AtualizacaoLivrosController) page.controller();
+            atualizacaoLivrosCtrl.setBookAndRender(book);
+            WindowManager.showPageInNewWindow(page);
         } catch (Exception e){
             e.printStackTrace();
         }

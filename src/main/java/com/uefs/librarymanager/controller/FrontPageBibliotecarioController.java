@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.utils.Session;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +65,9 @@ public class FrontPageBibliotecarioController implements Initializable {
         if (!(wantsToLogout()))
             return;
 
-        openLoginPage(event);
+        Session.logoutUser();
+        WindowManager.closeAllWindows();
+        WindowManager.openLoginPage();
     }
 
     private boolean wantsToLogout() {
@@ -76,26 +79,6 @@ public class FrontPageBibliotecarioController implements Initializable {
         confirmationDialog.showAndWait();
 
         return confirmationDialog.getResult() == ButtonType.OK;
-    }
-
-    private void openLoginPage(ActionEvent event) {
-        Session.logoutUser();
-
-        ObservableList<Window> windows = Stage.getWindows();
-        while (!windows.isEmpty())
-            ((Stage) windows.get(0)).close();
-
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-            Parent root = loader.load();
-            Stage loginStage = new Stage();
-            Scene scene = new Scene(root);
-            loginStage.setResizable(false);
-            loginStage.setScene(scene);
-            loginStage.show();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Override

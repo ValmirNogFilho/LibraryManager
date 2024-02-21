@@ -72,8 +72,6 @@ public class UserReservationRowController implements UserRow{
         return null;
     }
 
-
-
     protected boolean wantsToBorrow() {
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Sair");

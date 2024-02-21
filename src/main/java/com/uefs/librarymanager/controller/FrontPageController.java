@@ -5,6 +5,7 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.utils.Session;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -101,7 +102,9 @@ public class FrontPageController implements Initializable {
         if (!(wantsToLogout()))
             return;
 
-        openLoginPage(event);
+        Session.logoutUser();
+        WindowManager.closeAllWindows();
+        WindowManager.openLoginPage();
     }
 
     private void unhautorized() {
@@ -123,25 +126,6 @@ public class FrontPageController implements Initializable {
         confirmationDialog.showAndWait();
 
         return confirmationDialog.getResult() == ButtonType.OK;
-    }
-
-
-    private void openLoginPage(ActionEvent event) {
-        Session.logoutUser();
-        Stage currentScreen = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentScreen.close();
-
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-            Parent root = loader.load();
-            Stage loginStage = new Stage();
-            Scene scene = new Scene(root);
-            loginStage.setResizable(false);
-            loginStage.setScene(scene);
-            loginStage.show();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 
