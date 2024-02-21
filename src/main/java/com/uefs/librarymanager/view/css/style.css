@@ -1,15 +1,34 @@
+/*Fonte Personalizada*/
+@font-face {
+    font-family: 'Harry P';
+    src: url('HarryP-MVZ6w.ttf');
+}
 
 /*Login*/
 .tela-total{
-     -fx-background-image: url('file:C:/Users/kcord/Downloads/hogwats-pbl.jpg');
+     -fx-background-image: url('hogwats.jpg');
      -fx-background-size: cover;
      -fx-background-position: center;
      -fx-background-repeat: no-repeat;
 }
 /*titulo*/
-.titular{
+.titular {
+    -fx-font-size: 70px;
+    -fx-font-style: italic;
+    -fx-font-family: 'Harry P';
+}
+
+/*Subtitulos*/
+.subtitulo{
     -fx-font-size: 40px;
     -fx-font-style: italic;
+    -fx-font-family: 'Harry P';
+}
+
+.subsubtitulo{
+    -fx-font-size: 20px;
+    -fx-font-style: italic;
+    -fx-font-family: 'Harry P';
 }
 
 /*loginName*/
@@ -19,6 +38,7 @@
 }
 /*botoes*/
 .botao{
+    -fx-font-family: "Segoe UI";
     -fx-border-style: hidden;
     -fx-border-color: rgba(0, 0, 0, 0);
     -fx-background-color:  rgba(128, 128, 128, 0.5);
@@ -28,3 +48,49 @@
     -fx-border-color: rgba(0, 0, 0, 0);
     -fx-background-color: rgba(173, 216, 230, 0.5);
 }
+
+/* Pagina inicial do usuário */
+.botao-profile-info{
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #808080
+}
+.botao-voltar{
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: black;
+}
+.tela-total-sistema{
+    -fx-background-color: #484d50;
+}
+.tela-lateral{
+    -fx-background-color: #577ae4;
+}
+.imagem-capa{
+    -fx-max-width:468px;
+    -fx-max-height:182px;
+    -fx-width: auto;
+    -fx-height: auto;
+}
+
+.botao-dados-usuario{
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #666f88;
+}
+
+.botao-dados-usuario:hover{
+    -fx-border-style: hidden;
+    -fx-border-color: rgba(0, 0, 0, 0);
+    -fx-background-color: rgba(173, 216, 230, 0.5);
+}
+
+.botao-profile{
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #577ae4;
+}
+
+.botao-profile:hover{
+    -fx-border-style: hidden;
+    -fx-border-color: rgba(0, 0, 0, 0);
+    -fx-background-color: rgba(173, 216, 230, 0.5);
+}
+
+

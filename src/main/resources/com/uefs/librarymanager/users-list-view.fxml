@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UsersListController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="614.0" styleClass="tela-total-sistema" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.UsersListController">
    <children>
-      <Text layoutX="25.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários" />
-      <TextField fx:id="searchInput" layoutX="25.0" layoutY="56.0" prefHeight="34.0" prefWidth="498.0" promptText="busque por um usuário..." />
-      <Button fx:id="searchBtn" layoutX="534.0" layoutY="54.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="40.0" prefWidth="51.0" text="Buscar" />
-      <MenuButton fx:id="criteriaBtn" layoutX="424.0" layoutY="57.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="99.0" text="Buscar por:">
+      <Text fill="#efe8e8" layoutX="25.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="Usuários" />
+      <TextField fx:id="searchInput" layoutX="25.0" layoutY="56.0" prefHeight="34.0" prefWidth="498.0" promptText="busque por um usuário..." styleClass="botao-dados-usuario" />
+      <Button fx:id="searchBtn" layoutX="534.0" layoutY="54.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="40.0" prefWidth="51.0" styleClass="botao" text="Buscar" />
+      <MenuButton fx:id="criteriaBtn" layoutX="424.0" layoutY="57.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="99.0" styleClass="botao-profile-info" text="Buscar por:">
          <items>
             <MenuItem fx:id="menuItemName" mnemonicParsing="false" onAction="#byName" text="Nome" />
             <MenuItem fx:id="menuItemID" mnemonicParsing="false" onAction="#byID" text="ID" />
@@ -17,9 +24,9 @@
       </MenuButton>
       <Pane layoutY="90.0" prefHeight="311.0" prefWidth="614.0">
          <children>
-            <Label layoutX="23.0" layoutY="25.0" text="Nome" />
-            <Label layoutX="233.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="ID" />
-            <Label layoutX="354.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="Cargo" />
+            <Label layoutX="23.0" layoutY="25.0" text="Nome" textFill="#faf8f8" />
+            <Label layoutX="233.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="ID" textFill="#faf7f7" />
+            <Label layoutX="354.0" layoutY="25.0" prefHeight="16.0" prefWidth="36.0" text="Cargo" textFill="#faf8f8" />
             <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="56.0" prefHeight="249.0" prefWidth="592.0">
                <content>
                   <VBox fx:id="usersList" prefHeight="248.0" prefWidth="590.0" />
