@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BookController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="tela-total-sistema" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BookController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -16,14 +21,23 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <ImageView fx:id="imagemLivro" fitHeight="241.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imagemLivro" fitHeight="241.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
                </VBox.margin>
             </ImageView>
-            <Button fx:id="btnReserva" mnemonicParsing="false" onAction="#reservaAction" text="Reservar" />
-            <Button fx:id="btnRenovacao" layoutX="10.0" layoutY="271.0" mnemonicParsing="false" onAction="#renovacaoAction" text="Renovar empréstimo" />
-            <Button fx:id="detalhesEmprestimoBtn" mnemonicParsing="false" onAction="#detalhesEmprestimoAction" text="Detalhes do empréstimo" />
+            <Button fx:id="btnReserva" mnemonicParsing="false" onAction="#reservaAction" styleClass="botao-profile-info" text="Reservar">
+               <VBox.margin>
+                  <Insets left="120.0" top="30.0" />
+               </VBox.margin></Button>
+            <Button fx:id="btnRenovacao" layoutX="10.0" layoutY="271.0" mnemonicParsing="false" onAction="#renovacaoAction" styleClass="botao-profile-info" text="Renovar empréstimo">
+               <VBox.margin>
+                  <Insets left="90.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="detalhesEmprestimoBtn" mnemonicParsing="false" onAction="#detalhesEmprestimoAction" styleClass="botao-profile-info" text="Detalhes do empréstimo">
+               <VBox.margin>
+                  <Insets left="80.0" top="10.0" />
+               </VBox.margin></Button>
             <Label fx:id="tempText" text="Texto copiado!" visible="false">
                <padding>
                   <Insets bottom="5.0" top="2.0" />
@@ -33,32 +47,32 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <Label fx:id="isbnLivro" text="ISBN:" wrapText="true">
+            <Label fx:id="isbnLivro" text="ISBN:" textFill="#fcfafa" wrapText="true">
                <padding>
                   <Insets top="20.0" />
                </padding>
             </Label>
-            <Label fx:id="autorLivro" text="Autor:" wrapText="true">
+            <Label fx:id="autorLivro" text="Autor:" textFill="#f7f4f4" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="editoraLivro" text="Editora:" wrapText="true">
+            <Label fx:id="editoraLivro" text="Editora:" textFill="#f7f3f3" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="localizazaoLivro" text="Localização:" wrapText="true">
+            <Label fx:id="localizazaoLivro" text="Localização:" textFill="#faf7f7" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="categoriaLivro" layoutX="10.0" layoutY="68.0" text="Categoria:" wrapText="true">
+            <Label fx:id="categoriaLivro" layoutX="10.0" layoutY="68.0" text="Categoria:" textFill="#f7f4f4" wrapText="true">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="qntdDisponivel" text="Exemplares Disponíveis:" wrapText="true">
+            <Label fx:id="qntdDisponivel" text="Exemplares Disponíveis:" textFill="#fcfafa" wrapText="true">
                <padding>
                   <Insets bottom="5.0" top="2.0" />
                </padding>
@@ -68,8 +82,10 @@
                   <Insets bottom="5.0" top="2.0" />
                </padding>
             </Label>
-            <Separator prefWidth="200.0" />
-            <Label text="Sinopse:" />
+            <Label styleClass="subtitulo" text="Sinopse:" textFill="#fcfafa">
+               <VBox.margin>
+                  <Insets left="120.0" />
+               </VBox.margin></Label>
             <TextArea fx:id="sinopseLivro" editable="false" prefHeight="268.0" prefWidth="300.0" text="                       " />
          </children>
       </VBox>

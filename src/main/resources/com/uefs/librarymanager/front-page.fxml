@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.FrontPageController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.FrontPageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="448.0000183105468" />
   </columnConstraints>
@@ -14,53 +19,36 @@
    <children>
       <BorderPane fx:id="painelPrincipal" prefHeight="400.0" prefWidth="795.0">
          <left>
-            <VBox prefHeight="400.0" prefWidth="186.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="400.0" prefWidth="186.0" styleClass="tela-lateral" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Bem-Vindo à Hogwarts Library" />
-                  <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#inicioAction" text="Início">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/casinha-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Label text="Bem-Vindo à Hogwarts Library">
+                     <VBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </VBox.margin></Label>
+                  <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#inicioAction" styleClass="botao-profile" text="Início">
+                     <VBox.margin>
+                        <Insets left="70.0" top="60.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnPerfil" mnemonicParsing="false" onAction="#perfilAction" text="Meu Perfil">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/pessoa-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="btnPerfil" mnemonicParsing="false" onAction="#perfilAction" styleClass="botao-profile" text="Meu Perfil">
+                     <VBox.margin>
+                        <Insets left="60.0" top="30.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnMeusLivros" mnemonicParsing="false" onAction="#meusLivrosAction" text="Meus Livros">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/livro-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="btnMeusLivros" mnemonicParsing="false" onAction="#meusLivrosAction" styleClass="botao-profile" text="Meus Livros">
+                     <VBox.margin>
+                        <Insets left="60.0" top="30.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnMinhasReservas" layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#minhasReservasAction" text="Minhas Reservas">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/livro-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="btnMinhasReservas" layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#minhasReservasAction" styleClass="botao-profile" text="Minhas Reservas">
+                     <VBox.margin>
+                        <Insets left="50.0" top="30.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sairAction" text="Sair">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/out-pbl.jpeg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sairAction" prefHeight="33.0" prefWidth="68.0" styleClass="botao-profile" text="Sair">
+                     <VBox.margin>
+                        <Insets left="120.0" top="80.0" />
+                     </VBox.margin>
                   </Button>
                </children>
             </VBox>

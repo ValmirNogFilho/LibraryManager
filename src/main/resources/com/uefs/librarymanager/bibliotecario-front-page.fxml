@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.FrontPageBibliotecarioController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.FrontPageBibliotecarioController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -14,35 +19,26 @@
    <children>
       <BorderPane fx:id="painelPrincipal" prefHeight="200.0" prefWidth="200.0">
          <left>
-            <VBox prefHeight="400.0" prefWidth="186.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="400.0" prefWidth="186.0" styleClass="tela-lateral" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="userName" text="Bem-Vindo [biliotecário]" />
-                  <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#inicioAction" text="Início">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/casinha-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Label fx:id="userName" text="Bem-Vindo [biliotecário]">
+                     <VBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </VBox.margin></Label>
+                  <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#inicioAction" styleClass="botao-profile" text="Início">
+                     <VBox.margin>
+                        <Insets left="70.0" top="60.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnCadastrarLivros" mnemonicParsing="false" onAction="#actionCadastrarLivros" text="Cadastrar Livros">
-                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/livro-pbl.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="btnCadastrarLivros" mnemonicParsing="false" onAction="#actionCadastrarLivros" styleClass="botao-profile" text="Cadastrar Livros">
+                     <VBox.margin>
+                        <Insets left="50.0" top="35.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sairAction" text="Sair">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../../../../Downloads/out-pbl.jpeg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sairAction" prefHeight="17.0" prefWidth="50.0" styleClass="botao-profile" text="Sair">
+                     <VBox.margin>
+                        <Insets left="135.0" top="190.0" />
+                     </VBox.margin>
                   </Button>
                </children>
             </VBox>
