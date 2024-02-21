@@ -5,6 +5,7 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Alerter;
 import com.uefs.librarymanager.utils.FileUtils;
 import com.uefs.librarymanager.utils.cargoUsuario;
 import javafx.event.ActionEvent;
@@ -108,7 +109,7 @@ public class CadastroUserController implements Initializable {
         } catch (RuntimeException missingCargo) {
             missingDataAlert("cargo");
         } catch (UsuarioException invalidPassword) {
-            alert("Erro!", invalidPassword.getMessage(), "por favor, faça uma senha de 4 dígitos numéricos");
+            Alerter.warningAlert("Erro!", invalidPassword.getMessage(), "por favor, faça uma senha de 4 dígitos numéricos");
         }
 
     }
@@ -123,14 +124,14 @@ public class CadastroUserController implements Initializable {
             try {
                 FileUtils.copiarImagemPara(selected, Usuario.PROFILE_PHOTOS_DIRECTORY);
             } catch (IOException e) {
-                alert("Erro!", "Cadastro não realizado",
+                Alerter.warningAlert("Erro!", "Cadastro não realizado",
                         "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
                 return;
             }
         }
         user.setSenha(cxSenha.getText());
         DAO.getLeitorDAO().create(user);
-        alert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
+        Alerter.warningAlert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
         blankAllTextFields();
     }
 
@@ -144,7 +145,7 @@ public class CadastroUserController implements Initializable {
 
         user.setSenha(cxSenha.getText());
         DAO.getOperadorDAO().create(user);
-        alert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
+        Alerter.warningAlert("Sucesso!", "Sucesso!", "Cadastro de usuário feito com sucesso!");
         blankAllTextFields();
     }
 
@@ -173,17 +174,8 @@ public class CadastroUserController implements Initializable {
     }
 
     private void missingDataAlert(String componentName) {
-        alert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
+        Alerter.warningAlert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
                 componentName + " possui um valor inválido. Por favor, preencha esse dado");
-    }
-
-    private void alert(String title, String header, String content) {
-        Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
-        confirmationDialog.setTitle(title);
-        confirmationDialog.setHeaderText(header);
-        confirmationDialog.setContentText(content);
-
-        confirmationDialog.show();
     }
 
     @Override

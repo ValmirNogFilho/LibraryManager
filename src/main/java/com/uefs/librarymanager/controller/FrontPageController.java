@@ -4,6 +4,7 @@ import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.utils.Alerter;
 import com.uefs.librarymanager.utils.Session;
 import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
@@ -12,13 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -73,7 +70,7 @@ public class FrontPageController implements Initializable {
     @FXML
     void meusLivrosAction(ActionEvent event) {
         if (user == null)
-            unhautorized();
+            unauthorized();
         else
             openBooksListWithList(
                 "books-list-view.fxml", DAO.getLivroDAO().findLivrosEmprestadosByLeitor(user), "book-row-view.fxml");
@@ -82,7 +79,7 @@ public class FrontPageController implements Initializable {
     @FXML
     void minhasReservasAction(ActionEvent event) {
         if (user == null)
-            unhautorized();
+            unauthorized();
         else openBooksListWithList(
                 "books-list-view.fxml", DAO.getLivroDAO().findLivrosReservadosByLeitor(user), "reservation-row-view.fxml");
     }
@@ -90,16 +87,15 @@ public class FrontPageController implements Initializable {
 
     @FXML
     void perfilAction(ActionEvent event) {
-        if (user == null) {
-            unhautorized();
-        }
+        if (user == null)
+            unauthorized();
         else
-            openPage("profile.fxml");
+            WindowManager.openPageInBorderPane("profile.fxml", painelPrincipal);
     }
 
     @FXML
     void sairAction(ActionEvent event) {
-        if (!(wantsToLogout()))
+        if (!(Alerter.wantsToLogoutAlert()))
             return;
 
         Session.logoutUser();
@@ -107,36 +103,9 @@ public class FrontPageController implements Initializable {
         WindowManager.openLoginPage();
     }
 
-    private void unhautorized() {
-        Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
-        confirmationDialog.setTitle("Atenção!");
-        confirmationDialog.setHeaderText("Acesso não permitido");
-        confirmationDialog.setContentText("Para executar essa tarefa, você deve possuir fazer login no sistema.");
-
-        confirmationDialog.show();
-    }
-
-
-    private boolean wantsToLogout() {
-        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationDialog.setTitle("Sair");
-        confirmationDialog.setHeaderText("Deseja sair?");
-        confirmationDialog.setContentText("Escolha 'OK' para sair");
-
-        confirmationDialog.showAndWait();
-
-        return confirmationDialog.getResult() == ButtonType.OK;
-    }
-
-
-    private void openPage(String url) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(HelloApplication.class.getResource(url));
-        } catch (Exception e) {
-            System.err.println("Erro ao carregar a página: " + e.getMessage());
-        }
-        this.painelPrincipal.setCenter(root);
+    private void unauthorized() {
+        Alerter.warningAlert("Atenção!", "Acesso não permitido",
+                "Para executar essa tarefa, você deve possuir fazer login no sistema.");
     }
 
 

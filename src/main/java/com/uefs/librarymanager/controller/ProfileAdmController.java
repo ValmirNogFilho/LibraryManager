@@ -7,10 +7,7 @@ import com.uefs.librarymanager.model.Administrador;
 import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
-import com.uefs.librarymanager.utils.Session;
-import com.uefs.librarymanager.utils.WindowManager;
-import com.uefs.librarymanager.utils.cargoUsuario;
-import com.uefs.librarymanager.utils.statusLeitor;
+import com.uefs.librarymanager.utils.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,17 +124,13 @@ public class ProfileAdmController{
 
     @FXML
     void actionBtnDel(ActionEvent event) {
-        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationDialog.setTitle("Deseja excluir esse usuário?");
-        confirmationDialog.setHeaderText("Deseja excluir esse usuário?");
-        confirmationDialog.setContentText("Escolha 'OK' para excluir "+ user.getNome() +
-                " ou 'Cancelar' para cancelar a operação.");
 
-        confirmationDialog.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                redirectUpdatedUsersListPage(event);
-            }
-        });
+        if(Alerter.confirmationAlert("Deseja excluir esse usuário?",
+                "Deseja excluir esse usuário?",
+                "Escolha 'OK' para excluir "+ user.getNome() +
+                        " ou 'Cancelar' para cancelar a operação."
+                ))
+            redirectUpdatedUsersListPage(event);
     }
 
     @FXML

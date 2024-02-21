@@ -6,6 +6,7 @@ import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Alerter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,18 +47,15 @@ public class BorrowRowController {
     private void openDetails(){
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        Alert warningDialog = new Alert(Alert.AlertType.WARNING);
-        warningDialog.setTitle("Empréstimo");
-        warningDialog.setHeaderText("Empréstimo do livro " + book.getTitulo() + " para " + user.getNome());
-        warningDialog.setContentText(
-        "STATUS: " + emprestimo.getStatus() + ";\n" +
-        "INÍCIO EM :" + emprestimo.getDataInicio().format(pattern) + ";\n" +
-        "FINAL EM: " + emprestimo.getDataFim().format(pattern) + ";\n" +
-        emprestimo.getNumeroRenovacoes() + " RENOVAÇÕES; \n" +
-        emprestimo.getAtraso() + " DIAS DE ATRASO;"
-        );
+        Alerter.warningAlert("Empréstimo",
+                "Empréstimo do livro " + book.getTitulo() + " para " + user.getNome(),
 
-        warningDialog.showAndWait();
+                "STATUS: " + emprestimo.getStatus() + ";\n" +
+                        "INÍCIO EM :" + emprestimo.getDataInicio().format(pattern) + ";\n" +
+                        "FINAL EM: " + emprestimo.getDataFim().format(pattern) + ";\n" +
+                        emprestimo.getNumeroRenovacoes() + " RENOVAÇÕES; \n" +
+                        emprestimo.getAtraso() + " DIAS DE ATRASO;"
+        );
     }
 
     public void btnClicked(ActionEvent event) {

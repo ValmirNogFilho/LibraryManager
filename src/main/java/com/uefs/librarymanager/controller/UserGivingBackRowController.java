@@ -5,6 +5,7 @@ import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
+import com.uefs.librarymanager.utils.Alerter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,13 +20,13 @@ public class UserGivingBackRowController extends UserReservationRowController {
                 Emprestimo emprestimo = DAO.getEmprestimoDAO().findEmprestimo(user, book);
                 DAO.getEmprestimoDAO().devolverLivro(emprestimo);
                 hBox.setVisible(false);
-                alert("Sucesso!", "Sucesso!", "Livro devolvido com sucesso!");
+                Alerter.warningAlert("Sucesso!", "Sucesso!", "Livro devolvido com sucesso!");
             } catch (UsuarioException | LivroException e) {
-                alert("Erro!", "Devolução não executada", e.getMessage());
+                Alerter.warningAlert("Erro!", "Devolução não executada", e.getMessage());
             }
         }
         else {
-            alert("Operação cancelada!", "Devolução não executada", "Operação cancelada.");
+            Alerter.warningAlert("Operação cancelada!", "Devolução não executada", "Operação cancelada.");
         }
 
     }

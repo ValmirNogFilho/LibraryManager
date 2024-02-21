@@ -8,6 +8,7 @@ import com.uefs.librarymanager.model.Emprestimo;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Reserva;
+import com.uefs.librarymanager.utils.Alerter;
 import com.uefs.librarymanager.utils.Session;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -77,7 +78,7 @@ public class BookController {
     @FXML
     void reservaAction(ActionEvent event) throws LivroException {
         if (Session.getUserInSession() == null) {
-            openDialog("Acesso não permitido",
+            Alerter.warningAlert("Acesso não permitido", "Acesso não permitido",
                     "Para executar uma reserva, você deve possuir fazer login no sistema.");
             return;
         }
@@ -96,39 +97,39 @@ public class BookController {
     private void reservarLivro() {
         try {
             DAO.getReservaDAO().registrarReserva(user, book);
-            openDialog("Sucesso!",
+            Alerter.warningAlert("Sucesso!", "Sucesso!",
         "Você foi adicionado a fila de reservistas do livro " + book.getTitulo() +  " com sucesso");
         } catch (UsuarioException | LivroException e) {
-            openDialog("Erro!", e.getMessage());
+            Alerter.warningAlert("Erro!", "Erro!", e.getMessage());
         }
     }
 
     private void cancelarReserva() {
         DAO.getReservaDAO().cancelarReserva(user, book);
-        openDialog("Sucesso!", "Reserva do livro " + book.getTitulo() +" cancelada com sucesso");
+        Alerter.warningAlert("Sucesso!", "Sucesso!", "Reserva do livro " + book.getTitulo() +" cancelada com sucesso");
     }
 
     @FXML
     void renovacaoAction(ActionEvent event) {
         if (Session.getUserInSession() == null) {
-            openDialog("Acesso não permitido",
+            Alerter.warningAlert("Acesso não permitido", "Acesso não permitido",
                     "Para executar uma renovação, você deve possuir fazer login no sistema.");
             return;
         }
         try {
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             Emprestimo renovado = DAO.getEmprestimoDAO().renovarEmprestimo(user, book);
-            openDialog("Sucesso!", "Empréstimo renovado com sucesso! Devolva o livro até o dia "
+            Alerter.warningAlert("Sucesso!", "Sucesso!", "Empréstimo renovado com sucesso! Devolva o livro até o dia "
             + renovado.getDataFim().format(pattern));
         } catch (EmprestimoException | LivroException e) {
-            openDialog("Operação cancelada!", e.getMessage());
+            Alerter.warningAlert("Operação cancelada!", "Operação cancelada!",  e.getMessage());
         }
     }
 
     @FXML
     void detalhesEmprestimoAction(ActionEvent event) {
         if (Session.getUserInSession() == null) {
-            openDialog("Acesso não permitido",
+            Alerter.warningAlert("Acesso não permitido", "Acesso não permitido",
                     "Para ver detalhes de um empréstimo, você deve possuir fazer login no sistema.");
             return;
         }
@@ -142,7 +143,7 @@ public class BookController {
             isReserved = alreadyReservedByUser(book);
             updateBtnText();
             if (DAO.getReservaDAO().getQueuePosition(user, book) == 0)
-                openDialog("Atenção!",
+                Alerter.warningAlert("Atenção!", "Atenção!",
                         "Você é o primeiro na fila de reservas desse livro e já está apto para realizar empréstimo.");
 
         }
@@ -231,26 +232,14 @@ public class BookController {
     private void openDetails(Emprestimo emprestimo){
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        Alert warningDialog = new Alert(Alert.AlertType.WARNING);
-        warningDialog.setTitle("Empréstimo");
-        warningDialog.setHeaderText("Empréstimo do livro " + book.getTitulo() + " para " + user.getNome());
-        warningDialog.setContentText(
+        Alerter.warningAlert("Empréstimo",
+                "Empréstimo do livro " + book.getTitulo() + " para " + user.getNome(),
+
                 "STATUS: " + emprestimo.getStatus() + ";\n" +
                         "INÍCIO EM :" + emprestimo.getDataInicio().format(pattern) + ";\n" +
                         "FINAL EM: " + emprestimo.getDataFim().format(pattern) + ";\n" +
                         emprestimo.getNumeroRenovacoes() + " RENOVAÇÕES; \n" +
                         emprestimo.getAtraso() + " DIAS DE ATRASO;"
-        );
-
-        warningDialog.showAndWait();
-    }
-
-    public void openDialog(String header, String message){
-        Alert warningDialog = new Alert(Alert.AlertType.WARNING);
-        warningDialog.setTitle(header);
-        warningDialog.setHeaderText(header);
-        warningDialog.setContentText(message);
-
-        warningDialog.showAndWait();
+                );
     }
 }

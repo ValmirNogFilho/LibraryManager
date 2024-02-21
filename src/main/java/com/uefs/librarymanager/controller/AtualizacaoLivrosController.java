@@ -3,6 +3,7 @@ package com.uefs.librarymanager.controller;
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
+import com.uefs.librarymanager.utils.Alerter;
 import com.uefs.librarymanager.utils.FileUtils;
 import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
@@ -92,12 +93,13 @@ public class AtualizacaoLivrosController implements Initializable {
         }
 
         if(!cxAnoPublicacao.getText().matches("\\d+")){
-            alert("Erro!", "Dados incompatíveis", "O ano de publicação deve conter apenas números");
+            Alerter.warningAlert("Erro!", "Dados incompatíveis",
+                    "O ano de publicação deve conter apenas números");
             return;
         }
 
         if(!cxQuantidade.getText().matches("\\d+")){
-            alert("Erro!", "Dados incompatíveis",
+            Alerter.warningAlert("Erro!", "Dados incompatíveis",
                     "O número de exemplares disponíveis deve conter apenas números");
             return;
         }
@@ -106,11 +108,12 @@ public class AtualizacaoLivrosController implements Initializable {
         try {
             getBookData();
         } catch (IOException e) {
-            alert("Erro!", "Cadastro não realizado",
+            Alerter.warningAlert("Erro!", "Cadastro não realizado",
                 "Ocorreu um erro na tentativa de salvar a imagem, tente novamente.");
             return;
         }
-        alert("Operação concluída!", "Operação concluída!", "Livro " + book.getTitulo() + " atualizado com sucesso!");
+        Alerter.warningAlert("Operação concluída!", "Operação concluída!",
+                "Livro " + book.getTitulo() + " atualizado com sucesso!");
         WindowManager.closeThisWindow(event);
     }
 
@@ -130,18 +133,10 @@ public class AtualizacaoLivrosController implements Initializable {
     }
 
     private void missingDataAlert(String componentName) {
-        alert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
+        Alerter.warningAlert("Dados obrigatórios faltando!", "Dados obrigatórios faltando!",
                 componentName + " está faltando. Por favor, preencha esse dado");
     }
 
-    private void alert(String title, String header, String content) {
-        Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
-        confirmationDialog.setTitle(title);
-        confirmationDialog.setHeaderText(header);
-        confirmationDialog.setContentText(content);
-
-        confirmationDialog.show();
-    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

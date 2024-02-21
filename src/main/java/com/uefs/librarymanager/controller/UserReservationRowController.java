@@ -7,6 +7,7 @@ import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Reserva;
 import com.uefs.librarymanager.model.Usuario;
+import com.uefs.librarymanager.utils.Alerter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -51,13 +52,13 @@ public class UserReservationRowController implements UserRow{
         if(wantsToBorrow() && reserva != null) {
             try {
                 DAO.getReservaDAO().registrarEmprestimoPorReserva(reserva);
-                alert("Sucesso!", "Sucesso!", "Empréstimo por reserva cadastrado com sucesso!");
+                Alerter.warningAlert("Sucesso!", "Sucesso!", "Empréstimo por reserva cadastrado com sucesso!");
             } catch (UsuarioException | LivroException e) {
-                alert("Erro!", "Cadastro não executado", e.getMessage());
+                Alerter.warningAlert("Erro!", "Cadastro não executado", e.getMessage());
             }
         }
         else {
-            alert("Operação cancelada!", "Cadastro não executado", "Operação cancelada.");
+            Alerter.warningAlert("Operação cancelada!", "Cadastro não executado", "Operação cancelada.");
         }
 
     }
@@ -73,23 +74,10 @@ public class UserReservationRowController implements UserRow{
     }
 
     protected boolean wantsToBorrow() {
-        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationDialog.setTitle("Sair");
-        confirmationDialog.setHeaderText("Deseja registrar o empréstimo por reserva do livro " + book.getTitulo() + " para " + user.getNome() +"?" );
-        confirmationDialog.setContentText("Escolha 'OK' para confirmar");
-
-        confirmationDialog.showAndWait();
-
-        return confirmationDialog.getResult() == ButtonType.OK;
-    }
-
-    protected void alert(String title, String header, String content) {
-        Alert confirmationDialog = new Alert(Alert.AlertType.WARNING);
-        confirmationDialog.setTitle(title);
-        confirmationDialog.setHeaderText(header);
-        confirmationDialog.setContentText(content);
-
-        confirmationDialog.show();
+        return Alerter.confirmationAlert("Sair",
+                "Deseja registrar o empréstimo por reserva do livro "
+                        + book.getTitulo() + " para " + user.getNome() +"?",
+                "Escolha 'OK' para confirmar");
     }
 
     @FXML
