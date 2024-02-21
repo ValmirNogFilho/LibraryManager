@@ -71,16 +71,6 @@ public class UserRowController implements UserRow{
         openProfile(user);
     }
 
-    @FXML
-    void onHover(MouseEvent event) {
-       hBox.setStyle("-fx-background-color: #5356d6;");
-    }
-
-    @FXML
-    void outHover(MouseEvent event) {
-       hBox.setStyle("-fx-background-color: #f4f4f4;");
-    }
-
     private Usuario findById(String id){
         try {
             return DAO.getOperadorDAO().findById(id);

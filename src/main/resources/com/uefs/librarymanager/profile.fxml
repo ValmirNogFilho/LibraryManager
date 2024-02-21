@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="614.0" styleClass="tela-total-sistema" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.ProfileController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="614.0" styleClass="tela-total-sistema" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.ProfileController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="467.20001220703125" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="132.79998779296875" />
@@ -68,9 +60,9 @@
                <image>
                   <Image url="@../../../../../../img/img-css/capaHogwats.jpg" />
                </image></ImageView>
-            <Label fx:id="nomeLabel" layoutX="127.0" layoutY="191.0" text="Nome Fulano" textFill="#faf8f8" />
+            <Label fx:id="nomeLabel" layoutX="140.0" layoutY="192.0" text="Nome Fulano" textFill="#faf8f8" />
             <ImageView fx:id="perfilUsário" fitHeight="116.0" fitWidth="115.0" layoutX="14.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox layoutX="126.0" layoutY="209.0" prefHeight="200.0" prefWidth="100.0">
+            <VBox layoutX="140.0" layoutY="208.0" prefHeight="103.0" prefWidth="320.0">
                <children>
                   <Label fx:id="labelId" text="ID" textFill="#faf8f8">
                      <VBox.margin>

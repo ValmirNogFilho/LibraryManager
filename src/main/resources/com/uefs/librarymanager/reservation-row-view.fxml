@@ -5,11 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.ReservationRowController">
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.ReservationRowController">
    <children>
-      <Label fx:id="title" prefHeight="55.0" prefWidth="324.0" styleClass="botao-dados-usuario" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Nome do Livro" />
-      <Label fx:id="queue" layoutX="20.0" layoutY="10.0" prefHeight="55.0" prefWidth="200.0" styleClass="botao-dados-usuario" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Posição na fila" />
-      <Button fx:id="openBookPage" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="76.0" styleClass="botao-profile" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Ver mais" />
+      <Label fx:id="title" prefHeight="55.0" prefWidth="324.0" styleClass="botao-dados-usuario" stylesheets="@../../../css/style.css" text="Nome do Livro" />
+      <Label fx:id="queue" layoutX="20.0" layoutY="10.0" prefHeight="55.0" prefWidth="200.0" styleClass="botao-dados-usuario" stylesheets="@../../../css/style.css" text="Posição na fila" />
+      <Button fx:id="openBookPage" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="76.0" styleClass="botao-profile" stylesheets="@../../../css/style.css" text="Ver mais" />
    </children>
    <padding>
       <Insets left="10.0" />

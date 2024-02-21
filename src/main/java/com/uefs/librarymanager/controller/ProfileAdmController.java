@@ -77,6 +77,10 @@ public class ProfileAdmController{
 
     @FXML
     private TextField nomeHeader;
+
+    @FXML
+    private Button btnEmprestimos;
+
     private Usuario user;
 
     private boolean isBlocked;
@@ -84,7 +88,7 @@ public class ProfileAdmController{
     public void setUser(Usuario user){
         this.user = user;
         setUserInformation(user);
-        disableBlockButtonIfNotLeitor();
+        disableButtonsIfNotLeitor();
     }
 
     private void setUserInformation(Usuario user) {
@@ -114,9 +118,10 @@ public class ProfileAdmController{
     }
 
 
-    private void disableBlockButtonIfNotLeitor(){
-        boolean notLeitor = (!(user.getCargo().equals(cargoUsuario.LEITOR)));
-            btnbloqueador.setDisable(notLeitor);
+    private void disableButtonsIfNotLeitor(){
+        boolean isLeitor = (user.getCargo().equals(cargoUsuario.LEITOR));
+        btnbloqueador.setDisable(!isLeitor);
+        btnEmprestimos.setVisible(isLeitor);
     }
 
     @FXML

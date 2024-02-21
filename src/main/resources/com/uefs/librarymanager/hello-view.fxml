@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="tela-total" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.HelloController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="tela-total" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.HelloController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
@@ -30,8 +19,8 @@
          <children>
             <Pane prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label alignment="TOP_CENTER" layoutX="113.0" layoutY="11.0" styleClass="titular" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Hogwarts Library" textFill="#ece5e5" />
-                  <Label alignment="CENTER" layoutX="233.0" layoutY="66.0" styleClass="login" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Login" textFill="#3919d4">
+                  <Label alignment="TOP_CENTER" layoutX="113.0" layoutY="11.0" styleClass="titular" stylesheets="@../../../css/style.css" text="Hogwarts Library" textFill="#ece5e5" />
+                  <Label alignment="CENTER" layoutX="233.0" layoutY="66.0" styleClass="login" stylesheets="@../../../css/style.css" text="Login" textFill="#3919d4">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -82,6 +71,7 @@
                         <Font size="7.0" />
                      </font>
                   </Label>
+                  <Label fx:id="warningText" layoutX="92.0" layoutY="364.0" textFill="WHITE" />
                </children>
             </Pane>
          </children>

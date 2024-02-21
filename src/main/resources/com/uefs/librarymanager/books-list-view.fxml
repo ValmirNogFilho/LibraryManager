@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="614.0" styleClass="tela-total-sistema" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BooksListController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="614.0" styleClass="tela-total-sistema" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BooksListController">
    <children>
       <Text fill="#f7f6f6" layoutX="25.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="Livros" />
       <TextField fx:id="searchInput" layoutX="25.0" layoutY="56.0" prefHeight="34.0" prefWidth="498.0" promptText="Insira o nome do livro" styleClass="botao-dados-usuario" />

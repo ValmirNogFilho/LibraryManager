@@ -5,17 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#onHover" onMouseExited="#outHover" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BorrowRowController">
+<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uefs.librarymanager.controller.BorrowRowController">
    <children>
-      <Label fx:id="title" prefHeight="55.0" prefWidth="306.0" styleClass="botao-dados-usuario" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Livro">
+      <Label fx:id="title" prefHeight="55.0" prefWidth="306.0" styleClass="botao-dados-usuario" stylesheets="@../../../css/style.css" text="Livro">
          <padding>
             <Insets left="35.0" />
          </padding></Label>
-      <Label fx:id="status" prefHeight="55.0" prefWidth="169.0" styleClass="botao-dados-usuario" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Status">
+      <Label fx:id="status" prefHeight="55.0" prefWidth="169.0" styleClass="botao-dados-usuario" stylesheets="@../../../css/style.css" text="Status">
          <padding>
             <Insets left="40.0" />
          </padding></Label>
-      <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="105.0" styleClass="botao-profile" stylesheets="@../../../../java/com/uefs/librarymanager/view/css/style.css" text="Ver detalhes" />
+      <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#btnClicked" prefHeight="55.0" prefWidth="105.0" styleClass="botao-profile" stylesheets="@../../../css/style.css" text="Ver detalhes" />
    </children>
    <padding>
       <Insets left="10.0" />
