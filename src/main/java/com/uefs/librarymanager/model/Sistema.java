@@ -114,7 +114,9 @@ public class Sistema {
     public static void atualizarReservas(){
         Map<String, LinkedList<Reserva>> reservas = DAO.getReservaDAO().findManyMap();
         for(String ISBN: reservas.keySet()) {
-            int disponiveis = DAO.getLivroDAO().findByPrimaryKey(ISBN).getDisponiveis();
+            Livro livro = DAO.getLivroDAO().findByPrimaryKey(ISBN);
+            if(livro == null) continue;
+            int disponiveis = livro.getDisponiveis();
             for(int i = 0; i< reservas.get(ISBN).size(); i++){
                 Reserva reserva = reservas.get(ISBN).get(i);
                 if (i < disponiveis){
