@@ -89,6 +89,10 @@ public class ProfileAdmController{
         this.user = user;
         setUserInformation(user);
         disableButtonsIfNotLeitor();
+        capaUsuario.setImage(
+                new Image(HelloApplication.class.getResource(
+                        "/css/capaHogwats.jpg").toExternalForm()
+                ));
     }
 
     private void setUserInformation(Usuario user) {

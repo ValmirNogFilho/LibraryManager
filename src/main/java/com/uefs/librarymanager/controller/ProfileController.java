@@ -1,5 +1,6 @@
 package com.uefs.librarymanager.controller;
 
+import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Usuario;
@@ -74,6 +75,10 @@ public class ProfileController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         user = (Leitor) Session.getUserInSession();
         setUserInformation(user);
+        capaUsuario.setImage(
+                new Image(HelloApplication.class.getResource(
+                        "/css/capaHogwats.jpg").toExternalForm()
+                ));
     }
 
     private void setUserInformation(Leitor user) {
