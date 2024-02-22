@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Livro;
@@ -62,12 +62,14 @@ public class UsersListController{
 
         criteria = (MenuItem) event.getSource();
         searchInput.setPromptText("Busque um id...");
+        criteriaBtn.setText("ID");
     }
 
     @FXML
     void byName(ActionEvent event) {
         criteria = (MenuItem) event.getSource();
         searchInput.setPromptText("Busque um nome...");
+        criteriaBtn.setText("Nome");
     }
 
     @FXML
@@ -115,7 +117,7 @@ public class UsersListController{
 
     private void renderRow(Usuario user){
         try{
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(userRowUrl));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(userRowUrl));
             Node node = loader.load();
             UserRow userCtrl = loader.getController();
             userCtrl.setUser(user);

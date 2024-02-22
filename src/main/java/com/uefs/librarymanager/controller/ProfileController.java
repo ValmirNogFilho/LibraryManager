@@ -1,11 +1,9 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
-import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Session;
-import com.uefs.librarymanager.utils.statusLeitor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,8 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,7 +72,7 @@ public class ProfileController implements Initializable {
         user = (Leitor) Session.getUserInSession();
         setUserInformation(user);
         capaUsuario.setImage(
-                new Image(HelloApplication.class.getResource(
+                new Image(MainApplication.class.getResource(
                         "/css/capaHogwats.jpg").toExternalForm()
                 ));
     }

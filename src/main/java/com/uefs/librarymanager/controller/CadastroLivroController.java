@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,7 +71,7 @@ public class CadastroLivroController implements Initializable {
         FileChooser.ExtensionFilter ex2 = new FileChooser.ExtensionFilter("GIF", "*.gif"); //Add as you need
         fileChooser.getExtensionFilters().addAll(ex, ex1, ex2);
 
-        selected = fileChooser.showOpenDialog(HelloController.mainPage);
+        selected = fileChooser.showOpenDialog(LoginController.mainPage);
         if(selected != null) {
             selectedImageUrl = selected.toURI().toURL().toString();
             capaLivro.setImage(new Image(selectedImageUrl));

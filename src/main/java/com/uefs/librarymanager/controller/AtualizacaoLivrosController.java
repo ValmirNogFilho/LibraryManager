@@ -1,6 +1,5 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.utils.Alerter;
@@ -9,15 +8,12 @@ import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +72,7 @@ public class AtualizacaoLivrosController implements Initializable {
     @FXML
     void openFile(ActionEvent event) throws MalformedURLException {
         FileChooser fileChooser = new FileChooser();
-        selected = fileChooser.showOpenDialog(HelloController.mainPage);
+        selected = fileChooser.showOpenDialog(LoginController.mainPage);
         if(selected != null) {
              selectedImageUrl = selected.toURI().toURL().toString();
             capaLivro.setImage(new Image(selectedImageUrl));

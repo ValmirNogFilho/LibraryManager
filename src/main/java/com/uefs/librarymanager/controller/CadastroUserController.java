@@ -1,6 +1,5 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Leitor;
@@ -81,7 +80,7 @@ public class CadastroUserController implements Initializable {
     @FXML
     void escolherFotoAction(ActionEvent event) throws MalformedURLException {
         FileChooser fileChooser = new FileChooser();
-        selected = fileChooser.showOpenDialog(HelloController.mainPage);
+        selected = fileChooser.showOpenDialog(LoginController.mainPage);
         if(selected != null) {
             String selectedImageUrl = selected.toURI().toURL().toString();
             fotoUsuario.setImage(new Image(selectedImageUrl));

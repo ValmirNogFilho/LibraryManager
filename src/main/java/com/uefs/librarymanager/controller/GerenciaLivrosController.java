@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Livro;
 import javafx.collections.FXCollections;
@@ -125,7 +125,7 @@ public class GerenciaLivrosController implements Initializable {
     private void renderRow(Livro book) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("bib-book-row-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("bib-book-row-view.fxml"));
             Node node = loader.load();
             BibBookRowController bookCtrl = loader.getController();
             bookCtrl.setBookAndInitialize(book);

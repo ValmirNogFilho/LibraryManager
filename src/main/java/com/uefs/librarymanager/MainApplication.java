@@ -1,6 +1,5 @@
 package com.uefs.librarymanager;
 
-import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Sistema;
 import com.uefs.librarymanager.utils.FileUtils;
 import javafx.application.Application;
@@ -13,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
 
     private static final String ULTIMO_ACESSO_FILE_NAME = "ultimo_acesso";
 
@@ -23,7 +22,7 @@ public class HelloApplication extends Application {
         LocalDate ultimoAcesso = FileUtils.consultarArquivoLocalDate(ultimoAcessoFile);
         FileUtils.sobreescreverArquivo(ultimoAcessoFile, LocalDate.now());
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Bem vindo ao Library Manager!");
         stage.setScene(scene);

@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
@@ -119,7 +119,7 @@ public class FrontPageController implements Initializable {
 
     private void openBooksListWithList(String url, List<Livro> list, String urlRow) {
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(url));
             Node root = loader.load();
             BooksListController booksListCtrl = loader.getController();
             booksListCtrl.setUrlRow(urlRow);

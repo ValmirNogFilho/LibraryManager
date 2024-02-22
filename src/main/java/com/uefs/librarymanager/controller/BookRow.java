@@ -1,19 +1,14 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.model.Livro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -32,7 +27,7 @@ public interface BookRow {
     static void openBook(Livro book){
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("book-view.fxml"));
             Node root = loader.load();
             BookController bookCtrl = loader.getController();
             bookCtrl.setBookAndRenderPage(book);

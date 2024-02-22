@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
+import com.uefs.librarymanager.model.Convidado;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Page;
 import com.uefs.librarymanager.utils.Session;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class LoginController implements Initializable {
 
     private static cargoUsuario cargo;
     @FXML
@@ -114,11 +115,11 @@ public class HelloController implements Initializable {
         }
 
         obj = filterUserByOccupation(id);
+        if(obj == null) return null;
 
         if(!cargo.equals(obj.getCargo()))
             throw new UsuarioException(UsuarioException.NAO_EXISTENTE);
 
-        if(obj == null) return null;
 
         if(!obj.getSenha().equals(senha))
             throw new UsuarioException(UsuarioException.SENHA_INVALIDA);

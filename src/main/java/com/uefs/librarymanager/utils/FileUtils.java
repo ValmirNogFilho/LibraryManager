@@ -1,9 +1,5 @@
 package com.uefs.librarymanager.utils;
 
-import com.uefs.librarymanager.HelloApplication;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;

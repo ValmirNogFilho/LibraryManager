@@ -1,7 +1,6 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
-import com.uefs.librarymanager.dao.DAO;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,14 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class RelatorioController implements Initializable {
@@ -132,7 +129,7 @@ public class RelatorioController implements Initializable {
     private void renderRow(Livro book){
 
         try{
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("book-row-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("book-row-view.fxml"));
             Node node = loader.load();
             BookRowController bookRowCtrl = loader.getController();
             bookRowCtrl.setBook(book);

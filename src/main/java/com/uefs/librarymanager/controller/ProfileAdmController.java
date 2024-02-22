@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Administrador;
@@ -12,16 +12,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,7 +87,7 @@ public class ProfileAdmController{
         setUserInformation(user);
         disableButtonsIfNotLeitor();
         capaUsuario.setImage(
-                new Image(HelloApplication.class.getResource(
+                new Image(MainApplication.class.getResource(
                         "/css/capaHogwats.jpg").toExternalForm()
                 ));
     }
@@ -271,7 +268,7 @@ public class ProfileAdmController{
 
     private void renderRow(Emprestimo emprestimo, VBox vBox){
         try{
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("borrow-row-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("borrow-row-view.fxml"));
             Node node = loader.load();
             BorrowRowController borrowRowCtrl = loader.getController();
             borrowRowCtrl.setEmprestimo(emprestimo);

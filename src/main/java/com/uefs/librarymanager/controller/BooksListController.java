@@ -1,24 +1,20 @@
 package com.uefs.librarymanager.controller;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import com.uefs.librarymanager.dao.DAO;
-import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.model.Livro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class BooksListController{
 
@@ -29,6 +25,9 @@ public class BooksListController{
 
     @FXML
     private VBox booksList;
+
+    @FXML
+    private MenuButton criteriaBtn;
 
     @FXML
     private MenuItem menuItemName;
@@ -50,24 +49,28 @@ public class BooksListController{
     void byAuthor(ActionEvent event) {
         criteria = (MenuItem) event.getSource();
         searchInput.setPromptText("Insira o nome do autor");
+        criteriaBtn.setText("Autor");
     }
 
     @FXML
     void byCategory(ActionEvent event) {
         criteria = (MenuItem) event.getSource();
         searchInput.setPromptText("Insira a categoria");
+        criteriaBtn.setText("Categoria");
     }
 
     @FXML
     void byISBN(ActionEvent event) {
         criteria = (MenuItem) event.getSource();
-        searchInput.setPromptText("Insira o nome do autor");
+        searchInput.setPromptText("Insira o ISBN");
+        criteriaBtn.setText("ISBN");
     }
 
     @FXML
     void byName(ActionEvent event) {
         criteria = (MenuItem) event.getSource();
         searchInput.setPromptText("Insira o nome do livro");
+        criteriaBtn.setText("Nome");
     }
 
     @FXML
@@ -106,7 +109,7 @@ public class BooksListController{
     private void renderRow(Livro book) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(urlRow));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(urlRow));
             Node node = loader.load();
             BookRow bookCtrl = loader.getController();
             bookCtrl.setBook(book);

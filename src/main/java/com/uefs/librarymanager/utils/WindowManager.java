@@ -1,6 +1,6 @@
 package com.uefs.librarymanager.utils;
 
-import com.uefs.librarymanager.HelloApplication;
+import com.uefs.librarymanager.MainApplication;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public abstract class WindowManager {
 
     public static Page getNewCreatedPageController(String url) throws IOException {
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(url));
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(url));
         Parent viewPage = loader.load();
         Object controller = loader.getController();
 
