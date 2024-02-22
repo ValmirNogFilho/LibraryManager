@@ -12,7 +12,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <BorderPane fx:id="painelPrincipal" prefHeight="400.0" prefWidth="800.0">
+      <BorderPane id="mainPane" fx:id="painelPrincipal" prefHeight="400.0" prefWidth="800.0">
          <left>
             <VBox prefHeight="400.0" prefWidth="186.0" styleClass="tela-lateral" BorderPane.alignment="CENTER">
                <children>

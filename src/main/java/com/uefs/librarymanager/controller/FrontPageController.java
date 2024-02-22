@@ -5,6 +5,7 @@ import com.uefs.librarymanager.dao.DAO;
 import com.uefs.librarymanager.model.Leitor;
 import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.utils.Alerter;
+import com.uefs.librarymanager.utils.Page;
 import com.uefs.librarymanager.utils.Session;
 import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
@@ -12,11 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -89,8 +89,16 @@ public class FrontPageController implements Initializable {
     void perfilAction(ActionEvent event) {
         if (user == null)
             unauthorized();
-        else
-            WindowManager.openPageInBorderPane("profile.fxml", painelPrincipal);
+        else{
+            Page page = null;
+            try {
+                page = WindowManager.getNewCreatedPageController("profile.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            WindowManager.openPageWithMainPaneId(page);
+
+        }
     }
 
     @FXML

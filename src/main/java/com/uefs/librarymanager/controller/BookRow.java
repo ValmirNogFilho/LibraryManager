@@ -37,9 +37,12 @@ public interface BookRow {
             BookController bookCtrl = loader.getController();
             bookCtrl.setBookAndRenderPage(book);
 
-            Node main = HelloController.mainPage.getScene().getRoot();
-            GridPane gridPane = (GridPane) main;
-            BorderPane mainPane = (BorderPane) gridPane.getChildren().get(0);
+            Stage actualStage = (Stage) Window.getWindows().get(0);
+            Scene scene = actualStage.getScene();
+            BorderPane mainPane = (BorderPane) scene.lookup("#mainPane");
+//            Node main = actualStage.getScene().getRoot();
+//            GridPane gridPane = (GridPane) main;
+//            BorderPane mainPane = (BorderPane) gridPane.getChildren().get(0);
             mainPane.setCenter(root);
         } catch (Exception e) {
             System.err.println("Erro ao carregar a página: " + e.getMessage());

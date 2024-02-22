@@ -5,6 +5,7 @@ import com.uefs.librarymanager.exceptions.LivroException;
 import com.uefs.librarymanager.exceptions.UsuarioException;
 import com.uefs.librarymanager.model.Reserva;
 import com.uefs.librarymanager.utils.Alerter;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -15,6 +16,7 @@ public class UserBorrowingRowController extends UserReservationRowController{
             try {
                 DAO.getEmprestimoDAO().registrarEmprestimo(user, book);
                 Alerter.warningAlert("Sucesso!", "Sucesso!", "Empréstimo cadastrado com sucesso!");
+                redirectUpdatedBooksList();
             } catch (UsuarioException | LivroException e) {
                 Alerter.warningAlert("Erro!", "Cadastro não executado", e.getMessage());
             }
@@ -22,6 +24,6 @@ public class UserBorrowingRowController extends UserReservationRowController{
         else {
             Alerter.warningAlert("Operação cancelada!", "Cadastro não executado", "Operação cancelada.");
         }
-
+        WindowManager.closeThisWindow(event);
     }
 }

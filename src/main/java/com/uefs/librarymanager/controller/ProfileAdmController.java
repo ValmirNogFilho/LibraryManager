@@ -17,12 +17,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,27 +117,40 @@ public class ProfileAdmController{
             satusUser.setPromptText(user.getCargo().toString());
     }
 
-
     private void disableButtonsIfNotLeitor(){
         boolean isLeitor = (user.getCargo().equals(cargoUsuario.LEITOR));
         btnbloqueador.setDisable(!isLeitor);
         btnEmprestimos.setVisible(isLeitor);
     }
 
+
+
     @FXML
     void actionBtnDel(ActionEvent event) {
-
-        if(Alerter.confirmationAlert("Deseja excluir esse usuário?",
+        boolean wantsToDeleteUser = Alerter.confirmationAlert("Deseja excluir esse usuário?",
                 "Deseja excluir esse usuário?",
                 "Escolha 'OK' para excluir "+ user.getNome() +
                         " ou 'Cancelar' para cancelar a operação."
-                ))
-            redirectUpdatedUsersListPage(event);
+        );
+
+        if(wantsToDeleteUser){
+            deleteUser();
+            Alerter.warningAlert("Sucesso!", "Sucesso!", "Exclusão de " +
+                    user.getNome() + " (ID: "+ user.getId() +") realizada com sucesso.");
+        }
+        redirectUpdatedUsersListPage();
     }
 
     @FXML
     void goBackToUsersList(ActionEvent event) {
-        closeProfileWindow(event);
+        redirectUpdatedUsersListPage();
+    }
+
+    private ArrayList<Usuario> generateAllUsersList(){
+        ArrayList<Usuario> allUsers = new ArrayList<>();
+        allUsers.addAll(DAO.getLeitorDAO().findMany());
+        allUsers.addAll(DAO.getOperadorDAO().findMany());
+        return allUsers;
     }
 
 
@@ -206,33 +221,18 @@ public class ProfileAdmController{
         adm.desbloquearLeitor((Leitor) user);
     }
 
-    private void redirectUpdatedUsersListPage(ActionEvent event) {
+    private void redirectUpdatedUsersListPage() {
         try {
-            closeProfileWindow(event);
-            closeUserListWindow();
-
-            deleteUser();
-
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("users-list-view.fxml"));
-            Parent root = loader.load();
-            Stage loginStage = new Stage();
-            Scene scene = new Scene(root);
-            loginStage.setResizable(false);
-            loginStage.setScene(scene);
-            loginStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            Page page = WindowManager.getNewCreatedPageController("users-list-view.fxml");
+            UsersListController usersListCtrl = (UsersListController) page.controller();
+            usersListCtrl.setUserRowUrl("user-row-view.fxml");
+            usersListCtrl.setListAndRender(generateAllUsersList());
+            WindowManager.openPageWithMainPaneId(page);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void closeProfileWindow(ActionEvent event){
-        WindowManager.closeThisWindow(event);
-    }
-
-    private void closeUserListWindow() {
-        WindowManager.closeNthWindow(0);
-    }
     private void deleteUser(){
         switch (user.getCargo()){
             case LEITOR -> DAO.getLeitorDAO().delete((Leitor) user);

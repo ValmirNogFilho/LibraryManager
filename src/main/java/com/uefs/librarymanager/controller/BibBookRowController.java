@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +88,17 @@ public class BibBookRowController {
     void actionOpcaoRemover(ActionEvent event) {
         if(wantsToExcludeBook()){
             DAO.getLivroDAO().delete(book);
-            hBox.setVisible(false);
+            redirectUpdatedBooksList();
+        }
+    }
+
+    private void redirectUpdatedBooksList(){
+        try {
+            Page page = WindowManager.getNewCreatedPageController("gerencia-livros.fxml");
+            WindowManager.openPageWithMainPaneId(page);
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

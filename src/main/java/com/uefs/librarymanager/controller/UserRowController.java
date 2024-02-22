@@ -98,7 +98,7 @@ public class UserRowController implements UserRow{
             Page page = WindowManager.getNewCreatedPageController("profile-adm.fxml");
             ProfileAdmController profileAdmCtrl = (ProfileAdmController) page.controller();
             profileAdmCtrl.setUser(user);
-            WindowManager.showPageInNewWindow(page);
+            WindowManager.openPageWithMainPaneId(page);
         } catch(Exception e){
             e.printStackTrace();
         }

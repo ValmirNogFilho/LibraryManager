@@ -8,6 +8,8 @@ import com.uefs.librarymanager.model.Livro;
 import com.uefs.librarymanager.model.Reserva;
 import com.uefs.librarymanager.model.Usuario;
 import com.uefs.librarymanager.utils.Alerter;
+import com.uefs.librarymanager.utils.Page;
+import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -17,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.util.List;
 
 public class UserReservationRowController implements UserRow{
@@ -53,6 +56,7 @@ public class UserReservationRowController implements UserRow{
             try {
                 DAO.getReservaDAO().registrarEmprestimoPorReserva(reserva);
                 Alerter.warningAlert("Sucesso!", "Sucesso!", "Empréstimo por reserva cadastrado com sucesso!");
+                redirectUpdatedBooksList();
             } catch (UsuarioException | LivroException e) {
                 Alerter.warningAlert("Erro!", "Cadastro não executado", e.getMessage());
             }
@@ -61,6 +65,7 @@ public class UserReservationRowController implements UserRow{
             Alerter.warningAlert("Operação cancelada!", "Cadastro não executado", "Operação cancelada.");
         }
 
+        WindowManager.closeThisWindow(event);
     }
 
     private Reserva findReserva() {
@@ -88,6 +93,15 @@ public class UserReservationRowController implements UserRow{
     @FXML
     void outHover(MouseEvent event) {
         hBox.setStyle("-fx-background-color: #f4f4f4;");
+    }
+
+    protected void redirectUpdatedBooksList() {
+        try {
+            Page page = WindowManager.getNewCreatedPageController("gerencia-livros.fxml");
+            WindowManager.openPageWithMainPaneId(page);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

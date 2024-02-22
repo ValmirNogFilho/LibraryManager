@@ -71,4 +71,15 @@ public abstract class WindowManager {
         ((Stage) usersListWindow).close();
     }
 
+
+    public static void openPageWithMainPaneId(Page page) {
+        //página a ser aberta precisa possuir um borderPane com o id "#mainPane"
+        Stage actualStage = (Stage) Window.getWindows().get(0);
+        Scene scene = actualStage.getScene();
+        BorderPane mainPane = (BorderPane) scene.lookup("#mainPane");
+        mainPane.setCenter(
+                page.viewPage()
+        );
+    }
+
 }

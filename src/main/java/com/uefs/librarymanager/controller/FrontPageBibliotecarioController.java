@@ -2,6 +2,7 @@ package com.uefs.librarymanager.controller;
 
 import com.uefs.librarymanager.HelloApplication;
 import com.uefs.librarymanager.utils.Alerter;
+import com.uefs.librarymanager.utils.Page;
 import com.uefs.librarymanager.utils.Session;
 import com.uefs.librarymanager.utils.WindowManager;
 import javafx.event.ActionEvent;
@@ -69,11 +70,11 @@ public class FrontPageBibliotecarioController implements Initializable {
     private void openPage(String url) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(HelloApplication.class.getResource(url));
+            Page page = WindowManager.getNewCreatedPageController(url);
+            this.painelPrincipal.setCenter(page.viewPage());
         } catch (Exception e) {
             System.err.println("Erro ao carregar a página: " + e.getMessage());
         }
-        this.painelPrincipal.setCenter(root);
     }
 
 
