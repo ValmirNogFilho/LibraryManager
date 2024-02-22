@@ -7,7 +7,7 @@ import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
 
-public class Alerter {
+public abstract class Alerter {
     private static Alert alert(String title, String header, String content, Alert.AlertType alertType) {
         Alert confirmationDialog = new Alert(alertType);
         confirmationDialog.setTitle(title);
